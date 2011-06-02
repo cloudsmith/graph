@@ -15,12 +15,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import org.cloudsmith.graph.IClusterGraph;
 import org.cloudsmith.graph.IEdge;
 import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.IVertex;
 import org.cloudsmith.graph.elements.Edge;
-import org.cloudsmith.graph.elements.Graph;
+import org.cloudsmith.graph.elements.RootGraph;
 import org.cloudsmith.graph.elements.Vertex;
 import org.cloudsmith.graph.graphcss.GraphCSS;
 import org.cloudsmith.graph.graphcss.StyleSet;
@@ -38,11 +39,11 @@ public class DotRenderer {
 
 	private GraphCSS theGCSS;
 
-	StyleFactory.LabelFormat m_defaultNodeLabelFormat;
+	StyleFactory.LabelFormat defaultNodeLabelFormat;
 
-	StyleFactory.LabelFormat m_defaultEdgeLabelFormat;
+	StyleFactory.LabelFormat defaultEdgeLabelFormat;
 
-	StyleFactory.LabelFormat m_defaultGraphLabelFormat;
+	StyleFactory.LabelFormat defaultGraphLabelFormat;
 
 	private StyleSet defaultGraphStyles;
 
@@ -50,7 +51,7 @@ public class DotRenderer {
 
 	private StyleSet defaultEdgeStyles;
 
-	private Graph graphPrototype;
+	private RootGraph graphPrototype;
 
 	private Vertex vertexPrototype;
 
@@ -65,8 +66,8 @@ public class DotRenderer {
 		this.elementRenderer = elementRenderer;
 	}
 
-	private String formatReference(IVertex vertex) {
-		IGraphElement[] parents = Iterators.toArray(vertex.getContext(), IGraphElement.class);
+	private String formatReference(IGraphElement element) {
+		IGraphElement[] parents = Iterators.toArray(element.getContext(), IGraphElement.class);
 		int plength = (parents == null)
 				? 0
 				: parents.length;
@@ -74,14 +75,14 @@ public class DotRenderer {
 
 		// the vertex can be an instance of IGraph in which case it should be handled as
 		// a subgraph, and the name is different if the subgraph is a cluster
-		if(vertex instanceof IGraph) {
+		if(element instanceof IGraph) {
 			// all references to subgraphs must start with the keyword subgraph
 			buf.append("subgraph ");
 		}
 		// enclose the constructed names in quotes
 		buf.append("\"");
 
-		if(vertex instanceof IGraph && ((IGraph) vertex).isCluster()) {
+		if(element instanceof IClusterGraph) {
 			// if the graph is a cluster it's name must be prefixed with 'cluster'
 			// ad a '_' to make it easier to read.
 			buf.append("cluster_");
@@ -93,7 +94,7 @@ public class DotRenderer {
 						? ""
 						: "-") + parents[i].getId());
 		buf.append("-");
-		buf.append(vertex.getId());
+		buf.append(element.getId());
 		// close the "
 		buf.append("\"");
 		return buf.toString();
@@ -234,7 +235,7 @@ public class DotRenderer {
 			theGCSS.addAll(gcss);
 
 		this.defaultGCSS = defaultGCSS;
-		graphPrototype = new Graph(null, null, "prototype");
+		graphPrototype = new RootGraph(null, null, "prototype");
 		vertexPrototype = new Vertex(null, null, "prototype");
 		edgePrototype = new Edge(vertexPrototype, vertexPrototype, "prototype");
 

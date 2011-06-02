@@ -29,7 +29,7 @@ import com.google.common.collect.Sets;
  * is set... more to say I suppose...
  */
 public enum ElementType {
-	graph, vertex, edge, table, row, cell;
+	graph, subgraph, cluster, vertex, edge, table, row, cell;
 
 	/**
 	 * Counter useful for testing if a set contains all enumerators, how many are missing in a set etc.
@@ -73,4 +73,10 @@ public enum ElementType {
 	 * Refers to all except {@link #graph} and {@link #row}.
 	 */
 	public static final Set<ElementType> NOT_GRAPH = Sets.complementOf(EnumSet.of(graph, row));
+
+	/**
+	 * Refers to all except {@link #subgraph} and {@link #row}.
+	 */
+	public static final Set<ElementType> NOT_SUBGRAPH = Sets.complementOf(EnumSet.of(subgraph, row));
+
 }

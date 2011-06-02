@@ -15,7 +15,6 @@ import java.io.PrintStream;
 import java.util.Collection;
 
 import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.ILabeledGraphElement;
 import org.cloudsmith.graph.graphcss.GraphCSS;
@@ -233,7 +232,7 @@ public class DotGraphElementRenderer {
 				@Override
 				public void shapeBrush(ShapeBrush brush) {
 					// only graphs of cluster type can have style set
-					if(elementType == ElementType.graph && !((IGraph) element).isCluster()) {
+					if(elementType == ElementType.cluster) {
 						o.decrement();
 					}
 					else {

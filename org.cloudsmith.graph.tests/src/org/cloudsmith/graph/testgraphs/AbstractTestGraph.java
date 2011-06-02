@@ -13,8 +13,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.IGraphProvider;
+import org.cloudsmith.graph.IRootGraph;
 import org.cloudsmith.graph.graphcss.IFunctionFactory;
 import org.cloudsmith.graph.graphcss.Rule;
 import org.cloudsmith.graph.graphcss.Select;
@@ -40,19 +40,19 @@ public abstract class AbstractTestGraph implements IGraphProvider {
 		this.functions = functions;
 	}
 
-	public IGraph computeGraph() {
+	public IRootGraph computeGraph() {
 		return computeGraph(null, "a test graph", "root");
 	}
 
 	@Override
-	public IGraph computeGraph(Object modelObj) {
+	public IRootGraph computeGraph(Object modelObj) {
 		return computeGraph();
 	}
 
 	/**
 	 * @modelObj - ignored, returns same graph at all times.
 	 */
-	public abstract IGraph computeGraph(Object modelObj, String title, String id);
+	public abstract IRootGraph computeGraph(Object modelObj, String title, String id);
 
 	/**
 	 * Produces simplest possible labels.

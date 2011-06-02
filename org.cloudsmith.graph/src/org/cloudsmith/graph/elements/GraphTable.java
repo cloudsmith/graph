@@ -19,11 +19,11 @@ import org.cloudsmith.graph.ITable;
 import org.cloudsmith.graph.ITableRow;
 
 /**
- * @author henrik.lindberg@cloudsmith.com
+ * An implementation of ITable.
  * 
  */
 public class GraphTable extends GraphElement implements ITable {
-	private ArrayList<ITableRow> m_rows;
+	private ArrayList<ITableRow> rows;
 
 	/**
 	 * Creates a default table with the id "label".
@@ -36,14 +36,14 @@ public class GraphTable extends GraphElement implements ITable {
 	 */
 	public GraphTable(String styleClass) {
 		super(styleClass, "label");
-		m_rows = new ArrayList<ITableRow>(1);
+		rows = new ArrayList<ITableRow>(1);
 	}
 
 	public void addRow(GraphRow row) {
-		m_rows.add(row);
+		rows.add(row);
 		String id = row.getId();
 		if(id == null || id.length() < 1)
-			row.setId("r" + m_rows.size());
+			row.setId("r" + rows.size());
 		row.setParentElement(this);
 	}
 
@@ -58,6 +58,6 @@ public class GraphTable extends GraphElement implements ITable {
 	}
 
 	public List<ITableRow> getRows() {
-		return m_rows;
+		return rows;
 	}
 }

@@ -13,10 +13,10 @@ import java.util.Collections;
 import java.util.List;
 
 import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.IGraphProvider;
+import org.cloudsmith.graph.IRootGraph;
 import org.cloudsmith.graph.elements.Edge;
-import org.cloudsmith.graph.elements.Graph;
+import org.cloudsmith.graph.elements.RootGraph;
 import org.cloudsmith.graph.elements.Vertex;
 import org.cloudsmith.graph.graphcss.IFunctionFactory;
 import org.cloudsmith.graph.graphcss.Rule;
@@ -43,20 +43,20 @@ public class SimpleGraph1 implements IGraphProvider {
 		this.functions = functions;
 	}
 
-	public IGraph computeGraph() {
+	public IRootGraph computeGraph() {
 		return computeGraph(null, "a graph", "root");
 	}
 
 	@Override
-	public IGraph computeGraph(Object modelObj) {
+	public IRootGraph computeGraph(Object modelObj) {
 		return computeGraph();
 	}
 
 	/**
 	 * @modelObj - ignored, returns same graph at all times.
 	 */
-	public IGraph computeGraph(Object modelObj, String title, String id) {
-		Graph g = new Graph(title, "RootGraph", id);
+	public IRootGraph computeGraph(Object modelObj, String title, String id) {
+		RootGraph g = new RootGraph(title, "RootGraph", id);
 		Vertex a = new Vertex("a", "v");
 		Vertex b = new Vertex("b", "v");
 		Vertex c = new Vertex("c", "v");

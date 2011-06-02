@@ -20,6 +20,7 @@ import static org.cloudsmith.graph.ElementType.GRAPH;
 import static org.cloudsmith.graph.ElementType.GRAPH_AND_VERTEX;
 import static org.cloudsmith.graph.ElementType.NOT_EDGE;
 import static org.cloudsmith.graph.ElementType.NOT_GRAPH;
+import static org.cloudsmith.graph.ElementType.NOT_SUBGRAPH;
 import static org.cloudsmith.graph.ElementType.TABLE;
 import static org.cloudsmith.graph.ElementType.TABLE_AND_CELL;
 import static org.cloudsmith.graph.ElementType.VERTEX;
@@ -445,7 +446,7 @@ public class StyleFactory implements IStyleFactory {
 	public static class Href extends StringStyle {
 		public Href(String urlString) {
 			super(StyleType.href, urlString);
-			setTypes(ANY);
+			setTypes(NOT_SUBGRAPH);
 		}
 
 		@Override

@@ -30,7 +30,7 @@ public interface IGraphProvider {
 	 * 
 	 * @return
 	 */
-	public IGraph computeGraph();
+	public IRootGraph computeGraph();
 
 	/**
 	 * Method that transforms/computes the given model to a graph, using the a label and id determined

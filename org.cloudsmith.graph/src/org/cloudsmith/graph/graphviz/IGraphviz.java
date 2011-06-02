@@ -13,7 +13,7 @@ package org.cloudsmith.graph.graphviz;
 
 import java.io.OutputStream;
 
-import org.cloudsmith.graph.IGraph;
+import org.cloudsmith.graph.IRootGraph;
 import org.cloudsmith.graph.graphcss.GraphCSS;
 
 /**
@@ -29,7 +29,7 @@ public interface IGraphviz {
 	 * @param graph
 	 * @return the dot output as text before graphviz layout processing
 	 */
-	public String getDotText(IGraph graph, GraphCSS defaultCSS, GraphCSS... styleSheets);
+	public String getDotText(IRootGraph graph, GraphCSS defaultCSS, GraphCSS... styleSheets);
 
 	/**
 	 * Get HTML fragment that describes a clickable map with URL's from
@@ -43,7 +43,7 @@ public interface IGraphviz {
 	 *            - additional style sheets
 	 * @return an empty string if there where errors
 	 */
-	public String getUsemap(GraphvizLayout layout, IGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets);
+	public String getUsemap(GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets);
 
 	/**
 	 * Returns the image as a JPG image. The image is quite heavily compressed and shows many compression
@@ -58,7 +58,7 @@ public interface IGraphviz {
 	 * 
 	 * @return null if there where errors (this image may not be in jpg format!)
 	 */
-	public byte[] toJPG(GraphvizLayout layout, IGraph graph, GraphCSS defaultStyleSheet, GraphCSS... styleSheets);
+	public byte[] toJPG(GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyleSheet, GraphCSS... styleSheets);
 
 	/**
 	 * Returns output as a PNG image.
@@ -72,7 +72,7 @@ public interface IGraphviz {
 	 * 
 	 * @return a "noImage" image if there where errors
 	 */
-	public byte[] toPNG(GraphvizLayout layout, IGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets);
+	public byte[] toPNG(GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets);
 
 	/**
 	 * Return output as SVG text
@@ -90,7 +90,7 @@ public interface IGraphviz {
 	 * 
 	 * @return null if there where errors
 	 */
-	public String toSVG(GraphvizLayout layout, IGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets);
+	public String toSVG(GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets);
 
 	/**
 	 * Generic routine to produce output from Graphviz.
@@ -115,7 +115,7 @@ public interface IGraphviz {
 	 * @return the output stream with the data, or null if there was an error
 	 */
 	public OutputStream writeGraphvizOutput(OutputStream output, GraphvizFormat format, GraphvizRenderer renderer,
-			GraphvizLayout layout, IGraph graph, GraphCSS defaultStyleSheet, GraphCSS... styleSheets);
+			GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyleSheet, GraphCSS... styleSheets);
 
 	/**
 	 * Writes output as SVG text to given stream.
@@ -130,7 +130,7 @@ public interface IGraphviz {
 	 *            - additional style sheets
 	 * @return false if there where errors, true on success
 	 */
-	public boolean writeSVG(OutputStream output, GraphvizLayout layout, IGraph graph, GraphCSS defaultStyle,
+	public boolean writeSVG(OutputStream output, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle,
 			GraphCSS... styleSheets);
 
 	/**
@@ -151,7 +151,7 @@ public interface IGraphviz {
 	 *            - additional style sheets
 	 * @return false if there where errors, true on success
 	 */
-	public boolean writeSVGZ(OutputStream output, GraphvizLayout layout, IGraph graph, GraphCSS defaultStyle,
+	public boolean writeSVGZ(OutputStream output, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle,
 			GraphCSS... styleSheets);
 
 }

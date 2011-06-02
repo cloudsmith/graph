@@ -26,7 +26,8 @@ import org.cloudsmith.graph.style.StyleType;
  * 
  * Does not take a GCSS into account.
  * 
- * This implementation is not production quality.
+ * TODO:This implementation is not production quality.
+ * TODO: This implementation uses old style m_ and s_ field names...
  */
 public class GraphToGraphML {
 	private static String s_labelColor = "#2180c7";

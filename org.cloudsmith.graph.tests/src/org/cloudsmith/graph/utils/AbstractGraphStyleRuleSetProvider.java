@@ -15,6 +15,12 @@ import org.cloudsmith.graph.style.NodeShape;
 import org.cloudsmith.graph.style.RankDirection;
 import org.cloudsmith.graph.style.StyleFactory;
 
+/**
+ * TODO: UNFINISHED, USES OLD STYLE FIELD NAMES m_
+ * 
+ * @author henrik
+ * 
+ */
 public class AbstractGraphStyleRuleSetProvider implements IGraphStyleRuleSetProvider {
 
 	protected GraphvizLayout m_layout = org.cloudsmith.graph.graphviz.GraphvizLayout.dot;

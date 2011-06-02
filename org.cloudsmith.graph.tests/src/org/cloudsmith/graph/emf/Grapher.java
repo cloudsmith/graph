@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.zip.GZIPOutputStream;
 
 import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.IGraphProvider;
+import org.cloudsmith.graph.IRootGraph;
 import org.cloudsmith.graph.graphcss.GraphCSS;
 import org.cloudsmith.graph.graphcss.Rule;
 import org.cloudsmith.graph.graphcss.Select;
@@ -38,7 +38,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import com.google.inject.Inject;
 
 /**
- *
+ * TODO: UNFINISHED !!
  */
 public class Grapher {
 
@@ -78,7 +78,7 @@ public class Grapher {
 
 	private String title;
 
-	private IGraph m_graph;
+	private IRootGraph m_graph;
 
 	@Inject
 	private IGraphProvider graphProvider;
@@ -120,42 +120,6 @@ public class Grapher {
 		// a rule corresponds to the 'rules { }' in a CSS rule (example the 'A.Foo#x'is a CSS rule)
 		result.addRule(new Rule(new Select.Element(ElementType.graph), graphStyle));
 
-		// and so on...
-		// StyleMap nodeStyle = new StyleMap();
-		// nodeStyle.put(new GraphStyle.Shape(m_nodeShape));
-		// nodeStyle.put(new GraphStyle.NodeBrush(m_nodeLineType, new Double(0.5), m_nodeFilled, m_nodeRounded));
-		// result.addRule(new GraphStyleRule(
-		// new GraphStyleRule.Element(ElementType.vertex), nodeStyle));
-
-		// StyleMap edgeStyle = new StyleMap();
-		// edgeStyle.put(new GraphStyle.EdgeBrush(m_edgeLineType, new Double(0.5))); // DEFAULT
-		// edgeStyle.put(new GraphStyle.HeadPort(m_headPort)); // DEFAULT
-		// edgeStyle.put(new GraphStyle.TailPort(m_tailPort)); // DEFAULT
-		// edgeStyle.put(new GraphStyle.ArrowHead(m_headArrow)); //DEFAULT
-		// edgeStyle.put(new GraphStyle.ArrowTail(m_tailArrow)); // DEFAULT
-		// edgeStyle.put(new GraphStyle.ArrowScale(m_arrowScale)); //DEFAULT
-		// edgeStyle.put(new GraphStyle.Decorate(Boolean.valueOf(m_edgeDecorate)));
-		// GraphStyleRule edgeRule = new GraphStyleRule(
-		// new GraphStyleRule.Element(ElementType.edge), edgeStyle);
-		// result.addRule(edgeRule);
-
-		// Create a label format - a table with 3 rows, and a cell in each. The cells pick up
-		// data called 'name', 'type' and 'version'
-		//
-		// StyleSet withDataStyle = new StyleSet();
-		// withDataStyle.put(new Style.LabelFormat(new Style.LabelTable("DataTable", new Style.LabelRow(
-		// "FirstRow", new Style.LabelCell("TypeCell", "#{element.data['type']}")), new Style.LabelRow(
-		// "SecondRow", new Style.LabelCell("NameCell", "#{element.data['name']}")), new Style.LabelRow(
-		// "ThirdRow", new Style.LabelCell("VersionCell", "#{element.data['version']}")))));
-		// result.addRule(new Rule(new Select.Element(ElementType.vertex, "CSpec", null), withDataStyle));
-		// // Make the cells in a "DataTable" left aligned
-		// StyleSet leftAligned = new StyleSet();
-		// leftAligned.put(new Style.Align(Alignment.left));
-		// result.addRule(new Rule(new Select.And(new Select.Element(ElementType.cell), // a cell
-		// new Select.Containment( // contained
-		// new Select.Element(ElementType.table, "DataTable", null))),// in a data table
-		// leftAligned)); // left aligned
-
 		return result;
 	}
 
@@ -163,7 +127,7 @@ public class Grapher {
 		return Arrays.asList(Compass.values());
 	}
 
-	public IGraph getComponentGraph() {
+	public IRootGraph getComponentGraph() {
 		return null;
 	}
 
@@ -178,7 +142,7 @@ public class Grapher {
 	public byte[] getGraph() {
 		if(m_graph == null)
 			m_graph = getComponentGraph();
-		byte[] img = graphviz.toPNG(m_layout, m_graph, getCGSS(), null);
+		byte[] img = graphviz.toPNG(m_layout, m_graph, getCGSS());
 		return img == null
 				? ImageUtils.loadImage("/static/img/no_image.png")
 				: img;
@@ -188,13 +152,13 @@ public class Grapher {
 	public String getGraphSvg() {
 		if(m_graph == null)
 			m_graph = getComponentGraph();
-		return graphviz.toSVG(m_layout, m_graph, getCGSS(), null);
+		return graphviz.toSVG(m_layout, m_graph, getCGSS());
 	}
 
 	public boolean getGraphSvg(OutputStream stream) {
 		if(m_graph == null)
 			m_graph = getComponentGraph();
-		return graphviz.writeSVG(stream, m_layout, m_graph, getCGSS(), null);
+		return graphviz.writeSVG(stream, m_layout, m_graph, getCGSS());
 	}
 
 	/**
@@ -214,7 +178,7 @@ public class Grapher {
 		catch(IOException e) {
 			return false;
 		}
-		return graphviz.writeSVGZ(stream, m_layout, m_graph, getCGSS(), null);
+		return graphviz.writeSVGZ(stream, m_layout, m_graph, getCGSS());
 	}
 
 	public String getGraphText() {
@@ -278,7 +242,7 @@ public class Grapher {
 	public String getUsemap() {
 		if(m_graph == null)
 			m_graph = getComponentGraph();
-		return graphviz.getUsemap(m_layout, m_graph, getCGSS(), null);
+		return graphviz.getUsemap(m_layout, m_graph, getCGSS());
 	}
 
 	public boolean isConcentrate() {

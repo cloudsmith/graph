@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import org.cloudsmith.graph.ElementType;
 import org.cloudsmith.graph.IEdge;
 import org.cloudsmith.graph.IGraph;
+import org.cloudsmith.graph.ISubGraph;
 import org.cloudsmith.graph.IVertex;
 
 /**
@@ -24,25 +25,23 @@ import org.cloudsmith.graph.IVertex;
  * as it manages their containment and identity (if not set).
  * 
  */
-public class Graph extends Vertex implements IGraph {
+public class Graph extends GraphElement implements IGraph {
 	private ArrayList<IEdge> edges;
 
-	private ArrayList<IGraph> subgraphs;
+	private ArrayList<ISubGraph> subgraphs;
 
 	private ArrayList<IVertex> vertices;
 
-	private boolean cluster = false;
-
-	public Graph(String label, String styleClass) {
-		this(label, styleClass, null);
+	protected Graph(String styleClass) {
+		this(styleClass, null);
 	}
 
-	public Graph(String label, String styleClass, String id) {
-		super(label, styleClass, id);
+	protected Graph(String styleClass, String id) {
+		super(styleClass, id);
 
 		edges = new ArrayList<IEdge>();
 		vertices = new ArrayList<IVertex>();
-		subgraphs = new ArrayList<IGraph>();
+		subgraphs = new ArrayList<ISubGraph>();
 	}
 
 	/**
@@ -55,6 +54,21 @@ public class Graph extends Vertex implements IGraph {
 		if(edge.getId() == null)
 			edge.setId("e" + edges.size());
 		edge.setParentElement(this);
+	}
+
+	/**
+	 * Adds a subgraph - the given graph must implement ISubGraph. Note that the method is private
+	 * as it is required that the graph implements {@link GraphElement}.
+	 * 
+	 * @param graph
+	 */
+	private void _addSubgraph(Graph graph) {
+		if(!(graph instanceof ISubGraph))
+			throw new IllegalArgumentException("Can only add subgraphs to a graph");
+		subgraphs.add((ISubGraph) graph);
+		if(graph.getId() == null)
+			graph.setId("g" + subgraphs.size());
+		graph.setParentElement(this);
 	}
 
 	private void _addVertex(Vertex vertex) {
@@ -80,11 +94,17 @@ public class Graph extends Vertex implements IGraph {
 	 * 
 	 * @param graph
 	 */
-	public void addSubgraph(Graph graph) {
-		subgraphs.add(graph);
-		if(graph.getId() == null)
-			graph.setId("g" + subgraphs.size());
-		graph.setParentElement(this);
+	public void addSubgraph(ClusterGraph graph) {
+		_addSubgraph(graph);
+	}
+
+	/**
+	 * Not part of the API - how subgraphs are created and added is up to the implementation.
+	 * 
+	 * @param graph
+	 */
+	public void addSubgraph(SubGraph graph) {
+		_addSubgraph(graph);
 	}
 
 	/**
@@ -114,26 +134,12 @@ public class Graph extends Vertex implements IGraph {
 	}
 
 	@Override
-	public Iterable<IGraph> getSubgraphs() {
+	public Iterable<ISubGraph> getSubgraphs() {
 		return subgraphs;
 	}
 
 	@Override
 	public Iterable<IVertex> getVertices() {
 		return vertices;
-	}
-
-	@Override
-	public boolean isCluster() {
-		return cluster;
-	}
-
-	/**
-	 * Not part of API.
-	 * 
-	 * @param flag
-	 */
-	public void setCluster(boolean flag) {
-		cluster = flag;
 	}
 }

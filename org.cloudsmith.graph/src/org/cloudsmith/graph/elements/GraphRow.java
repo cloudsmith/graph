@@ -19,11 +19,11 @@ import org.cloudsmith.graph.ITableCell;
 import org.cloudsmith.graph.ITableRow;
 
 /**
- * @author henrik.lindberg@cloudsmith.com
+ * Implementation of a GraphRow.
  * 
  */
 public class GraphRow extends GraphElement implements ITableRow {
-	private ArrayList<ITableCell> m_cells;
+	private ArrayList<ITableCell> cells;
 
 	/**
 	 * Creates a default row with the id "row".
@@ -34,19 +34,19 @@ public class GraphRow extends GraphElement implements ITableRow {
 	 */
 	public GraphRow(String styleClass) {
 		super(styleClass, null);
-		m_cells = new ArrayList<ITableCell>(1);
+		cells = new ArrayList<ITableCell>(1);
 	}
 
 	public void addCell(GraphCell cell) {
-		m_cells.add(cell);
+		cells.add(cell);
 		String id = cell.getId();
 		if(id == null || id.length() < 1)
-			cell.setId("r" + m_cells.size());
+			cell.setId("r" + cells.size());
 		cell.setParentElement(this);
 	}
 
 	public List<ITableCell> getCells() {
-		return m_cells;
+		return cells;
 	}
 
 	@Override

@@ -15,9 +15,10 @@ import java.io.ByteArrayOutputStream;
 
 import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.IGraphProvider;
+import org.cloudsmith.graph.IRootGraph;
 import org.cloudsmith.graph.dot.DotRenderer;
 import org.cloudsmith.graph.elements.Edge;
-import org.cloudsmith.graph.elements.Graph;
+import org.cloudsmith.graph.elements.RootGraph;
 import org.cloudsmith.graph.elements.Vertex;
 import org.cloudsmith.graph.graphcss.GraphCSS;
 import org.cloudsmith.graph.graphcss.IFunctionFactory;
@@ -52,8 +53,8 @@ public class TestBasicFeatures extends AbstractGraphTests {
 		 * @modelObj - ignored, returns same graph at all times.
 		 */
 		@Override
-		public IGraph computeGraph(Object modelObj, String title, String id) {
-			Graph g = new Graph(title, "RootGraph", id);
+		public IRootGraph computeGraph(Object modelObj, String title, String id) {
+			RootGraph g = new RootGraph(title, "RootGraph", id);
 			Vertex a = new Vertex("a", "v", "a");
 			Vertex b = new Vertex("b", "v", "b");
 			Vertex c = new Vertex("c", "v", "c");
@@ -81,8 +82,8 @@ public class TestBasicFeatures extends AbstractGraphTests {
 		 * @modelObj - ignored, returns same graph at all times.
 		 */
 		@Override
-		public IGraph computeGraph(Object modelObj, String title, String id) {
-			Graph g = new Graph(title, "RootGraph", id);
+		public IRootGraph computeGraph(Object modelObj, String title, String id) {
+			RootGraph g = new RootGraph(title, "RootGraph", id);
 			Vertex a = new Vertex("a", "v");
 			Vertex b = new Vertex("b", "v");
 			Vertex c = new Vertex("c", "v");
@@ -173,7 +174,7 @@ public class TestBasicFeatures extends AbstractGraphTests {
 		GraphCSS themeSheet = get(GraphCSS.class);
 
 		IGraphProvider graphProvider = get(IdentityTestGraph.class);
-		IGraph testGraph = graphProvider.computeGraph();
+		IRootGraph testGraph = graphProvider.computeGraph();
 		themeSheet.addAll(graphProvider.getRules());
 
 		ByteArrayOutputStream tmp = new ByteArrayOutputStream();
@@ -196,7 +197,7 @@ public class TestBasicFeatures extends AbstractGraphTests {
 		GraphCSS themeSheet = get(GraphCSS.class);
 
 		IGraphProvider graphProvider = get(IdentityTestGraph.class);
-		IGraph testGraph = graphProvider.computeGraph();
+		IRootGraph testGraph = graphProvider.computeGraph();
 		themeSheet.addAll(graphProvider.getRules());
 
 		ByteArrayOutputStream tmp = new ByteArrayOutputStream();

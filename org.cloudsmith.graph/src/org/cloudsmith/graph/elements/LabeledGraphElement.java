@@ -22,9 +22,9 @@ import org.cloudsmith.graph.ILabeledGraphElement;
  *
  */
 public abstract class LabeledGraphElement extends GraphElement implements IGraphElement, ILabeledGraphElement {
-	private String m_label;
+	private String label;
 
-	private Map<String, String> m_data;
+	private Map<String, String> data;
 
 	public LabeledGraphElement() {
 		this(null, "", "", null);
@@ -44,8 +44,8 @@ public abstract class LabeledGraphElement extends GraphElement implements IGraph
 
 	public LabeledGraphElement(Map<String, String> data, String label, String styleClass, String id) {
 		super(styleClass, id);
-		m_label = label;
-		m_data = data;
+		this.label = label;
+		this.data = data;
 	}
 
 	public LabeledGraphElement(String styleClass) {
@@ -61,16 +61,16 @@ public abstract class LabeledGraphElement extends GraphElement implements IGraph
 	}
 
 	public Map<String, String> getData() {
-		if(m_data == null)
-			m_data = new HashMap<String, String>();
-		return m_data;
+		if(data == null)
+			data = new HashMap<String, String>();
+		return data;
 	}
 
 	public String getLabel() {
-		return m_label;
+		return label;
 	}
 
 	public void setData(Map<String, String> dataMap) {
-		m_data = dataMap;
+		data = dataMap;
 	}
 }

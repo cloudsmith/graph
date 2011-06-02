@@ -18,7 +18,7 @@ import java.io.OutputStream;
 import java.util.zip.GZIPOutputStream;
 
 import org.apache.log4j.Logger;
-import org.cloudsmith.graph.IGraph;
+import org.cloudsmith.graph.IRootGraph;
 import org.cloudsmith.graph.dot.DotRenderer;
 import org.cloudsmith.graph.graphcss.GraphCSS;
 
@@ -57,7 +57,7 @@ public class Graphviz implements IGraphviz {
 	 * @see org.cloudsmith.graph.impl.dot.IGraphviz#getDotText(org.cloudsmith.graph.IGraph, org.cloudsmith.graph.impl.style.RuleSet)
 	 */
 	@Override
-	public String getDotText(IGraph graph, GraphCSS defaultCSS, GraphCSS... gCSS) {
+	public String getDotText(IRootGraph graph, GraphCSS defaultCSS, GraphCSS... gCSS) {
 		ByteArrayOutputStream bufferStream = new ByteArrayOutputStream();
 		dotRenderer.write(bufferStream, graph, defaultCSS, gCSS);
 		return bufferStream.toString();
@@ -70,7 +70,7 @@ public class Graphviz implements IGraphviz {
 	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
-	public String getUsemap(GraphvizLayout layout, IGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets) {
+	public String getUsemap(GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets) {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		if(writeGraphvizOutput(stream, GraphvizFormat.cmapx, null, layout, graph, defaultStyle, styleSheets) == null)
 			return "";
@@ -84,7 +84,7 @@ public class Graphviz implements IGraphviz {
 	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
-	public byte[] toJPG(GraphvizLayout layout, IGraph graph, GraphCSS defaultStyleSheet, GraphCSS... styleSheets) {
+	public byte[] toJPG(GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyleSheet, GraphCSS... styleSheets) {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		if(writeGraphvizOutput(
 			stream, GraphvizFormat.jpg, config.getRenderer(), layout, graph, defaultStyleSheet, styleSheets) == null)
@@ -102,7 +102,7 @@ public class Graphviz implements IGraphviz {
 	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
-	public byte[] toPNG(GraphvizLayout layout, IGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets) {
+	public byte[] toPNG(GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets) {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		if(writeGraphvizOutput(
 			stream, GraphvizFormat.png, config.getRenderer(), layout, graph, defaultStyle, styleSheets) == null)
@@ -120,7 +120,7 @@ public class Graphviz implements IGraphviz {
 	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
-	public String toSVG(GraphvizLayout layout, IGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets) {
+	public String toSVG(GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets) {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		if(writeGraphvizOutput(
 			stream, GraphvizFormat.svg, config.getRenderer(), layout, graph, defaultStyle, styleSheets) == null)
@@ -137,7 +137,7 @@ public class Graphviz implements IGraphviz {
 	 */
 	@Override
 	public OutputStream writeGraphvizOutput(OutputStream output, GraphvizFormat format, GraphvizRenderer renderer,
-			GraphvizLayout layout, IGraph graph, GraphCSS defaultStyleSheet, GraphCSS... styleSheets) {
+			GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyleSheet, GraphCSS... styleSheets) {
 		Process p;
 		// graphviz -T format:renderer is something like -T png:cairo
 		// Construct renderer string (':renderer' after the format) if renderer is specified - generally
@@ -298,7 +298,7 @@ public class Graphviz implements IGraphviz {
 	 * org.cloudsmith.graph.impl.style.RuleSet, org.cloudsmith.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
-	public boolean writeSVG(OutputStream output, GraphvizLayout layout, IGraph graph, GraphCSS defaultStyle,
+	public boolean writeSVG(OutputStream output, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle,
 			GraphCSS... styleSheets) {
 		if(writeGraphvizOutput(
 			output, GraphvizFormat.svg, config.getRenderer(), layout, graph, defaultStyle, styleSheets) == null)
@@ -313,7 +313,7 @@ public class Graphviz implements IGraphviz {
 	 * org.cloudsmith.graph.impl.style.RuleSet, org.cloudsmith.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
-	public boolean writeSVGZ(OutputStream output, GraphvizLayout layout, IGraph graph, GraphCSS defaultStyle,
+	public boolean writeSVGZ(OutputStream output, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle,
 			GraphCSS... styleSheets) {
 		try {
 			GZIPOutputStream stream = new GZIPOutputStream(output);

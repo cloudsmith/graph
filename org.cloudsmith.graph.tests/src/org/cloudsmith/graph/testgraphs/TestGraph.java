@@ -11,10 +11,11 @@ package org.cloudsmith.graph.testgraphs;
 import java.util.Collection;
 import java.util.List;
 
-import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.IGraphProvider;
+import org.cloudsmith.graph.IRootGraph;
+import org.cloudsmith.graph.elements.ClusterGraph;
 import org.cloudsmith.graph.elements.Edge;
-import org.cloudsmith.graph.elements.Graph;
+import org.cloudsmith.graph.elements.RootGraph;
 import org.cloudsmith.graph.elements.Vertex;
 import org.cloudsmith.graph.graphcss.IFunctionFactory;
 import org.cloudsmith.graph.graphcss.Rule;
@@ -36,6 +37,7 @@ import com.google.inject.Inject;
 
 /**
  * A test and demo of the graphviz graph layout and rendering support.
+ * TODO: UNFINISHED, AND HAS ISSUES...
  * 
  */
 public class TestGraph implements IGraphProvider {
@@ -81,7 +83,7 @@ public class TestGraph implements IGraphProvider {
 		this.functions = functions;
 	}
 
-	public IGraph computeGraph() {
+	public IRootGraph computeGraph() {
 		return computeGraph(null, "a graph with subgraphs", "root");
 	}
 
@@ -91,7 +93,7 @@ public class TestGraph implements IGraphProvider {
 	 * @see org.cloudsmith.graph.IGraphProvider#computeGraph()
 	 */
 	@Override
-	public IGraph computeGraph(Object modelObj) {
+	public IRootGraph computeGraph(Object modelObj) {
 		return computeGraph();
 	}
 
@@ -109,12 +111,11 @@ public class TestGraph implements IGraphProvider {
 	/**
 	 * @modelObj - ignored, returns same graph at all times.
 	 */
-	public IGraph computeGraph(Object modelObj, String title, String id) {
-		Graph g = new Graph(title, "RootGraph", id);
-		Graph sub1 = getMockGraph("x1");
+	public IRootGraph computeGraph(Object modelObj, String title, String id) {
+		RootGraph g = new RootGraph(title, "RootGraph", id);
+		ClusterGraph sub1 = getMockGraph("x1");
 		g.addSubgraph(sub1);
-		Graph sub2 = getMockGraph("x2");
-		sub2.setCluster(true);
+		ClusterGraph sub2 = getMockGraph("x2");
 		sub2.addSubgraph(getNestedMockGraph());
 		g.addSubgraph(sub2);
 		g.addEdge(new Edge("between", Iterators.get(sub1.getVertices().iterator(), 0), Iterators.get(
@@ -124,8 +125,8 @@ public class TestGraph implements IGraphProvider {
 		return g;
 	}
 
-	public Graph getMockGraph(String id) {
-		Graph g = new Graph(id, "", id);
+	public ClusterGraph getMockGraph(String id) {
+		ClusterGraph g = new ClusterGraph(id, "", id);
 		Vertex[] vv = new Vertex[5];
 		for(int i = 0; i < vv.length; i++) {
 			vv[i] = new Vertex("label_" + Integer.toString(i) + "\nsome text", "");
@@ -155,19 +156,16 @@ public class TestGraph implements IGraphProvider {
 		return g;
 	}
 
-	private Graph getNestedMockGraph() {
-		Graph g = new Graph("x11", "a graph with subgraphs", "RootGraph");
-		Graph sub1 = getMockGraph("x12");
-		sub1.setCluster(true);
+	private ClusterGraph getNestedMockGraph() {
+		ClusterGraph g = new ClusterGraph("x11", "a graph with subgraphs", "RootGraph");
+		ClusterGraph sub1 = getMockGraph("x12");
 		g.addSubgraph(sub1);
-		Graph sub2 = getMockGraph("x13");
-		sub2.setCluster(true);
+		ClusterGraph sub2 = getMockGraph("x13");
 		g.addSubgraph(sub2);
 		g.addEdge(new Edge(Iterators.get(sub1.getVertices().iterator(), 0), Iterators.get(
 			sub2.getVertices().iterator(), 0)));
 		g.addEdge(new Edge(Iterators.get(sub1.getVertices().iterator(), 3), Iterators.get(
 			sub2.getVertices().iterator(), 3)));
-		g.setCluster(true);
 		return g;
 	}
 

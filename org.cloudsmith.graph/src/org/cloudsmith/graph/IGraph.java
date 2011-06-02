@@ -15,7 +15,7 @@ package org.cloudsmith.graph;
  * The interface for a graph that is either the root graph or a subgraph.
  * 
  */
-public interface IGraph extends IVertex {
+public interface IGraph extends IGraphElement {
 	/**
 	 * Returns a list of all edges in the graph.
 	 * 
@@ -28,7 +28,7 @@ public interface IGraph extends IVertex {
 	 * 
 	 * @return
 	 */
-	public Iterable<IGraph> getSubgraphs();
+	public Iterable<ISubGraph> getSubgraphs();
 
 	/**
 	 * Returns a list of all vertices in the graph.
@@ -37,13 +37,13 @@ public interface IGraph extends IVertex {
 	 */
 	public Iterable<IVertex> getVertices();
 
-	/**
-	 * Subgraphs that should be handled as separate "clustered" graphs (in a separate
-	 * space) should return true on this method. The root graph should not be clustered.
-	 * The content of unclustered graphs are seen as additions to the parent graph, and the
-	 * content is laid out intermixed with all other content in the parent graph.
-	 * 
-	 * @return true if this graph is a subgraph
-	 */
-	public boolean isCluster();
+	// /**
+	// * Subgraphs that should be handled as separate "clustered" graphs (in a separate
+	// * space) should return true on this method. The root graph should not be clustered.
+	// * The content of unclustered graphs are seen as additions to the parent graph, and the
+	// * content is laid out intermixed with all other content in the parent graph.
+	// *
+	// * @return true if this graph is a subgraph
+	// */
+	// public boolean isCluster();
 }
