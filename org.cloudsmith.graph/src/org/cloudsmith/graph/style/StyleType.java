@@ -176,5 +176,10 @@ public enum StyleType {
 	 */
 	colSpan,
 
+	/**
+	 * The background/fill color of nodes and clusters. Also see {@link #backgroundColor}.
+	 */
+	fillColor,
+
 	;
 }

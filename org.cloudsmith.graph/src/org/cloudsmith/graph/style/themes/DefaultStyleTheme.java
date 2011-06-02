@@ -69,7 +69,7 @@ public class DefaultStyleTheme implements IStyleTheme {
 		// NODE
 		defaultRuleSet.addRule(Select.element(ElementType.vertex).withStyles( //
 			styles.color("#2180c7"), //
-			styles.backgroundColor("#ffffff"), //
+			styles.fillColor("#ffffff"), //
 			styles.lineColor("#b3b3b3"), //
 			styles.fontFamily("Verdana"), //
 			styles.fontSize(8), //

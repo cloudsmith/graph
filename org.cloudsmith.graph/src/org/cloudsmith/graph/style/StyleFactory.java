@@ -14,11 +14,12 @@ package org.cloudsmith.graph.style;
 import static org.cloudsmith.graph.ElementType.ANY;
 import static org.cloudsmith.graph.ElementType.CELL;
 import static org.cloudsmith.graph.ElementType.CELL_AND_TABLE_AND_VERTEX;
+import static org.cloudsmith.graph.ElementType.CLUSTER_AND_GRAPH_AND_CELL_AND_TABLE;
+import static org.cloudsmith.graph.ElementType.CLUSTER_AND_VERTEX;
 import static org.cloudsmith.graph.ElementType.EDGE;
 import static org.cloudsmith.graph.ElementType.EDGE_AND_GRAPH_AND_VERTEX;
 import static org.cloudsmith.graph.ElementType.GRAPH;
 import static org.cloudsmith.graph.ElementType.GRAPH_AND_VERTEX;
-import static org.cloudsmith.graph.ElementType.NOT_EDGE;
 import static org.cloudsmith.graph.ElementType.NOT_GRAPH;
 import static org.cloudsmith.graph.ElementType.NOT_SUBGRAPH;
 import static org.cloudsmith.graph.ElementType.TABLE;
@@ -188,7 +189,7 @@ public class StyleFactory implements IStyleFactory {
 	public static class BackgroundColor extends StringStyle {
 		public BackgroundColor(String colorString) {
 			super(StyleType.backgroundColor, colorString);
-			setTypes(NOT_EDGE);
+			setTypes(CLUSTER_AND_GRAPH_AND_CELL_AND_TABLE);
 		}
 
 		@Override
@@ -362,6 +363,19 @@ public class StyleFactory implements IStyleFactory {
 			this(style, portName + ((compass == Compass.NONE)
 					? ""
 					: ":" + compass.toString()));
+		}
+
+	}
+
+	public static class FillColor extends StringStyle {
+		public FillColor(String colorString) {
+			super(StyleType.backgroundColor, colorString);
+			setTypes(CLUSTER_AND_VERTEX);
+		}
+
+		@Override
+		public void visit(IGraphElement ge, IStyleVisitor visitor) {
+			visitor.fillColor(getValue(ge));
 		}
 
 	}
@@ -713,86 +727,112 @@ public class StyleFactory implements IStyleFactory {
 		return new ArrowHead(x);
 	}
 
+	@Override
 	public Arrows arrows(Arrow x) {
 		return new Arrows(x);
 	}
 
+	@Override
 	public ArrowScale arrowScale(Double x) {
 		return new ArrowScale(x);
 	}
 
+	@Override
 	public ArrowTail arrowTail(Arrow x) {
 		return new ArrowTail(x);
 	}
 
+	@Override
 	public BackgroundColor backgroundColor(String x) {
 		return new BackgroundColor(x);
 	}
 
+	@Override
 	public BorderWidth borderWidth(int x) {
 		return new BorderWidth(x);
 	}
 
+	@Override
 	public CellBorderWidth cellBorderWidth(int x) {
 		return new CellBorderWidth(x);
 	}
 
+	@Override
 	public CellPadding cellPadding(int x) {
 		return new CellPadding(x);
 	}
 
+	@Override
 	public CellSpacing cellSpacing(int x) {
 		return new CellSpacing(x);
 	}
 
+	@Override
 	public Color color(String x) {
 		return new Color(x);
 	}
 
+	@Override
 	public ColSpan colSpan(int x) {
 		return new ColSpan(x);
 	}
 
+	@Override
 	public Concentrate concentrate(boolean x) {
 		return new Concentrate(x);
 	}
 
+	@Override
 	public Decorate decorate(boolean x) {
 		return new Decorate(x);
 	}
 
+	@Override
 	public Direction direction(EdgeDirection x) {
 		return new Direction(x);
 	}
 
+	@Override
+	public FillColor fillColor(String x) {
+		return new FillColor(x);
+	}
+
+	@Override
 	public FixedSize fixedSize(boolean x) {
 		return new FixedSize(x);
 	}
 
+	@Override
 	public FontFamily fontFamily(String x) {
 		return new FontFamily(x);
 	}
 
+	@Override
 	public FontSize fontSize(int x) {
 		return new FontSize(x);
 	}
 
+	@Override
 	public HeadPort headPort(Compass x) {
 		return new HeadPort(x);
 	}
 
+	@Override
 	public HeadPort headPort(String x) {
 		return new HeadPort(x);
 	}
 
+	@Override
 	public HeadPort headPort(String x, Compass c) {
 		return new HeadPort(x, c);
 	}
 
+	@Override
 	public Height height(double d) {
 		return new Height(d);
 	}
 
+	@Override
 	public Href href(String x) {
 		return new Href(x);
 	}
@@ -817,18 +857,22 @@ public class StyleFactory implements IStyleFactory {
 		return new LabelCell(functions.literalString(styleClass), f);
 	}
 
+	@Override
 	public LabelCell labelCell(String styleClass, String value) {
 		return new LabelCell(functions.literalString(styleClass), functions.literalString(value));
 	}
 
+	@Override
 	public LabelCell labelCell(String styleClass, String value, Span span) {
 		return new LabelCell(functions.literalString(styleClass), functions.literalString(value), span);
 	}
 
+	@Override
 	public LabelFormat labelFormat(ILabelTemplate x) {
 		return new LabelFormat(x);
 	}
 
+	@Override
 	public LabelRow labelRow(String styleClass, LabelCell... cells) {
 		return new LabelRow(styleClass, cells);
 	}
@@ -843,14 +887,17 @@ public class StyleFactory implements IStyleFactory {
 		return new LabelStringTemplate(f);
 	}
 
+	@Override
 	public LabelStringTemplate labelStringTemplate(String x) {
 		return new LabelStringTemplate(x);
 	}
 
+	@Override
 	public LabelTable labelTable(String styleClass, LabelRow... rows) {
 		return new LabelTable(styleClass, rows);
 	}
 
+	@Override
 	public EdgeBrush lineBrush(LineType lineType, double lineWidth) {
 		return new EdgeBrush(lineType, lineWidth);
 	}
@@ -865,18 +912,22 @@ public class StyleFactory implements IStyleFactory {
 		return new LineColor(x);
 	}
 
+	@Override
 	public Port port(String x) {
 		return new Port(x);
 	}
 
+	@Override
 	public RankDirectionStyle rankDirectionStyle(RankDirection x) {
 		return new RankDirectionStyle(x);
 	}
 
+	@Override
 	public RankSeparation rankSeparation(double x) {
 		return new RankSeparation(x);
 	}
 
+	@Override
 	public Rendered rendered(boolean x) {
 		return new Rendered(x);
 	}
@@ -891,50 +942,62 @@ public class StyleFactory implements IStyleFactory {
 		return new Rendered(f);
 	}
 
+	@Override
 	public Routing routing(EdgeRouting x) {
 		return new Routing(x);
 	}
 
+	@Override
 	public RowSpan rowSpan(int x) {
 		return new RowSpan(x);
 	}
 
+	@Override
 	public Shape shape(NodeShape x) {
 		return new Shape(x);
 	}
 
+	@Override
 	public NodeBrush shapeBrush(LineType lineType, double lineWidth, boolean filled, boolean rounded) {
 		return new NodeBrush(lineType, lineWidth, filled, rounded);
 	}
 
+	@Override
 	public TailPort tailPort(Compass x) {
 		return new TailPort(x);
 	}
 
+	@Override
 	public TailPort tailPort(String x) {
 		return new TailPort(x);
 	}
 
+	@Override
 	public TailPort tailPort(String x, Compass c) {
 		return new TailPort(x, c);
 	}
 
+	@Override
 	public Target target(String x) {
 		return new Target(x);
 	}
 
+	@Override
 	public Tooltip tooltip(Function<IGraphElement, String> f) {
 		return new Tooltip(f);
 	}
 
+	@Override
 	public Tooltip tooltip(String x) {
 		return new Tooltip(functions.literalString(x));
 	}
 
+	@Override
 	public VerticalAlign verticalAlign(VerticalAlignment x) {
 		return new VerticalAlign(x);
 	}
 
+	@Override
 	public Width width(double x) {
 		return new Width(x);
 	}

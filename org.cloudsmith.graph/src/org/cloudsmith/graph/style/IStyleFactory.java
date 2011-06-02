@@ -36,6 +36,13 @@ public interface IStyleFactory {
 
 	public IStyle<Arrow> arrowTail(Arrow x);
 
+	/**
+	 * Sets the background color. Note that it may be set to the name "transparent" which is useful
+	 * when rendering a PNG.
+	 * 
+	 * @param x
+	 * @return
+	 */
 	public IStyle<String> backgroundColor(String x);
 
 	public IStyle<Integer> borderWidth(int x);
@@ -55,6 +62,8 @@ public interface IStyleFactory {
 	public IStyle<Boolean> decorate(boolean x);
 
 	public IStyle<EdgeDirection> direction(EdgeDirection x);
+
+	public IStyle<String> fillColor(String x);
 
 	public IStyle<Boolean> fixedSize(boolean x);
 
@@ -119,6 +128,8 @@ public interface IStyleFactory {
 	public IStyle<String> tailPort(String x, Compass c);
 
 	public IStyle<String> target(String x);
+
+	public IStyle<String> tooltip(Function<IGraphElement, String> f);
 
 	public IStyle<String> tooltip(String x);
 

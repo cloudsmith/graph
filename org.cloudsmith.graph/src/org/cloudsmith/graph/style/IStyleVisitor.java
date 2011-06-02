@@ -49,6 +49,8 @@ public interface IStyleVisitor {
 
 	public void direction(EdgeDirection x);
 
+	public void fillColor(String value);
+
 	public void fixedSize(boolean x);
 
 	public void fontFamily(String x);

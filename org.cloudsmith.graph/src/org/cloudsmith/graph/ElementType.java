@@ -34,7 +34,7 @@ public enum ElementType {
 	/**
 	 * Counter useful for testing if a set contains all enumerators, how many are missing in a set etc.
 	 */
-	public static final int NUM_TYPES = 6;
+	public static final int NUM_TYPES = 8;
 
 	/**
 	 * Refers to all element types (including the non styleable {@link #row}).
@@ -50,6 +50,10 @@ public enum ElementType {
 
 	public static final Set<ElementType> GRAPH = Sets.immutableEnumSet(graph);
 
+	public static final Set<ElementType> SUBGRAPH = Sets.immutableEnumSet(subgraph);
+
+	public static final Set<ElementType> CLUSTER = Sets.immutableEnumSet(cluster);
+
 	public static final Set<ElementType> CELL = Sets.immutableEnumSet(cell);
 
 	public static final Set<ElementType> VERTEX = Sets.immutableEnumSet(vertex);
@@ -61,6 +65,11 @@ public enum ElementType {
 	public static final Set<ElementType> GRAPH_AND_VERTEX = Sets.immutableEnumSet(graph, vertex);
 
 	public static final Set<ElementType> EDGE_AND_GRAPH_AND_VERTEX = Sets.immutableEnumSet(edge, graph, vertex);
+
+	public static final Set<ElementType> CLUSTER_AND_VERTEX = Sets.immutableEnumSet(cluster, vertex);
+
+	public static final Set<ElementType> CLUSTER_AND_GRAPH_AND_CELL_AND_TABLE = Sets.immutableEnumSet(
+		cluster, graph, cell, table);
 
 	public static final Set<ElementType> EDGE = Sets.immutableEnumSet(ElementType.edge);
 

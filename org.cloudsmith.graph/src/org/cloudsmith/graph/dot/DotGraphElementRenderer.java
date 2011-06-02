@@ -110,7 +110,7 @@ public class DotGraphElementRenderer {
 
 				@Override
 				public void backgroundColor(String v) {
-					out.printf("%sfillcolor=\"%s\"", o.separator(), v);
+					out.printf("%sbgcolor=\"%s\"", o.separator(), v);
 				}
 
 				@Override
@@ -131,6 +131,11 @@ public class DotGraphElementRenderer {
 				@Override
 				public void direction(EdgeDirection x) {
 					out.printf("%sdir=\"%s\"", o.separator(), x);
+				}
+
+				@Override
+				public void fillColor(String v) {
+					out.printf("%sfillcolor=\"%s\"", o.separator(), v);
 				}
 
 				@Override

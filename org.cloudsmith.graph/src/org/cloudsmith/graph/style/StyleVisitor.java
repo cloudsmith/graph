@@ -188,6 +188,17 @@ public class StyleVisitor implements IStyleVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.cloudsmith.graph.style.IStyleVisitor#backgroundColor(java.lang.String)
+	 */
+	@Override
+	public void fillColor(String x) {
+		unsupported(StyleType.fillColor);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.cloudsmith.graph.style.IStyleVisitor#fixedSize(boolean)
 	 */
 	@Override
