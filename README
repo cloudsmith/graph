@@ -1,4 +1,4 @@
-The graph package is a Java/Osgi layout package using graphviz as a rendering engine.
+The graph package is a java/osgi layout package using graphviz as a rendering engine.
 The package contains an abstraction of Graph, Vertex and Edge and has a Graph Cascading Style Sheet (GCSS)
 implementation that makes it easy to separate graph structure from styling information.
 
