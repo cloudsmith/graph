@@ -181,5 +181,10 @@ public enum StyleType {
 	 */
 	fillColor,
 
+	/**
+	 * True if it should be possible to clip edges at cluster border.
+	 */
+	compound,
+
 	;
 }

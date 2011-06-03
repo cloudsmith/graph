@@ -43,6 +43,8 @@ public interface IStyleVisitor {
 
 	public void colSpan(int x);
 
+	public void compound(boolean value);
+
 	public void concentrate(boolean x);
 
 	public void decorate(boolean x);

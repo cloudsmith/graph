@@ -287,6 +287,19 @@ public class StyleFactory implements IStyleFactory {
 
 	}
 
+	public static class Compound extends BooleanStyle {
+		public Compound(Boolean flag) {
+			super(StyleType.compound, flag);
+			setTypes(GRAPH);
+		}
+
+		@Override
+		public void visit(IGraphElement ge, IStyleVisitor visitor) {
+			visitor.compound(getValue(ge));
+		}
+
+	}
+
 	public static class Concentrate extends BooleanStyle {
 		public Concentrate(Boolean flag) {
 			super(StyleType.concentrate, flag);
@@ -775,6 +788,11 @@ public class StyleFactory implements IStyleFactory {
 	@Override
 	public ColSpan colSpan(int x) {
 		return new ColSpan(x);
+	}
+
+	@Override
+	public IStyle<Boolean> compound(boolean x) {
+		return new Compound(x);
 	}
 
 	@Override

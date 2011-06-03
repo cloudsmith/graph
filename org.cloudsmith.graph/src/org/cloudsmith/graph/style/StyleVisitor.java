@@ -155,6 +155,17 @@ public class StyleVisitor implements IStyleVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.cloudsmith.graph.style.IStyleVisitor#compound(boolean)
+	 */
+	@Override
+	public void compound(boolean value) {
+		unsupported(StyleType.compound);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.cloudsmith.graph.style.IStyleVisitor#concentrate(boolean)
 	 */
 	@Override
@@ -261,17 +272,6 @@ public class StyleVisitor implements IStyleVisitor {
 		unsupported(StyleType.href);
 
 	}
-
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see org.cloudsmith.graph.style.IStyleVisitor#labelCell(org.cloudsmith.graph.style.labels.LabelCell)
-	// */
-	// @Override
-	// public void labelCell(LabelCell cell) {
-	// unsupported(StyleType.labelFormatCell);
-	//
-	// }
 
 	/*
 	 * (non-Javadoc)
@@ -443,7 +443,7 @@ public class StyleVisitor implements IStyleVisitor {
 	 */
 	@Override
 	public void verticalAlign(VerticalAlignment x) {
-		// do nothing
+		unsupported(StyleType.valign);
 
 	}
 
@@ -454,7 +454,7 @@ public class StyleVisitor implements IStyleVisitor {
 	 */
 	@Override
 	public void width(double x) {
-		// do nothing
+		unsupported(StyleType.width);
 
 	}
 

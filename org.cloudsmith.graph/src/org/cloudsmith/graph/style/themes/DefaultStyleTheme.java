@@ -145,6 +145,10 @@ public class DefaultStyleTheme implements IStyleTheme {
 		// Select.element(ElementType.vertex).withStyle(urlFormatStyle), //
 		// Select.element(ElementType.edge).withStyle(urlFormatStyle));
 
+		// Root graph should be compound by default (allow head/tail clip on cluster border).
+		Collections.addAll(rules, //
+			Select.element(ElementType.graph).withStyle(styles.compound(true)));
+
 		defaultInstanceRuleSet = Collections.unmodifiableList(rules);
 		return defaultInstanceRuleSet;
 	}

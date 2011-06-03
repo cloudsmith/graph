@@ -57,6 +57,8 @@ public interface IStyleFactory {
 
 	public IStyle<Integer> colSpan(int x);
 
+	public IStyle<Boolean> compound(boolean x);
+
 	public IStyle<Boolean> concentrate(boolean x);
 
 	public IStyle<Boolean> decorate(boolean x);

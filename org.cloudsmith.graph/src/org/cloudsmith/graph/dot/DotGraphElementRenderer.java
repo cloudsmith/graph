@@ -119,6 +119,11 @@ public class DotGraphElementRenderer {
 				}
 
 				@Override
+				public void compound(boolean x) {
+					out.printf("%scompound=\"%s\"", o.separator(), x);
+				}
+
+				@Override
 				public void concentrate(boolean x) {
 					out.printf("%sconcentrate=\"%s\"", o.separator(), x);
 				}
@@ -270,6 +275,7 @@ public class DotGraphElementRenderer {
 					throw new IllegalArgumentException("Style:" + style + ", is not applicable to " +
 							"element of class: " + element.getClass());
 				}
+
 			};
 			style.visit(element, visitor);
 			o.increment();
