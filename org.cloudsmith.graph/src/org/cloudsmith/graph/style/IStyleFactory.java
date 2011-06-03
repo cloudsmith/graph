@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.graph.style;
 
+import org.cloudsmith.graph.IClusterGraph;
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.style.labels.ILabelTemplate;
 import org.cloudsmith.graph.style.labels.LabelCell;
@@ -73,6 +74,8 @@ public interface IStyleFactory {
 
 	public IStyle<Integer> fontSize(int x);
 
+	public IStyle<IClusterGraph> headCluster(IClusterGraph x);
+
 	public IStyle<String> headPort(Compass x);
 
 	public IStyle<String> headPort(String x);
@@ -122,6 +125,8 @@ public interface IStyleFactory {
 	public IStyle<NodeShape> shape(NodeShape x);
 
 	public IStyle<ShapeBrush> shapeBrush(LineType lineType, double lineWidth, boolean filled, boolean rounded);
+
+	public IStyle<IClusterGraph> tailCluster(IClusterGraph x);
 
 	public IStyle<String> tailPort(Compass x);
 

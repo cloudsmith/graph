@@ -15,6 +15,8 @@ import java.io.PrintStream;
 import java.util.Collection;
 
 import org.cloudsmith.graph.ElementType;
+import org.cloudsmith.graph.IClusterGraph;
+import org.cloudsmith.graph.IEdge;
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.ILabeledGraphElement;
 import org.cloudsmith.graph.graphcss.GraphCSS;
@@ -33,6 +35,7 @@ import org.cloudsmith.graph.style.StyleVisitor;
 import org.cloudsmith.graph.style.labels.ILabelTemplate;
 import org.cloudsmith.graph.utils.Counter;
 
+import com.google.common.collect.Iterators;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -154,6 +157,16 @@ public class DotGraphElementRenderer {
 				}
 
 				@Override
+				public void fromCluster(IClusterGraph value) {
+					if(!(element instanceof IEdge))
+						throw new IllegalArgumentException("fromCluster can only be applied to an edge");
+					IEdge edge = (IEdge) element;
+					if(!Iterators.contains(edge.getFrom().getContext(), value))
+						throw new IllegalArgumentException("edge fromCluster must have a from-vertex in given cluster");
+					out.printf("%sltail=\"cluster_%s\"", o.separator(), value.getId());
+				}
+
+				@Override
 				public void headPort(String x) {
 					{
 						String tmp = x;
@@ -268,6 +281,18 @@ public class DotGraphElementRenderer {
 						}
 						out.printf("%stailport=\"%s\"", o.separator(), tmp);
 					}
+				}
+
+				@Override
+				public void toCluster(IClusterGraph value) {
+					if(!(element instanceof IEdge))
+						throw new IllegalArgumentException("toCluster can only be applied to an edge");
+					IEdge edge = (IEdge) element;
+					if(!Iterators.contains(edge.getTo().getContext(), value))
+						throw new IllegalArgumentException("edge toCluster must have a to-vertex in given cluster");
+
+					out.printf("%slhead=\"cluster_%s\"", o.separator(), value.getId());
+
 				}
 
 				@Override

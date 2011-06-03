@@ -29,6 +29,7 @@ import static org.cloudsmith.graph.ElementType.VERTEX;
 import java.util.Set;
 
 import org.cloudsmith.graph.ElementType;
+import org.cloudsmith.graph.IClusterGraph;
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.graphcss.IFunctionFactory;
 import org.cloudsmith.graph.style.labels.ILabelTemplate;
@@ -432,6 +433,18 @@ public class StyleFactory implements IStyleFactory {
 
 	}
 
+	public static class HeadCluster extends AbstractStyle<IClusterGraph> {
+		public HeadCluster(IClusterGraph graph) {
+			super(StyleType.toCluster, graph);
+			setTypes(EDGE);
+		}
+
+		@Override
+		public void visit(IGraphElement ge, IStyleVisitor visitor) {
+			visitor.toCluster(getValue(ge));
+		}
+	}
+
 	/**
 	 * Specifies a port where the head of an edge should connect. This is either a portname, or a
 	 * combination of port name and a compass "direction". Everything an edge can connect to has the
@@ -645,6 +658,18 @@ public class StyleFactory implements IStyleFactory {
 
 	}
 
+	public static class TailCluster extends AbstractStyle<IClusterGraph> {
+		public TailCluster(IClusterGraph graph) {
+			super(StyleType.fromCluster, graph);
+			setTypes(EDGE);
+		}
+
+		@Override
+		public void visit(IGraphElement ge, IStyleVisitor visitor) {
+			visitor.fromCluster(getValue(ge));
+		}
+	}
+
 	/**
 	 * Specifies a port where the tail of an edge should connect. This is either a portname, or a
 	 * combination of port name and a compass "direction". Everything an edge can connect to has the
@@ -830,6 +855,16 @@ public class StyleFactory implements IStyleFactory {
 		return new FontSize(x);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.style.IStyleFactory#headCluster(org.cloudsmith.graph.IClusterGraph)
+	 */
+	@Override
+	public IStyle<IClusterGraph> headCluster(IClusterGraph x) {
+		return new HeadCluster(x);
+	}
+
 	@Override
 	public HeadPort headPort(Compass x) {
 		return new HeadPort(x);
@@ -978,6 +1013,16 @@ public class StyleFactory implements IStyleFactory {
 	@Override
 	public NodeBrush shapeBrush(LineType lineType, double lineWidth, boolean filled, boolean rounded) {
 		return new NodeBrush(lineType, lineWidth, filled, rounded);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.style.IStyleFactory#tailCluster(org.cloudsmith.graph.IClusterGraph)
+	 */
+	@Override
+	public IStyle<IClusterGraph> tailCluster(IClusterGraph x) {
+		return new TailCluster(x);
 	}
 
 	@Override

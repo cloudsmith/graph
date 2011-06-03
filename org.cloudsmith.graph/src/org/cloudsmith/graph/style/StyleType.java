@@ -186,5 +186,15 @@ public enum StyleType {
 	 */
 	compound,
 
+	/**
+	 * Clips an edge at the to/head end to a given (containing) cluster.
+	 */
+	toCluster,
+
+	/**
+	 * Clips an edge at the from/tail end to a given (containing) cluster.
+	 */
+	fromCluster,
+
 	;
 }

@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.graph.style;
 
+import org.cloudsmith.graph.IClusterGraph;
 import org.cloudsmith.graph.style.labels.ILabelTemplate;
 
 /**
@@ -59,6 +60,8 @@ public interface IStyleVisitor {
 
 	public void fontSize(int x);
 
+	public void fromCluster(IClusterGraph value);
+
 	public void headPort(String x);
 
 	public void height(double d);
@@ -90,6 +93,8 @@ public interface IStyleVisitor {
 	public void tailPort(String x);
 
 	public void target(String x);
+
+	public void toCluster(IClusterGraph value);
 
 	public void tooltip(String x);
 

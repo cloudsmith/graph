@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.graph.style;
 
+import org.cloudsmith.graph.IClusterGraph;
 import org.cloudsmith.graph.style.labels.ILabelTemplate;
 
 /**
@@ -243,6 +244,17 @@ public class StyleVisitor implements IStyleVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.cloudsmith.graph.style.IStyleVisitor#fromCluster(org.cloudsmith.graph.IClusterGraph)
+	 */
+	@Override
+	public void fromCluster(IClusterGraph value) {
+		unsupported(StyleType.fromCluster);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.cloudsmith.graph.style.IStyleVisitor#headPort(java.lang.String)
 	 */
 	@Override
@@ -412,6 +424,17 @@ public class StyleVisitor implements IStyleVisitor {
 	@Override
 	public void target(String x) {
 		unsupported(StyleType.target);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.style.IStyleVisitor#toCluster(org.cloudsmith.graph.IClusterGraph)
+	 */
+	@Override
+	public void toCluster(IClusterGraph value) {
+		unsupported(StyleType.toCluster);
 
 	}
 
