@@ -294,6 +294,21 @@ public class Graphviz implements IGraphviz {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.cloudsmith.graph.graphviz.IGraphviz#writePNG(java.io.OutputStream, org.cloudsmith.graph.graphviz.GraphvizLayout,
+	 * org.cloudsmith.graph.IRootGraph, org.cloudsmith.graph.graphcss.GraphCSS, org.cloudsmith.graph.graphcss.GraphCSS[])
+	 */
+	@Override
+	public boolean writePNG(OutputStream output, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle,
+			GraphCSS... styleSheets) {
+		if(writeGraphvizOutput(
+			output, GraphvizFormat.png, config.getRenderer(), layout, graph, defaultStyle, styleSheets) == null)
+			return false;
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.cloudsmith.graph.impl.dot.IGraphviz#getSvgImage(java.io.OutputStream, org.cloudsmith.graph.IGraph,
 	 * org.cloudsmith.graph.impl.style.RuleSet, org.cloudsmith.graph.impl.dot.Graphviz.Layout)
 	 */

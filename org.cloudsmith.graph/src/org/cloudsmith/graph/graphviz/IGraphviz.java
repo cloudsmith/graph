@@ -118,6 +118,22 @@ public interface IGraphviz {
 			GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyleSheet, GraphCSS... styleSheets);
 
 	/**
+	 * Writes output as PNG to given stream.
+	 * 
+	 * @param output
+	 *            the output stream where the PNG output should be written
+	 * @param layout
+	 * @param graph
+	 * @param defaultStyle
+	 *            - the CSS used to produce the prototype styles
+	 * @param styleSheets
+	 *            - additional style sheets
+	 * @return false if there where errors, true on success
+	 */
+	public boolean writePNG(OutputStream output, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle,
+			GraphCSS... styleSheets);
+
+	/**
 	 * Writes output as SVG text to given stream.
 	 * 
 	 * @param output
