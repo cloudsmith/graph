@@ -11,11 +11,13 @@
  */
 package org.cloudsmith.graph.graphviz;
 
+import org.eclipse.core.runtime.Platform;
 
 import com.google.inject.Singleton;
 
 /**
- * A default graphviz configration for Mac, Linux using {@link GraphvizRenderer#cairo}.
+ * A default graphviz configration for Mac, Linux using {@link GraphvizRenderer#cairo} on all platforms
+ * except OSx where {@link GraphvizRenderer#quartz} produces better looking results.
  * 
  */
 @Singleton
@@ -28,6 +30,8 @@ public class DefaultGraphvizConfig implements IGraphvizConfig {
 	 */
 	@Override
 	public GraphvizRenderer getRenderer() {
+		if(Platform.getOS() == Platform.OS_MACOSX)
+			return GraphvizRenderer.quartz;
 		return GraphvizRenderer.cairo;
 	}
 

@@ -37,5 +37,10 @@ public enum GraphvizRenderer {
 	/**
 	 * Use :cairo renderer
 	 */
-	cairo, ;
+	cairo,
+
+	/**
+	 * Use :quartz renderer on OSx
+	 */
+	quartz, ;
 }
