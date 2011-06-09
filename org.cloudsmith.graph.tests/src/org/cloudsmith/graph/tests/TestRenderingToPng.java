@@ -26,12 +26,40 @@ import org.cloudsmith.graph.style.IStyleFactory;
 import org.cloudsmith.graph.style.RankDirection;
 import org.cloudsmith.graph.style.themes.IStyleTheme;
 import org.cloudsmith.graph.testgraphs.SimpleGraph1;
+import org.cloudsmith.graph.testgraphs.SimpleGraph2;
 
 /**
  * Tests rendering to PNG. Manual inspection of result is required.
  * 
  */
 public class TestRenderingToPng extends AbstractGraphTests {
+
+	public void testPNG_abc_abc_vertical_default() throws FileNotFoundException {
+		IGraphviz graphviz = get(IGraphviz.class);
+		GraphCSS themeSheet = get(GraphCSS.class);
+
+		IGraphProvider graphProvider = get(SimpleGraph2.class);
+		IRootGraph testGraph = graphProvider.computeGraph();
+
+		IStyleTheme theme = get(IStyleTheme.class);
+		// append the theme's styles with those from the provider
+		themeSheet.addAll(theme.getInstanceRules());
+		themeSheet.addAll(graphProvider.getRules());
+
+		// IStyleFactory styles = get(IStyleFactory.class);
+		// themeSheet.addRule(Select.graph("RootGraph").withStyle(styles.backgroundColor("#cccccc")));
+
+		FileOutputStream tmp = new FileOutputStream(new File("./output/abc_abc_vertical_default.png"));
+
+		// Render without the default styles. Use styles from SimpleGraph1
+		graphviz.writePNG(tmp, GraphvizLayout.dot, testGraph, theme.getDefaultRules(), themeSheet);
+
+		// Render without the default styles. Use styles from SimpleGraph1
+		FileOutputStream dot = new FileOutputStream(new File("./output/abc_abc_vertical_default.dot"));
+		DotRenderer dotRenderer = get(DotRenderer.class);
+		dotRenderer.write(dot, testGraph, theme.getDefaultRules(), themeSheet);
+
+	}
 
 	public void testPNG_abc_horizontal_default() throws FileNotFoundException {
 		IGraphviz graphviz = get(IGraphviz.class);
@@ -52,10 +80,9 @@ public class TestRenderingToPng extends AbstractGraphTests {
 		// Render without the default styles. Use styles from SimpleGraph1
 		graphviz.writePNG(png, GraphvizLayout.dot, testGraph, theme.getDefaultRules(), themeSheet);
 
-		DotRenderer dotRenderer = get(DotRenderer.class);
-		FileOutputStream dot = new FileOutputStream(new File("./output/abc_horizontal_default.dot"));
-
 		// Render without the default styles. Use styles from SimpleGraph1
+		FileOutputStream dot = new FileOutputStream(new File("./output/abc_horizontal_default.dot"));
+		DotRenderer dotRenderer = get(DotRenderer.class);
 		dotRenderer.write(dot, testGraph, theme.getDefaultRules(), themeSheet);
 
 	}

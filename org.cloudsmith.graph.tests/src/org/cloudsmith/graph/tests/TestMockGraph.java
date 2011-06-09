@@ -32,8 +32,6 @@ public class TestMockGraph extends AbstractGraphTests {
 	 * Output produced by a very simple graph with no styling.
 	 */
 	public static final String testSimpleGraph1_dotOutput_text = "digraph root {\n" + //
-			"subgraph \"-root\" {\n" + //
-			"label=\"a graph\";\n" + //
 			"\"root-v1\" [\n" + //
 			"label=\"a\"];\n" + //
 			"\"root-v2\" [\n" + //
@@ -42,7 +40,7 @@ public class TestMockGraph extends AbstractGraphTests {
 			"label=\"c\"];\n" + //
 			"\"root-v1\" -> \"root-v2\";\n" + //
 			"\"root-v2\" -> \"root-v3\";\n" + //
-			"}\n" + //
+			"label=\"a graph\";\n" + //
 			"}\n";
 
 	public void testSimpleGraph1_dotOutput() {

@@ -101,28 +101,24 @@ public class TestBasicFeatures extends AbstractGraphTests {
 	 * Output produced by a very simple graph with no identities.
 	 */
 	public static final String testGraph_noIdentities_expected = "digraph root {\n" + //
-			"subgraph \"-root\" {\n" + //
-			"label=\"a test graph\";\n" + //
 			"\"root-v1\" [\n" + "label=\"a\"];\n" + //
 			"\"root-v2\" [\n" + "label=\"b\"];\n" + //
 			"\"root-v3\" [\n" + "label=\"c\"];\n" + //
 			"\"root-v1\" -> \"root-v2\";\n" + //
 			"\"root-v2\" -> \"root-v3\";\n" + //
-			"}\n" + //
+			"label=\"a test graph\";\n" + //
 			"}\n";
 
 	/**
 	 * Output produced by a very simple graph with no identities.
 	 */
 	public static final String testGraph_Identities_expected = "digraph root {\n" + //
-			"subgraph \"-root\" {\n" + //
-			"label=\"a test graph\";\n" + //
 			"\"root-a\" [\n" + "label=\"a\"];\n" + //
 			"\"root-b\" [\n" + "label=\"b\"];\n" + //
 			"\"root-c\" [\n" + "label=\"c\"];\n" + //
 			"\"root-a\" -> \"root-b\";\n" + //
 			"\"root-b\" -> \"root-c\";\n" + //
-			"}\n" + //
+			"label=\"a test graph\";\n" + //
 			"}\n";
 
 	/**
