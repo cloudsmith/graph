@@ -19,6 +19,8 @@ import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.ISubGraph;
 import org.cloudsmith.graph.IVertex;
 
+import com.google.common.collect.Iterables;
+
 /**
  * A graph is a container of other graph elements (which include other graphs as subgraphs, vertexes and edges).
  * This implementation of {@link IGraph} works with instances of other graph elements in the same package
@@ -31,6 +33,18 @@ public class Graph extends GraphElement implements IGraph {
 	private ArrayList<ISubGraph> subgraphs;
 
 	private ArrayList<IVertex> vertices;
+
+	protected Graph(IGraph that) {
+		super(that);
+		edges = new ArrayList<IEdge>();
+		Iterables.addAll(edges, that.getEdges());
+
+		vertices = new ArrayList<IVertex>();
+		Iterables.addAll(vertices, that.getVertices());
+
+		subgraphs = new ArrayList<ISubGraph>();
+		Iterables.addAll(subgraphs, that.getSubgraphs());
+	}
 
 	protected Graph(String styleClass) {
 		this(styleClass, null);

@@ -12,6 +12,8 @@
 package org.cloudsmith.graph.elements;
 
 import org.cloudsmith.graph.ElementType;
+import org.cloudsmith.graph.IClusterGraph;
+import org.cloudsmith.graph.IRootGraph;
 import org.cloudsmith.graph.ISubGraph;
 
 /**
@@ -21,12 +23,26 @@ import org.cloudsmith.graph.ISubGraph;
  */
 public class SubGraph extends Graph implements ISubGraph {
 
+	protected SubGraph(Graph g) {
+		super(g);
+	}
+
 	public SubGraph(String styleClass) {
 		super(styleClass);
 	}
 
 	public SubGraph(String styleClass, String id) {
 		super(styleClass, id);
+	}
+
+	@Override
+	public IClusterGraph asClusterGraph(String label) {
+		return new ClusterGraph(label, this);
+	}
+
+	@Override
+	public IRootGraph asRootGraph(String label) {
+		return new RootGraph(label, this);
 	}
 
 	@Override

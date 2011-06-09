@@ -14,6 +14,7 @@ package org.cloudsmith.graph.elements;
 import org.cloudsmith.graph.ElementType;
 import org.cloudsmith.graph.IClusterGraph;
 import org.cloudsmith.graph.ILabeledGraphElement;
+import org.cloudsmith.graph.IRootGraph;
 
 /**
  * A concrete implementation of ISubGraph. A SubGraph acts as a container with no visual bounds or appearance of
@@ -22,8 +23,16 @@ import org.cloudsmith.graph.ILabeledGraphElement;
  */
 public class ClusterGraph extends LabeledGraph implements IClusterGraph, ILabeledGraphElement {
 
+	public ClusterGraph(LabeledGraph g) {
+		super(g);
+	}
+
 	public ClusterGraph(String styleClass) {
 		super(styleClass);
+	}
+
+	public ClusterGraph(String label, Graph g) {
+		super(label, g);
 	}
 
 	public ClusterGraph(String styleClass, String id) {
@@ -34,9 +43,33 @@ public class ClusterGraph extends LabeledGraph implements IClusterGraph, ILabele
 		super(label, styleClass, id);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.ISubGraph#asClusterGraph(java.lang.String)
+	 */
+	@Override
+	public IClusterGraph asClusterGraph(String label) {
+		return this;
+	}
+
+	@Override
+	public IRootGraph asRootGraph() {
+		return new RootGraph(this);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.ISubGraph#asRootGraph(java.lang.String)
+	 */
+	@Override
+	public IRootGraph asRootGraph(String label) {
+		return new RootGraph(label, this);
+	}
+
 	@Override
 	public ElementType getElementType() {
 		return ElementType.cluster;
 	}
-
 }

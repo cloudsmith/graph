@@ -69,6 +69,15 @@ public abstract class GraphElement implements IGraphElement {
 		this("", null);
 	}
 
+	protected GraphElement(IGraphElement that) {
+		this.id = that.getId();
+		this.styleClass = that.getStyleClass();
+		if(that.getStyles() != null) {
+			this.instanceStyleMap = new StyleSet();
+			this.instanceStyleMap.add(that.getStyles());
+		}
+	}
+
 	public GraphElement(String styleClass) {
 		this(styleClass, null);
 	}

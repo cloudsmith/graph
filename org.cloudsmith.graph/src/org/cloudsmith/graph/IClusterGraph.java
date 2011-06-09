@@ -17,4 +17,12 @@ package org.cloudsmith.graph;
  */
 public interface IClusterGraph extends ISubGraph, ILabeledGraphElement {
 
+	/**
+	 * Create a new RootGraph with the same content as this subgraph.
+	 * 
+	 * @return an IRootGraph being a copy of this cluster graph's content.
+	 */
+
+	public abstract IRootGraph asRootGraph();
+
 }

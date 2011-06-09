@@ -12,8 +12,10 @@
 package org.cloudsmith.graph.elements;
 
 import org.cloudsmith.graph.ElementType;
+import org.cloudsmith.graph.IClusterGraph;
 import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.IRootGraph;
+import org.cloudsmith.graph.ISubGraph;
 
 /**
  * A graph is a container of other graph elements (which include other graphs as subgraphs, vertexes and edges).
@@ -23,6 +25,21 @@ import org.cloudsmith.graph.IRootGraph;
  */
 public class RootGraph extends LabeledGraph implements IRootGraph {
 
+	/**
+	 * @param clusterGraph
+	 */
+	public RootGraph(IClusterGraph that) {
+		super(that);
+	}
+
+	public RootGraph(IRootGraph that) {
+		super(that);
+	}
+
+	public RootGraph(String label, IGraph that) {
+		super(label, that);
+	}
+
 	public RootGraph(String label, String styleClass) {
 		this(label, styleClass, null);
 	}
@@ -30,6 +47,16 @@ public class RootGraph extends LabeledGraph implements IRootGraph {
 	public RootGraph(String label, String styleClass, String id) {
 		super(label, styleClass, id);
 
+	}
+
+	@Override
+	public IClusterGraph asCluster() {
+		return new ClusterGraph(this);
+	}
+
+	@Override
+	public ISubGraph asSubGraph() {
+		return new SubGraph(this);
 	}
 
 	@Override

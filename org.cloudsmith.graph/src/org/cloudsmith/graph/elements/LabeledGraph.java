@@ -14,7 +14,10 @@ package org.cloudsmith.graph.elements;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.ILabeledGraphElement;
+
+import com.google.common.collect.Maps;
 
 /**
  * An IGraph that is also ILabeledGraphElement
@@ -28,6 +31,18 @@ public abstract class LabeledGraph extends Graph implements ILabeledGraphElement
 
 	protected LabeledGraph() {
 		this(null, "", "", null);
+	}
+
+	protected LabeledGraph(IGraph graph) {
+		super(graph);
+		if(!(graph instanceof LabeledGraphElement))
+			throw new IllegalArgumentException("graph must implement ILabeledGraphElement");
+		ILabeledGraphElement that = (ILabeledGraphElement) graph;
+		this.label = that.getLabel();
+		if(that.getData() != null) {
+			this.data = Maps.newHashMap();
+			this.data.putAll(that.getData());
+		}
 	}
 
 	protected LabeledGraph(Map<String, String> data) {
@@ -50,6 +65,11 @@ public abstract class LabeledGraph extends Graph implements ILabeledGraphElement
 
 	protected LabeledGraph(String styleClass) {
 		this(null, "", styleClass, null);
+	}
+
+	protected LabeledGraph(String label, IGraph that) {
+		super(that);
+		this.label = label;
 	}
 
 	protected LabeledGraph(String styleClass, String id) {

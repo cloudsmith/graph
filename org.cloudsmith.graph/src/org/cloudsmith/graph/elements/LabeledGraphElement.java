@@ -17,6 +17,8 @@ import java.util.Map;
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.ILabeledGraphElement;
 
+import com.google.common.collect.Maps;
+
 /**
  * 
  *
@@ -28,6 +30,15 @@ public abstract class LabeledGraphElement extends GraphElement implements IGraph
 
 	public LabeledGraphElement() {
 		this(null, "", "", null);
+	}
+
+	protected LabeledGraphElement(LabeledGraphElement that) {
+		super(that);
+		this.label = that.label;
+		if(that.data != null) {
+			this.data = Maps.newHashMap();
+			this.data.putAll(that.data);
+		}
 	}
 
 	public LabeledGraphElement(Map<String, String> data) {
