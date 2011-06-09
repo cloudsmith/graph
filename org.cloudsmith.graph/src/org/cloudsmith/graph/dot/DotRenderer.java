@@ -19,6 +19,7 @@ import org.cloudsmith.graph.IClusterGraph;
 import org.cloudsmith.graph.IEdge;
 import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.IGraphElement;
+import org.cloudsmith.graph.IRootGraph;
 import org.cloudsmith.graph.IVertex;
 import org.cloudsmith.graph.elements.Edge;
 import org.cloudsmith.graph.elements.RootGraph;
@@ -51,7 +52,7 @@ public class DotRenderer {
 
 	private StyleSet defaultEdgeStyles;
 
-	private RootGraph graphPrototype;
+	private IRootGraph graphPrototype;
 
 	private Vertex vertexPrototype;
 
@@ -169,6 +170,7 @@ public class DotRenderer {
 	}
 
 	private void printGraphBody(IGraph graph) {
+
 		// print the root graph's attributes
 
 		// graphs have their styles set as statements instead of as a list after the body.
@@ -178,6 +180,18 @@ public class DotRenderer {
 		// graph { a; b; a->b; }[color="blue"];
 		//
 
+		// Print all the vertices
+		for(IVertex v : graph.getVertices())
+			printVertex(v);
+		// and all the edges
+		for(IEdge e : graph.getEdges())
+			printEdge(e);
+
+		// Print all the subgraphs first so they do not inherit settings intended for the root
+		// graph. All inherited styles should have been set as defaults per element type.
+		for(IGraph g : graph.getSubgraphs())
+			printGraph(g);
+
 		ByteArrayOutputStream tmp = new ByteArrayOutputStream();
 		PrintStream tmpOut = new PrintStream(tmp);
 
@@ -186,16 +200,6 @@ public class DotRenderer {
 			out.print(tmp.toString());
 			out.print("\n");
 		}
-
-		// Print all the subgraphs
-		for(IGraph g : graph.getSubgraphs())
-			printGraph(g);
-		// Print all the vertices
-		for(IVertex v : graph.getVertices())
-			printVertex(v);
-		// and all the edges
-		for(IEdge e : graph.getEdges())
-			printEdge(e);
 
 	}
 
@@ -289,7 +293,9 @@ public class DotRenderer {
 		printDefaultEdgeStyling();
 
 		// print the graph
-		printGraph(graph);
+		printGraphBody(graph);
+
+		// printGraph(graph);
 
 		// close
 		out.printf("}\n");
