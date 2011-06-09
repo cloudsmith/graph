@@ -103,6 +103,11 @@ public class TestRenderingToPng extends AbstractGraphTests {
 
 		// Render without the default styles. Use styles from SimpleGraph1
 		graphviz.writePNG(tmp, GraphvizLayout.dot, testGraph, theme.getDefaultRules(), themeSheet);
+
+		// Render without the default styles. Use styles from SimpleGraph1
+		FileOutputStream dot = new FileOutputStream(new File("./output/abc_vertical_default.dot"));
+		DotRenderer dotRenderer = get(DotRenderer.class);
+		dotRenderer.write(dot, testGraph, theme.getDefaultRules(), themeSheet);
 	}
 
 	public void testPNG_abc_vertical_unstyled() throws FileNotFoundException {
