@@ -15,7 +15,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.IGraphProvider;
 import org.cloudsmith.graph.IRootGraph;
 import org.cloudsmith.graph.elements.Edge;
@@ -24,7 +23,6 @@ import org.cloudsmith.graph.graphcss.Rule;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
-import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
 
 /**
@@ -54,7 +52,7 @@ public class EGraphProvider implements IGraphProvider {
 	 * @see org.cloudsmith.graph.IGraphProvider#computeGraph(java.lang.Object)
 	 */
 	@Override
-	public IGraph computeGraph(Object model) {
+	public IRootGraph computeGraph(Object model) {
 		return computeGraph(model, "an EMF instance graph", "root");
 	}
 
@@ -64,12 +62,12 @@ public class EGraphProvider implements IGraphProvider {
 	 * @see org.cloudsmith.graph.emf.IEGraphProvider#computeGraph(org.eclipse.emf.ecore.EObject, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public IGraph computeGraph(Object modelObj, String label, String id) {
+	public IRootGraph computeGraph(Object modelObj, String label, String id) {
 		if(!(modelObj instanceof EObject))
 			throw new IllegalArgumentException("EGraphProvider can only compute a graph for an EObject");
 		EObject model = (EObject) modelObj;
 		// Create the main graph
-		RootGraph g = new RootGraph(label, id);
+		RootGraph g = new RootGraph(label, "RootGraph", id);
 
 		// Compute the label style for all classes in the model
 		rules = Collections.unmodifiableCollection(labelStyleProvider.configureLabelStyles(model));
@@ -84,8 +82,12 @@ public class EGraphProvider implements IGraphProvider {
 
 	private void computeGraph(RootGraph g, EVertex v, EObject model) {
 		// Process everything the root references (contained, and referenced)
-		for(EReference reference : Iterables.concat(
-			model.eClass().getEAllContainments(), model.eClass().getEAllReferences())) {
+		for(EReference reference :
+		// Iterables.concat(
+		// model.eClass().getEAllContainments(),
+		model.eClass().getEAllReferences()
+		// )
+		) {
 			if(reference.isMany()) {
 				List<EObject> allReferenced = safeListCast(model.eGet(reference), EObject.class);
 				int counter = 0;
@@ -117,6 +119,7 @@ public class EGraphProvider implements IGraphProvider {
 						g.addEdge(edge_n);
 					}
 					counter++;
+					previousVertex = v2;
 					computeGraph(g, v2, referenced);
 				}
 			}

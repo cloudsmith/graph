@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.cloudsmith.graph.ElementType;
+import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.graphcss.IFunctionFactory;
 import org.cloudsmith.graph.graphcss.Rule;
 import org.cloudsmith.graph.graphcss.Select;
@@ -31,6 +32,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
+import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
@@ -43,6 +45,30 @@ import com.google.inject.Inject;
  * 
  */
 public class EAttributeBasedLabelStyleProvider implements IELabelStyleProvider {
+
+	private static class AttributeFunction implements Function<IGraphElement, String> {
+		private EAttribute attribute;
+
+		public AttributeFunction(EAttribute attribute) {
+			this.attribute = attribute;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see com.google.common.base.Function#apply(java.lang.Object)
+		 */
+		@Override
+		public String apply(IGraphElement from) {
+			if(!(from instanceof EVertex))
+				return "ERROR: not an EVertex";
+			EObject obj = ((EVertex) from).getEObject();
+			Object x = obj.eGet(attribute);
+			if(x == null)
+				return "null"; // TODO: should probably be ""
+			return x.toString(); // TODO: should use a to string provider
+		}
+	}
 
 	/**
 	 * The name of the style containing an attribute value.
@@ -92,6 +118,7 @@ public class EAttributeBasedLabelStyleProvider implements IELabelStyleProvider {
 
 	@Inject
 	public EAttributeBasedLabelStyleProvider(IStyleFactory styleFactory) {
+		styles = styleFactory;
 		classToStyle = Maps.newHashMap();
 	}
 
@@ -112,6 +139,8 @@ public class EAttributeBasedLabelStyleProvider implements IELabelStyleProvider {
 	 * @return
 	 */
 	protected StyleSet computeLabelStyle(EClass classifier) {
+		if(classifier == null)
+			throw new IllegalArgumentException("classifier can not be null");
 		List<EAttribute> attributes = Lists.newArrayList();
 		attributes.addAll(classifier.getEAllAttributes());
 		Collections.sort(attributes, new Comparator<EAttribute>() {
@@ -126,15 +155,17 @@ public class EAttributeBasedLabelStyleProvider implements IELabelStyleProvider {
 
 		// First row contains an index cell that spans all rows
 		// Class-name cell spans two columns.
-		labelRows[0] = styles.labelRow(STYLE__CLASS_ROW, //
-			styles.labelCell(STYLE__INDEX_CELL, "ix", Span.rowSpan(labelRows.length)), //
-			styles.labelCell(STYLE__CLASS_NAME_CELL, classifier.getName(), Span.colSpan(2)));
+		labelRows[0] = styles.labelRow(
+			STYLE__CLASS_ROW, //
+			styles.labelCell(
+				STYLE__INDEX_CELL, functions.labelData(EVertex.DATA_KEY_INDEX), Span.rowSpan(labelRows.length)), //
+			styles.labelCell(STYLE__CLASS_NAME_CELL, "<B>" + classifier.getName() + "</B>", Span.colSpan(2)));
 
 		int index = 1;
 		for(EAttribute a : attributes) {
 			labelRows[index++] = styles.labelRow(STYLE__ATTRIBUTE_ROW, //
 				styles.labelCell(STYLE__ATTRIBUTE_NAME_CELL, a.getName()), //
-				styles.labelCell(STYLE__ATTRIBUTE_VALUE_CELL, "#{element.eobject." + a.getName() + "}"));
+				styles.labelCell(STYLE__ATTRIBUTE_VALUE_CELL, new AttributeFunction(a)));
 		}
 		return StyleSet.withStyle(styles.labelFormat(styles.labelTable(STYLE__E_OBJECT_TABLE, labelRows)));
 	}

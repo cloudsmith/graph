@@ -26,6 +26,7 @@ public class AllTests {
 		suite.addTestSuite(TestBasicFeatures.class);
 		suite.addTestSuite(TestMockGraph.class);
 		suite.addTestSuite(TestRenderingToPng.class);
+		suite.addTestSuite(TestEGraph.class);
 		// suite.addTestSuite(PPTPManagerTests.class);
 		// $JUnit-END$
 		return suite;

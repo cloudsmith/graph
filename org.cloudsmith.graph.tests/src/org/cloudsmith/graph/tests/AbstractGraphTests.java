@@ -50,6 +50,6 @@ public class AbstractGraphTests extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		injector = Guice.createInjector(new DefaultGraphModule());
+		injector = Guice.createInjector(getModule());
 	}
 }

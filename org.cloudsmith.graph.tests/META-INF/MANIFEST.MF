@@ -10,6 +10,7 @@ Require-Bundle: org.cloudsmith.graph,
  org.eclipse.emf.ecore,
  com.google.collect,
  com.google.inject,
- org.junit
+ org.junit,
+ org.cloudsmith.geppetto.pp;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
