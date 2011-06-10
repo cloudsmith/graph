@@ -42,7 +42,7 @@ public interface IGraphProvider {
 	 * @param id
 	 * @return
 	 */
-	public IGraph computeGraph(Object model);
+	public IRootGraph computeGraph(Object model);
 
 	/**
 	 * Method that transforms/computes the given model to a graph, using the given label and id as graph label/id.
