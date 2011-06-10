@@ -896,8 +896,8 @@ public class StyleFactory implements IStyleFactory {
 	 * @see org.cloudsmith.graph.style.IStyleFactory#labelCell(com.google.common.base.Function, com.google.common.base.Function)
 	 */
 	@Override
-	public LabelCell labelCell(Function<IGraphElement, String> styleClass, Function<IGraphElement, String> f) {
-		return new LabelCell(styleClass, f);
+	public LabelCell labelCell(Function<IGraphElement, String> styleClass, Function<IGraphElement, String> f, Span span) {
+		return new LabelCell(styleClass, f, span);
 	}
 
 	/*
@@ -908,6 +908,16 @@ public class StyleFactory implements IStyleFactory {
 	@Override
 	public LabelCell labelCell(String styleClass, Function<IGraphElement, String> f) {
 		return new LabelCell(functions.literalString(styleClass), f);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.style.IStyleFactory#labelCell(java.lang.String, com.google.common.base.Function)
+	 */
+	@Override
+	public LabelCell labelCell(String styleClass, Function<IGraphElement, String> f, Span span) {
+		return new LabelCell(functions.literalString(styleClass), f, span);
 	}
 
 	@Override

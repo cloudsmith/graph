@@ -52,11 +52,11 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 	public abstract LabelTable build();
 
 	final protected LabelCell cell(Function<IGraphElement, String> styleClass, Function<IGraphElement, String> f) {
-		return styleFactory.labelCell(styleClass, f);
+		return styleFactory.labelCell(styleClass, f, null);
 	}
 
 	final protected LabelCell cell(String styleClass, Function<IGraphElement, String> f) {
-		return styleFactory.labelCell(styleClass, f);
+		return styleFactory.labelCell(styleClass, f, null);
 	}
 
 	final protected LabelCell cell(String styleClass, String s) {
