@@ -28,6 +28,7 @@ import org.cloudsmith.graph.graphcss.GraphCSS;
 import org.cloudsmith.graph.graphcss.StyleSet;
 import org.cloudsmith.graph.style.Alignment;
 import org.cloudsmith.graph.style.IStyle;
+import org.cloudsmith.graph.style.IStyleFactory;
 import org.cloudsmith.graph.style.IStyleVisitor;
 import org.cloudsmith.graph.style.Span;
 import org.cloudsmith.graph.style.StyleFactory;
@@ -36,6 +37,7 @@ import org.cloudsmith.graph.style.StyleVisitor;
 import org.cloudsmith.graph.style.VerticalAlignment;
 import org.cloudsmith.graph.style.labels.ILabelTemplate;
 import org.cloudsmith.graph.style.labels.LabelCell;
+import org.cloudsmith.graph.style.labels.LabelMatrix;
 import org.cloudsmith.graph.style.labels.LabelRow;
 import org.cloudsmith.graph.style.labels.LabelStringTemplate;
 import org.cloudsmith.graph.style.labels.LabelTable;
@@ -50,6 +52,9 @@ import com.google.inject.Singleton;
  */
 @Singleton
 public class DotLabelRenderer {
+
+	@Inject
+	IStyleFactory styles;
 
 	@Inject
 	public DotLabelRenderer() {
@@ -253,6 +258,8 @@ public class DotLabelRenderer {
 			return printStringLabel(
 				out, theGraphElement, ((LabelStringTemplate) labelTemplate).getTemplateString(theGraphElement),
 				printComma, sepChar);
+		else if(labelTemplate instanceof LabelMatrix)
+			return printMatrix(out, theGraphElement, (LabelMatrix) labelTemplate, printComma, sepChar, gcss);
 		return printTable(out, theGraphElement, (LabelTable) labelTemplate, printComma, sepChar, gcss);
 
 	}
@@ -310,6 +317,44 @@ public class DotLabelRenderer {
 			out.print("</FONT>");
 		out.print(">");
 		return true;
+	}
+
+	private boolean printMatrix(PrintStream out, ILabeledGraphElement theGraphElement, LabelMatrix templateMatrix,
+			boolean printComma, char sepChar, GraphCSS gcss) {
+
+		// create the GraphTable using a styleClass that is possibly set using
+		// EL
+		String tmp = templateMatrix.getStyleClass(theGraphElement);
+
+		GraphTable gt = new GraphTable(tmp);
+
+		// set parent so containment selection for styles work
+		gt.setParentElement(theGraphElement);
+		// set a port "pt" on the table itself so it can be pointed to
+		gt.setStyles(styles.port("pt"));
+
+		// For all rows in the template, create a GraphRow
+		for(int r = 0; r < templateMatrix.getRows(); r++) {
+			tmp = templateMatrix.getRowStyleClass(theGraphElement);
+			GraphRow gr = new GraphRow(tmp);
+			gt.addRow(gr);
+			// for all cells in the template, create a GraphCell
+			for(int c = 0; c < templateMatrix.getColumns(); c++) {
+				tmp = templateMatrix.getCellStyleClass(theGraphElement);
+				String val = templateMatrix.getValue(r, c);
+				GraphCell gc = new GraphCell(val, tmp);
+				gr.addCell(gc);
+
+				StyleSet styleMap = new StyleSet();
+				styleMap.put(styles.port("p" + templateMatrix.getValue(r, c)));
+				gc.setStyles(styleMap);
+
+			}
+		}
+		// Now armed with the label graph - we need to visit those nodes, get the styling of them, and provide
+		// output!
+		//
+		return printGraphTable(out, theGraphElement, printComma, sepChar, gt, gcss);
 	}
 
 	private boolean printStringLabel(PrintStream out, ILabeledGraphElement theGraphElement, String simpleTemplate,
