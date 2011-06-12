@@ -16,6 +16,7 @@ import java.util.Iterator;
 import org.cloudsmith.graph.ElementType;
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.graphcss.StyleSet;
+import org.cloudsmith.graph.style.IStyle;
 
 /**
  * Base implementation of an IGraphElement.
@@ -138,6 +139,15 @@ public abstract class GraphElement implements IGraphElement {
 
 	public void setStyleClass(String styleClass) {
 		this.styleClass = styleClass;
+	}
+
+	public void setStyles(IStyle<?>... styles) {
+		if(styles.length > 0) {
+			if(instanceStyleMap != null)
+				instanceStyleMap.add(StyleSet.withStyles(styles));
+			else
+				instanceStyleMap = StyleSet.withStyles(styles);
+		}
 	}
 
 	/**
