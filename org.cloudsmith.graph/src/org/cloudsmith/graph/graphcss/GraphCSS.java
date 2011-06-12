@@ -56,11 +56,6 @@ public class GraphCSS {
 		cssRules = new ArrayList<Rule>();
 	}
 
-	public void addAll(Collection<Rule> rules) {
-		for(Rule r : rules)
-			addRule(r);
-	}
-
 	/**
 	 * Adds all rules from another ruleset.
 	 * 
@@ -71,6 +66,11 @@ public class GraphCSS {
 		// and rule cloned.
 		//
 		for(Rule r : ruleSet.cssRules)
+			addRule(r);
+	}
+
+	public void addAll(Iterable<Rule> rules) {
+		for(Rule r : rules)
 			addRule(r);
 	}
 
