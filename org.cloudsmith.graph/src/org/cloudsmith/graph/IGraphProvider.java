@@ -11,8 +11,6 @@
  */
 package org.cloudsmith.graph;
 
-import java.util.Collection;
-
 import org.cloudsmith.graph.graphcss.Rule;
 
 /**
@@ -62,6 +60,6 @@ public interface IGraphProvider {
 	 * 
 	 * @return
 	 */
-	public Collection<Rule> getRules();
+	public Iterable<Rule> getRules();
 
 }
