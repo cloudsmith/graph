@@ -13,6 +13,7 @@ package org.cloudsmith.graph.emf;
 
 import org.cloudsmith.graph.IVertex;
 import org.cloudsmith.graph.elements.Edge;
+import org.cloudsmith.graph.style.themes.DefaultStyleTheme;
 import org.eclipse.emf.ecore.EReference;
 
 /**
@@ -29,8 +30,8 @@ public class EEdge extends Edge {
 
 	private static String styleClassFor(EReference e) {
 		return e.isContainment()
-				? "Containment"
-				: "Reference";
+				? DefaultStyleTheme.THEME_EDGE_CONTAINMENT
+				: DefaultStyleTheme.THEME_EDGE_REFERENCE;
 	}
 
 	private EReference referenceObj;
