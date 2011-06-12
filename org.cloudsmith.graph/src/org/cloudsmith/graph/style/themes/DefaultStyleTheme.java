@@ -48,6 +48,10 @@ public class DefaultStyleTheme implements IStyleTheme {
 
 	private Collection<Rule> defaultInstanceRuleSet;
 
+	public static final String THEME_EDGE_CONTAINMENT = "Containment";
+
+	public static final String THEME_EDGE_REFERENCE = "Reference";
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -148,6 +152,10 @@ public class DefaultStyleTheme implements IStyleTheme {
 		// Root graph should be compound by default (allow head/tail clip on cluster border).
 		Collections.addAll(rules, //
 			Select.element(ElementType.graph).withStyle(styles.compound(true)));
+
+		// Containment class edges should have a diamond by default
+		Collections.addAll(rules, Select.edge(THEME_EDGE_CONTAINMENT).withStyles( // styles
+			styles.direction(EdgeDirection.both), styles.arrowTail(Arrow.diamond)));
 
 		defaultInstanceRuleSet = Collections.unmodifiableList(rules);
 		return defaultInstanceRuleSet;
