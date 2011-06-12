@@ -22,10 +22,10 @@ import org.cloudsmith.graph.IGraphProvider;
 public class DefaultEGraphModule extends DefaultGraphModule {
 
 	/**
-	 * Binds a EMF model to Graph producer. This implementation binds {@link EGraphProvider}.
+	 * Binds a EMF model to Graph producer. This implementation binds {@link AbstractEGraphProvider}.
 	 */
 	protected void bindIEGraphProvider() {
-		bind(IGraphProvider.class).to(EGraphProvider.class);
+		bind(IGraphProvider.class).to(ChainedListEGraphProvider.class);
 	}
 
 	/**

@@ -25,6 +25,7 @@ import org.cloudsmith.graph.IGraphProvider;
 import org.cloudsmith.graph.IRootGraph;
 import org.cloudsmith.graph.dot.DotRenderer;
 import org.cloudsmith.graph.emf.DefaultEGraphModule;
+import org.cloudsmith.graph.emf.HorizontalArrayListEGraphProvider;
 import org.cloudsmith.graph.graphcss.GraphCSS;
 import org.cloudsmith.graph.graphviz.GraphvizLayout;
 import org.cloudsmith.graph.graphviz.IGraphviz;
@@ -93,6 +94,45 @@ public class TestEGraph extends AbstractGraphTests {
 
 		// Render without the default styles. Use styles from SimpleGraph1
 		FileOutputStream dot = new FileOutputStream(new File("./output/e_smokeTest.dot"));
+		DotRenderer dotRenderer = get(DotRenderer.class);
+		dotRenderer.write(dot, testGraph, theme.getDefaultRules(), themeSheet);
+
+		// Render without the default styles. Use styles from SimpleGraph1
+		assertTrue(
+			"Writing PNG", graphviz.writePNG(tmp, GraphvizLayout.dot, testGraph, theme.getDefaultRules(), themeSheet));
+
+	}
+
+	public void test_verticalIndex() throws FileNotFoundException {
+		// Need a model
+		// $x = "Hello Graph World"
+		final PPFactory pf = PPFactory.eINSTANCE;
+		PuppetManifest manifest = pf.createPuppetManifest();
+		EList<Expression> statements = manifest.getStatements();
+		AssignmentExpression assign = getAssignmentExpression("$x", "Hello EGraph World!");
+		statements.add(assign);
+		AssignmentExpression assign2 = getAssignmentExpression("$y", "Goodbye EGraph World!");
+		statements.add(assign2);
+
+		// Render it
+		IGraphviz graphviz = get(IGraphviz.class);
+		GraphCSS themeSheet = get(GraphCSS.class);
+
+		IGraphProvider graphProvider = get(HorizontalArrayListEGraphProvider.class);
+		IRootGraph testGraph = graphProvider.computeGraph(manifest);
+
+		IStyleTheme theme = get(IStyleTheme.class);
+		// append the theme's styles with those from the provider
+		themeSheet.addAll(theme.getInstanceRules());
+		themeSheet.addAll(graphProvider.getRules());
+
+		// IStyleFactory styles = get(IStyleFactory.class);
+		// themeSheet.addRule(Select.graph("RootGraph").withStyle(styles.backgroundColor("#cccccc")));
+
+		FileOutputStream tmp = new FileOutputStream(new File("./output/e_horizontalArrayIndex.png"));
+
+		// Render without the default styles. Use styles from SimpleGraph1
+		FileOutputStream dot = new FileOutputStream(new File("./output/e_horizontalArrayIndex.png.dot"));
 		DotRenderer dotRenderer = get(DotRenderer.class);
 		dotRenderer.write(dot, testGraph, theme.getDefaultRules(), themeSheet);
 
