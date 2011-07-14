@@ -31,7 +31,7 @@ public interface IGraphProvider {
 	public IRootGraph computeGraph();
 
 	/**
-	 * Method that transforms/computes the given model to a graph, using the a label and id determined
+	 * Method that transforms/computes the given model to a graph, using a label and id determined
 	 * by the producer.
 	 * This method should also compute any graph specific styling rules (returned by {@link #getRules()}).
 	 * 
