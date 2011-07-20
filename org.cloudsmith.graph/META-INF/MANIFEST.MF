@@ -5,7 +5,6 @@ Bundle-SymbolicName: org.cloudsmith.graph
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: org.eclipse.core.runtime,
  javax.servlet;bundle-version="2.5.0",
- org.apache.commons.el;bundle-version="1.0.0",
  com.google.collect,
  com.google.inject
 Bundle-ActivationPolicy: lazy
