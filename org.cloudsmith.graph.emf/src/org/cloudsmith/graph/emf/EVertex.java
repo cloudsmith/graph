@@ -14,8 +14,6 @@ package org.cloudsmith.graph.emf;
 import org.cloudsmith.graph.elements.Vertex;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
  * A Vertex that is configured from an EObject, and that remembers the EObject.
@@ -30,12 +28,13 @@ public class EVertex extends Vertex {
 		EAttribute a = o.eClass().getEIDAttribute();
 		if(a != null)
 			result = o.eGet(a).toString();
-		if(result == null) {
-			Resource r = o.eResource();
-
-			if(r != null)
-				result = EcoreUtil.getURI(o).toString();
-		}
+		// Don't do this, it means that all edges will use the URL to create associations
+		// if(result == null) {
+		// Resource r = o.eResource();
+		//
+		// if(r != null)
+		// result = EcoreUtil.getURI(o).toString();
+		// }
 		return result;
 	}
 
@@ -51,7 +50,8 @@ public class EVertex extends Vertex {
 
 	/**
 	 * Vertex configured from the given EObject. Label, and style class is the classname, id is
-	 * the eId if one exists, the URI if EObject is contained in a resource, or null (default id in parent).
+	 * the eId if one exists. The URI is not used if EObject is contained in a resource as this would create
+	 * output that is too big. Null is used if eId is not set (i.e. default id in parent).
 	 * 
 	 * @param o
 	 */
