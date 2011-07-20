@@ -400,18 +400,25 @@ public class DotLabelRenderer {
 						: val;
 				GraphCell gc = new GraphCell(val, tmp);
 
+				// TODO: MUST BE ABLE TO PICK UP INSTANCE STYLES FOR LABEL CELL
+
+				// If the labelCell has instance styles, make sure they are included
+				StyleSet instanceSet = c.getStyles();
+				StyleSet styleMap = new StyleSet();
+				styleMap.add(instanceSet);
+
 				// If the label cell has a span that is not 1x1, set that as instance style
 				// of the rendered IGraphCell.
 				Span span = c.getSpan();
 				if(span != null && span != Span.SPAN_1x1) {
-					StyleSet styleMap = new StyleSet();
 					if(span.getRowspan() != 1)
 						styleMap.put(new StyleFactory.RowSpan(span.getRowspan()));
 					if(span.getColspan() != 1)
 						styleMap.put(new StyleFactory.ColSpan(span.getColspan()));
-					if(styleMap.getStyles().size() > 0)
-						gc.setStyles(styleMap);
 				}
+				// If there were any instance styles - apply them
+				if(styleMap.getStyles().size() > 0)
+					gc.setStyles(styleMap);
 				gr.addCell(gc);
 			}
 		}

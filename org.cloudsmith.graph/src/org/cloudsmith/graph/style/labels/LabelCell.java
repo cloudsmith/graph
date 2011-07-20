@@ -12,6 +12,8 @@
 package org.cloudsmith.graph.style.labels;
 
 import org.cloudsmith.graph.IGraphElement;
+import org.cloudsmith.graph.graphcss.StyleSet;
+import org.cloudsmith.graph.style.IStyle;
 import org.cloudsmith.graph.style.Span;
 
 import com.google.common.base.Function;
@@ -25,6 +27,8 @@ public class LabelCell {
 	private Function<IGraphElement, String> styleClassFunc;
 
 	private final Span span;
+
+	private StyleSet instanceStyles;
 
 	/**
 	 * @param styleClass2
@@ -50,7 +54,34 @@ public class LabelCell {
 		return styleClassFunc.apply(ge);
 	}
 
+	public StyleSet getStyles() {
+		return instanceStyles;
+	}
+
 	public String getValue(IGraphElement ge) {
 		return valueFunc.apply(ge);
 	}
+
+	public LabelCell withStyle(IStyle<?> style) {
+		return withStyles(style);
+	}
+
+	/**
+	 * Convenience method to set instance styles on a LabelCell.
+	 * It is illegal to call this method more than once.
+	 * 
+	 * @param styles
+	 * @return the LabelCell
+	 */
+	public LabelCell withStyles(IStyle<?>... styles) {
+		if(instanceStyles != null)
+			throw new IllegalArgumentException("LabelCell's instance style is immutable once set");
+		StyleSet styleMap = new StyleSet();
+		for(IStyle<?> s : styles)
+			styleMap.put(s);
+		instanceStyles = styleMap;
+
+		return this;
+	}
+
 }
