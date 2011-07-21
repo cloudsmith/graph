@@ -73,6 +73,9 @@ public class StyleSet {
 	 * @param map
 	 */
 	public void add(StyleSet map) {
+		// avoid doing work if there is nothing to add
+		if(map == null || map.styleMap.size() == 0)
+			return;
 		if(styleMap == null)
 			styleMap = new EnumMap<StyleType, IStyle<? extends Object>>(StyleType.class);
 		styleMap.putAll(map.styleMap);

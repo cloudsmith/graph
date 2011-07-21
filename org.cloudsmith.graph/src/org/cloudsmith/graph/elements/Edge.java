@@ -51,9 +51,9 @@ public class Edge extends LabeledGraphElement implements IEdge {
 	public Edge(String label, String styleClass, IVertex from, IVertex to, String id) {
 		super(label, styleClass, id);
 		if(from == null)
-			throw new IllegalArgumentException("to can not be null");
-		if(to == null)
 			throw new IllegalArgumentException("from can not be null");
+		if(to == null)
+			throw new IllegalArgumentException("to can not be null");
 		this.from = from;
 		this.to = to;
 	}
