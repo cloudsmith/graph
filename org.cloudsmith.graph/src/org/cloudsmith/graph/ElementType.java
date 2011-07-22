@@ -71,6 +71,9 @@ public enum ElementType {
 	public static final Set<ElementType> CLUSTER_AND_GRAPH_AND_CELL_AND_TABLE = Sets.immutableEnumSet(
 		cluster, graph, cell, table);
 
+	public static final Set<ElementType> CLUSTER_AND_GRAPH_AND_CELL_AND_TABLE_AND_VERTEX = Sets.immutableEnumSet(
+		cluster, graph, cell, table, vertex);
+
 	public static final Set<ElementType> EDGE = Sets.immutableEnumSet(ElementType.edge);
 
 	/**

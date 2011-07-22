@@ -15,6 +15,7 @@ import static org.cloudsmith.graph.ElementType.ANY;
 import static org.cloudsmith.graph.ElementType.CELL;
 import static org.cloudsmith.graph.ElementType.CELL_AND_TABLE_AND_VERTEX;
 import static org.cloudsmith.graph.ElementType.CLUSTER_AND_GRAPH_AND_CELL_AND_TABLE;
+import static org.cloudsmith.graph.ElementType.CLUSTER_AND_GRAPH_AND_CELL_AND_TABLE_AND_VERTEX;
 import static org.cloudsmith.graph.ElementType.CLUSTER_AND_VERTEX;
 import static org.cloudsmith.graph.ElementType.EDGE;
 import static org.cloudsmith.graph.ElementType.EDGE_AND_GRAPH_AND_VERTEX;
@@ -127,7 +128,7 @@ public class StyleFactory implements IStyleFactory {
 	public static class Align extends AbstractStyle<Alignment> {
 		public Align(Alignment align) {
 			super(StyleType.align, align);
-			setTypes(TABLE_AND_CELL);
+			setTypes(CLUSTER_AND_GRAPH_AND_CELL_AND_TABLE);
 		}
 
 		@Override
@@ -725,7 +726,7 @@ public class StyleFactory implements IStyleFactory {
 	public static class VerticalAlign extends AbstractStyle<VerticalAlignment> {
 		public VerticalAlign(VerticalAlignment valign) {
 			super(StyleType.valign, valign);
-			setTypes(TABLE_AND_CELL);
+			setTypes(CLUSTER_AND_GRAPH_AND_CELL_AND_TABLE_AND_VERTEX);
 		}
 
 		@Override

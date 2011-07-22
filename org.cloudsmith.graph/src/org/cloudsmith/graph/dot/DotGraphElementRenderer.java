@@ -21,6 +21,7 @@ import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.ILabeledGraphElement;
 import org.cloudsmith.graph.graphcss.GraphCSS;
 import org.cloudsmith.graph.graphcss.StyleSet;
+import org.cloudsmith.graph.style.Alignment;
 import org.cloudsmith.graph.style.Arrow;
 import org.cloudsmith.graph.style.EdgeDirection;
 import org.cloudsmith.graph.style.EdgeRouting;
@@ -32,6 +33,7 @@ import org.cloudsmith.graph.style.RankDirection;
 import org.cloudsmith.graph.style.ShapeBrush;
 import org.cloudsmith.graph.style.StyleType;
 import org.cloudsmith.graph.style.StyleVisitor;
+import org.cloudsmith.graph.style.VerticalAlignment;
 import org.cloudsmith.graph.style.labels.ILabelTemplate;
 import org.cloudsmith.graph.utils.Counter;
 
@@ -90,6 +92,11 @@ public class DotGraphElementRenderer {
 				continue;
 
 			final IStyleVisitor visitor = new StyleVisitor() {
+				@Override
+				public void align(Alignment x) {
+					out.printf("%slabeljust=\"%s\"", o.separator(), x.toString().charAt(0));
+				}
+
 				@Override
 				public void arrowHead(Arrow x) {
 					out.printf("%sarrowhead=\"%s\"", o.separator(), x);
@@ -299,6 +306,17 @@ public class DotGraphElementRenderer {
 				public void unsupported(StyleType style) {
 					throw new IllegalArgumentException("Style:" + style + ", is not applicable to " +
 							"element of class: " + element.getClass());
+				}
+
+				@Override
+				public void verticalAlign(VerticalAlignment x) {
+					// The VerticalAlignment uses "c" for center when applied to lables, it is
+					// "middle" otherwise.
+					char c = x.toString().charAt(0);
+					if(c == 'm')
+						c = 'c';
+
+					out.printf("%slabelloc=\"%s\"", o.separator(), c);
 				}
 
 			};
