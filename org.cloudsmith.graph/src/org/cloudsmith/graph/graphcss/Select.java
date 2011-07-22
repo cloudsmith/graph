@@ -369,6 +369,31 @@ public class Select {
 
 	}
 
+	public static class ParentSelector extends Selector {
+		private Selector parentSelector;
+
+		public ParentSelector(Selector parentSelector) {
+			this.parentSelector = parentSelector;
+		}
+
+		@Override
+		public boolean equalMatch(Selector s) {
+			if(!(s instanceof ParentSelector))
+				return false;
+			return parentSelector.equalMatch(((ParentSelector) s).parentSelector);
+		}
+
+		@Override
+		public int getSpecificity() {
+			return parentSelector.getSpecificity();
+		}
+
+		@Override
+		public boolean matches(IGraphElement element) {
+			return parentSelector.matches(element.getParentElement());
+		}
+	}
+
 	public static abstract class Selector {
 		public static final int MAX_SPECIFICITY = Integer.MAX_VALUE;
 
@@ -483,6 +508,10 @@ public class Select {
 
 	public static Select.NullSelector nullSelector() {
 		return new Select.NullSelector();
+	}
+
+	public static Select.ParentSelector parent(Selector selector) {
+		return new Select.ParentSelector(selector);
 	}
 
 	public static Select.Element table() {
