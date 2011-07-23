@@ -103,6 +103,15 @@ public enum StyleType {
 	/** sets the tooltip of an element with a URL - i.e. HTML TITLE. Value is a {@link String}. */
 	tooltip,
 
+	/** sets the tooltip of an edge's label. Value is a {@link String}. */
+	tooltipForLabel,
+
+	/** sets the tooltip of an edge's Head. Value is a {@link String}. */
+	tooltipForHead,
+
+	/** sets the tooltip of an edge's Tail. Value is a {@link String}. */
+	tooltipForTail,
+
 	/**
 	 * sets the width (of a table, cell, node). Node's width is in points 0.02 minimum.
 	 * Value is a {@link Double}.

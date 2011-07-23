@@ -91,7 +91,12 @@ public class DefaultStyleTheme implements IStyleTheme {
 			styles.fontFamily("Verdana"), //
 			styles.fontSize(8), //
 			styles.shape(NodeShape.rectangle), //
-			styles.shapeBrush(LineType.solid, 0.5, true, true) //
+			styles.shapeBrush(LineType.solid, 0.5, true, true), //
+
+			// Tooltip handling in graphviz is not good, if empty, the label is used, and if it is a <TABLE>
+			// then the text "<TABLE>" is displayed !!, setting it to "" means it is "unset" and the default
+			// is used. Nodes with table based labels, must set something meaningful as tooltip.
+			styles.tooltip(" ") //
 		));
 
 		// EDGE
@@ -101,6 +106,10 @@ public class DefaultStyleTheme implements IStyleTheme {
 			styles.fontFamily("Verdana"), //
 			styles.fontSize(7), //
 			styles.lineBrush(LineType.solid, 0.5), //
+
+			// the automatic tooltip handling in graphviz is wacky, and does not work as stated in documentation
+			styles.tooltip("\\L"), // use the label (if it exists) as tooltip for the edge's "line"
+			styles.tooltipForLabel("\\L"), // use the label of the edge as the tooltip for the edge label !!
 
 			styles.arrowHead(Arrow.vee), //
 			styles.arrowTail(Arrow.none), //
@@ -189,6 +198,13 @@ public class DefaultStyleTheme implements IStyleTheme {
 			styles.direction(EdgeDirection.both), //
 			styles.arrowTail(Arrow.diamond) //
 		));
+
+		// // SVG output adds tooltips for every element and the tooltip is the internal ID
+		// // unfortunately, it is not possible to set a tooltip at graph level
+		// Collections.addAll(rules, //
+		// new Select.Element(ElementType.NOT_GRAPH).withStyle(//
+		// styles.tooltip("-")//
+		// ));
 
 		defaultInstanceRuleSet = Collections.unmodifiableList(rules);
 		return defaultInstanceRuleSet;

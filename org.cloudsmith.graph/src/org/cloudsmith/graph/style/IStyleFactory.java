@@ -142,6 +142,12 @@ public interface IStyleFactory {
 
 	public IStyle<String> tooltip(String x);
 
+	public IStyle<String> tooltipForHead(String x);
+
+	public IStyle<String> tooltipForLabel(String x);
+
+	public IStyle<String> tooltipForTail(String x);
+
 	public IStyle<VerticalAlignment> verticalAlign(VerticalAlignment x);
 
 	public IStyle<Double> width(double x);

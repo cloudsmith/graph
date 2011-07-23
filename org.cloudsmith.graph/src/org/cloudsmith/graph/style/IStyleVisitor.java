@@ -98,6 +98,12 @@ public interface IStyleVisitor {
 
 	public void tooltip(String x);
 
+	public void tooltipForHead(String value);
+
+	public void tooltipForLabel(String value);
+
+	public void tooltipForTail(String value);
+
 	public void verticalAlign(VerticalAlignment x);
 
 	public void width(double x);

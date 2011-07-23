@@ -723,6 +723,45 @@ public class StyleFactory implements IStyleFactory {
 
 	}
 
+	public static class TooltipForHead extends StringStyle {
+		public TooltipForHead(Function<IGraphElement, String> text) {
+			super(StyleType.tooltipForTail, text);
+			setTypes(EDGE);
+		}
+
+		@Override
+		public void visit(IGraphElement ge, IStyleVisitor visitor) {
+			visitor.tooltipForHead(getValue(ge));
+		}
+
+	}
+
+	public static class TooltipForLabel extends StringStyle {
+		public TooltipForLabel(Function<IGraphElement, String> text) {
+			super(StyleType.tooltipForLabel, text);
+			setTypes(EDGE);
+		}
+
+		@Override
+		public void visit(IGraphElement ge, IStyleVisitor visitor) {
+			visitor.tooltipForLabel(getValue(ge));
+		}
+
+	}
+
+	public static class TooltipForTail extends StringStyle {
+		public TooltipForTail(Function<IGraphElement, String> text) {
+			super(StyleType.tooltipForTail, text);
+			setTypes(EDGE);
+		}
+
+		@Override
+		public void visit(IGraphElement ge, IStyleVisitor visitor) {
+			visitor.tooltipForTail(getValue(ge));
+		}
+
+	}
+
 	public static class VerticalAlign extends AbstractStyle<VerticalAlignment> {
 		public VerticalAlign(VerticalAlignment valign) {
 			super(StyleType.valign, valign);
@@ -1064,6 +1103,21 @@ public class StyleFactory implements IStyleFactory {
 	@Override
 	public Tooltip tooltip(String x) {
 		return new Tooltip(functions.literalString(x));
+	}
+
+	@Override
+	public TooltipForHead tooltipForHead(String x) {
+		return new TooltipForHead(functions.literalString(x));
+	}
+
+	@Override
+	public TooltipForLabel tooltipForLabel(String x) {
+		return new TooltipForLabel(functions.literalString(x));
+	}
+
+	@Override
+	public TooltipForTail tooltipForTail(String x) {
+		return new TooltipForTail(functions.literalString(x));
 	}
 
 	@Override

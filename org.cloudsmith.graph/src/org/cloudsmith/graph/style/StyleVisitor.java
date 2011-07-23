@@ -449,6 +449,39 @@ public class StyleVisitor implements IStyleVisitor {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.style.IStyleVisitor#tooltipForHead(java.lang.String)
+	 */
+	@Override
+	public void tooltipForHead(String value) {
+		unsupported(StyleType.tooltipForHead);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.style.IStyleVisitor#tooltipForLabel(java.lang.String)
+	 */
+	@Override
+	public void tooltipForLabel(String value) {
+		unsupported(StyleType.tooltipForLabel);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.style.IStyleVisitor#tooltipForTail(java.lang.String)
+	 */
+	@Override
+	public void tooltipForTail(String value) {
+		unsupported(StyleType.tooltipForTail);
+
+	}
+
 	/**
 	 * This implementation does nothing. A derived class can implement this method as a "catch all" for
 	 * unimplemented methods.
