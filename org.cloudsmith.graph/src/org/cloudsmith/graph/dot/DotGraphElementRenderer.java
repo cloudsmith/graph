@@ -303,6 +303,11 @@ public class DotGraphElementRenderer {
 				}
 
 				@Override
+				public void tooltip(String x) {
+					out.printf("%stooltip=\"%s\"", o.separator(), x);
+				}
+
+				@Override
 				public void unsupported(StyleType style) {
 					throw new IllegalArgumentException("Style:" + style + ", is not applicable to " +
 							"element of class: " + element.getClass());
