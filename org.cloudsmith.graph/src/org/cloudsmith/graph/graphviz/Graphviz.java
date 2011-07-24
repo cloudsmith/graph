@@ -188,7 +188,6 @@ public class Graphviz implements IGraphviz {
 
 		writer.start();
 
-		// read everything there is into a byte buffer
 		final OutputStream result = output;
 
 		class ReaderThread extends Thread {
