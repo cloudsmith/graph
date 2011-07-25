@@ -55,7 +55,7 @@ public class DefaultGraphModule extends AbstractModule {
 	}
 
 	/**
-	 * Binds the standard graphviz config to use. This binding is environment dependant.
+	 * Binds the standard graphviz configuration to use. This binding is environment dependent.
 	 */
 	protected void bindIGraphvizConfig() {
 		bind(IGraphvizConfig.class).to(DefaultGraphvizConfig.class);

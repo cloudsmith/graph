@@ -128,16 +128,12 @@ public class Graphviz implements IGraphviz {
 		return stream.toString();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.graph.impl.dot.IGraphviz#getGraphvizOutput(java.io.OutputStream, org.cloudsmith.graph.impl.dot.Graphviz.Format,
-	 * org.cloudsmith.graph.impl.dot.Graphviz.Renderer, org.cloudsmith.graph.IGraph, org.cloudsmith.graph.impl.style.RuleSet,
-	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
-	 */
 	@Override
 	public OutputStream writeGraphvizOutput(OutputStream output, GraphvizFormat format, GraphvizRenderer renderer,
-			GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyleSheet, GraphCSS... styleSheets) {
+			GraphvizLayout layout, //
+			final byte[] dotData //
+	// IRootGraph graph, GraphCSS defaultStyleSheet, GraphCSS... styleSheets
+	) {
 		Process p;
 		// graphviz -T format:renderer is something like -T png:cairo
 		// Construct renderer string (':renderer' after the format) if renderer is specified - generally
@@ -159,11 +155,11 @@ public class Graphviz implements IGraphviz {
 		final InputStream in = p.getInputStream();
 		final InputStream err = p.getErrorStream();
 
-		// Produce the dot output to a buffer (at one point we could not run this in a thread because JBoss Seam
-		// got confused over context - maybe possible to revisit
-		//
-		final ByteArrayOutputStream dotOutput = new ByteArrayOutputStream();
-		dotRenderer.write(dotOutput, graph, defaultStyleSheet, styleSheets);
+		// // Produce the dot output to a buffer (at one point we could not run this in a thread because JBoss Seam
+		// // got confused over context - maybe possible to revisit
+		// //
+		// final ByteArrayOutputStream dotOutput = new ByteArrayOutputStream();
+		// dotRenderer.write(dotOutput, graph, defaultStyleSheet, styleSheets);
 
 		// use the stream connected to the command's stdin
 		/*
@@ -175,7 +171,7 @@ public class Graphviz implements IGraphviz {
 			public void run() {
 				// print the dot output on the stream
 				try {
-					out.write(dotOutput.toByteArray());
+					out.write(dotData); // dotOutput.toByteArray());
 					// close the stream, or graphviz will read for ever
 					out.close();
 				}
@@ -289,6 +285,32 @@ public class Graphviz implements IGraphviz {
 			return null;
 		return result;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.impl.dot.IGraphviz#getGraphvizOutput(java.io.OutputStream, org.cloudsmith.graph.impl.dot.Graphviz.Format,
+	 * org.cloudsmith.graph.impl.dot.Graphviz.Renderer, org.cloudsmith.graph.IGraph, org.cloudsmith.graph.impl.style.RuleSet,
+	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
+	 */
+	@Override
+	public OutputStream writeGraphvizOutput(OutputStream output, GraphvizFormat format, GraphvizRenderer renderer,
+			GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyleSheet, GraphCSS... styleSheets) {
+		// Produce the dot output to a buffer (at one point we could not run this in a thread because JBoss Seam
+		// got confused over context - maybe possible to revisit
+		//
+		final ByteArrayOutputStream dotOutput = new ByteArrayOutputStream();
+		dotRenderer.write(dotOutput, graph, defaultStyleSheet, styleSheets);
+		return writeGraphvizOutput(output, format, renderer, layout, dotOutput.toByteArray());
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.impl.dot.IGraphviz#getGraphvizOutput(java.io.OutputStream, org.cloudsmith.graph.impl.dot.Graphviz.Format,
+	 * org.cloudsmith.graph.impl.dot.Graphviz.Renderer, org.cloudsmith.graph.IGraph, org.cloudsmith.graph.impl.style.RuleSet,
+	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
+	 */
 
 	/*
 	 * (non-Javadoc)

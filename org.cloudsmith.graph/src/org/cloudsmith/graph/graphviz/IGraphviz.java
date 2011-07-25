@@ -94,6 +94,24 @@ public interface IGraphviz {
 
 	/**
 	 * Generic routine to produce output from Graphviz.
+	 * Input data (dot text notation) is passed in a buffer.
+	 * This is fed to Graphviz stdin, and the data from stdout is returned.
+	 * Graphviz will print output on stderr if there are errors, but will not exit unless the input stream
+	 * is closed. This routine handles the needed multi-threading to handle these cases.
+	 * 
+	 * @param format
+	 *            the wanted output format
+	 * @param renderer
+	 *            the renderer to use (or null for default) - e.g. {@link GraphvizRenderer#quartz}
+	 * @param layout
+	 *            the layout algorithm to use - e.g. {@link GraphvizLayout#dot}.
+	 * @return the output stream with the data, or null if there was an error
+	 */
+	OutputStream writeGraphvizOutput(OutputStream output, GraphvizFormat format, GraphvizRenderer renderer,
+			GraphvizLayout layout, byte[] dotData);
+
+	/**
+	 * Generic routine to produce output from Graphviz.
 	 * Input data is collected in a buffer (as the routines called to generate the output must run on
 	 * the main thread (seam does not find contexts for EL evaluation otherwise).
 	 * This is fed to Graphviz stdin, and the data from stdout is returned.
