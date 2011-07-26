@@ -23,51 +23,48 @@ import javax.servlet.http.HttpServletResponse;
  * This is a sample servlet that delivers graphs using SVGZ (compressed SVG).
  * The interface to the graph production factory is just an illustration as it depends on the
  * application.
- *
+ * 
  */
-public class SvgzServlet extends HttpServlet
-{
+public class SvgzServlet extends HttpServlet {
+
+	private enum SvgzKind {
+		GRAPH, TBD1
+	}
 
 	private static final long serialVersionUID = 8759810144923079498L;
 
 	/**
 	 * Extra path information after the servlet path. This string needs to be changed if
-	 * the servlet is mapped differently. 
+	 * the servlet is mapped differently.
 	 */
 	private static final String SVGZ_GRAPH = "/graph";
-	private static final String SVGZ_SVGZ_GRAPH = "/svgz/graph";
 
-	private enum SvgzKind { GRAPH, TBD1 };
-	
+	private static final String SVGZ_SVGZ_GRAPH = "/svgz/graph";;
+
 	/**
 	 * Looks up the no_image.png and reads it into a buffer that is kept in the servlet.
 	 */
-	public SvgzServlet()
-	{
+	public SvgzServlet() {
 		System.err.print("SVGZServlet started");
 	}
-	
+
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		SvgzKind kind = null;
 		String pathInfo = request.getPathInfo();
 		// check for both /types of paths in the string depending on servlet mapping
 		if(SVGZ_GRAPH.equals(pathInfo) || SVGZ_SVGZ_GRAPH.equals(pathInfo))
 			kind = SvgzKind.GRAPH;
 
-		if(kind != null )
-		{
+		if(kind != null) {
 			IGraphFactorySample graphFactory = null; // Naturally it needs to be obtained from somewhere
 
 			String oid = request.getParameter("oid");
 			response.setContentType("image/svg+xml");
 			response.setHeader("Content-Encoding", "gzip");
-			try
-			{
+			try {
 				ByteArrayOutputStream result = new ByteArrayOutputStream();
-				if(!graphFactory.getGraphSvg(oid, result))
-				{
+				if(!graphFactory.getGraphSvg(oid, result)) {
 					response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 					return;
 				}
@@ -81,20 +78,17 @@ public class SvgzServlet extends HttpServlet
 				response.setContentLength(data.length);
 				response.getOutputStream().write(data);
 			}
-			catch(AccessControlException e)
-			{
+			catch(AccessControlException e) {
 				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 				return;
 			}
-			catch(FileNotFoundException e)
-			{
+			catch(FileNotFoundException e) {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				return;
 			}
-			catch(IllegalArgumentException e)
-			{
+			catch(IllegalArgumentException e) {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-				return;				
+				return;
 			}
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.getOutputStream().flush();
