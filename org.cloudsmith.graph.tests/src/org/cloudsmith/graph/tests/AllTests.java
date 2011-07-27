@@ -27,6 +27,7 @@ public class AllTests {
 		suite.addTestSuite(TestMockGraph.class);
 		suite.addTestSuite(TestRenderingToPng.class);
 		suite.addTestSuite(TestEGraph.class);
+		suite.addTestSuite(TestCircularByteBuffer.class);
 		// suite.addTestSuite(PPTPManagerTests.class);
 		// $JUnit-END$
 		return suite;
