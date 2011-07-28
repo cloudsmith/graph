@@ -59,6 +59,10 @@ public class DefaultStyleTheme implements IStyleTheme {
 
 	public static final String COLOR__DARK_GREY = "#929292";
 
+	public static final String COLOR__DARKEST_GREY = "#646464";
+
+	public static final String COLOR__ALMOST_BLACK = "#444444";
+
 	public static final String COLOR__MID_BLUE = "#2180c7";
 
 	public static final String COLOR__LIGHT_GREY_BLUE = "#77a7c2";
