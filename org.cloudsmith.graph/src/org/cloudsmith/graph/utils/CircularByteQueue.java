@@ -326,12 +326,20 @@ public final class CircularByteQueue implements Serializable, Cloneable {
 
 		if(count > size() || count < 0)
 			throw new NoSuchElementException("count > size || count < 0");
-		if(tail > head || buffer.length - head <= count)
+		// unbroken sequence needs single write
+		if(tail > head || head + count < buffer.length)
 			out.write(buffer, head, count);
 		else {
+			// broken sequence needs two writes
 			out.write(buffer, head, buffer.length - head);
 			count -= buffer.length - head;
-			out.write(buffer, 0, count);
+			try {
+				if(count > 0)
+					out.write(buffer, 0, count);
+			}
+			catch(IndexOutOfBoundsException e) {
+				System.out.println("WTF!!");
+			}
 		}
 	}
 

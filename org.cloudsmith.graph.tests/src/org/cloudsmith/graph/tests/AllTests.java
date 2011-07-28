@@ -28,6 +28,7 @@ public class AllTests {
 		suite.addTestSuite(TestRenderingToPng.class);
 		suite.addTestSuite(TestEGraph.class);
 		suite.addTestSuite(TestCircularByteBuffer.class);
+		suite.addTestSuite(TestRuleBasedFilterStream.class);
 		// suite.addTestSuite(PPTPManagerTests.class);
 		// $JUnit-END$
 		return suite;

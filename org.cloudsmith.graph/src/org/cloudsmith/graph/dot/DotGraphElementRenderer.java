@@ -50,9 +50,18 @@ public class DotGraphElementRenderer {
 
 	private final DotLabelRenderer labelRenderer;
 
+	private final String emptyString;
+
 	@Inject
-	public DotGraphElementRenderer(DotLabelRenderer labelRenderer) {
+	public DotGraphElementRenderer(DotLabelRenderer labelRenderer, @DotRenderer.EmptyString String emptyString) {
 		this.labelRenderer = labelRenderer;
+		this.emptyString = emptyString;
+	}
+
+	private String emptyString(String x) {
+		if(x == null || x.length() == 0)
+			x = emptyString;
+		return x;
 	}
 
 	/**
@@ -304,22 +313,22 @@ public class DotGraphElementRenderer {
 
 				@Override
 				public void tooltip(String x) {
-					out.printf("%stooltip=\"%s\"", o.separator(), x);
+					out.printf("%stooltip=\"%s\"", o.separator(), emptyString(x));
 				}
 
 				@Override
 				public void tooltipForHead(String x) {
-					out.printf("%sheadTooltip=\"%s\"", o.separator(), x);
+					out.printf("%sheadTooltip=\"%s\"", o.separator(), emptyString(x));
 				}
 
 				@Override
 				public void tooltipForLabel(String x) {
-					out.printf("%slabelTooltip=\"%s\"", o.separator(), x);
+					out.printf("%slabelTooltip=\"%s\"", o.separator(), emptyString(x));
 				}
 
 				@Override
 				public void tooltipForTail(String x) {
-					out.printf("%stailTooltip=\"%s\"", o.separator(), x);
+					out.printf("%stailTooltip=\"%s\"", o.separator(), emptyString(x));
 				}
 
 				@Override

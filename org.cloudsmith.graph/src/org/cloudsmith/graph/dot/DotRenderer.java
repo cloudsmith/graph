@@ -14,6 +14,10 @@ package org.cloudsmith.graph.dot;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 import org.cloudsmith.graph.IClusterGraph;
 import org.cloudsmith.graph.IEdge;
@@ -30,12 +34,23 @@ import org.cloudsmith.graph.style.StyleFactory;
 import org.cloudsmith.graph.style.StyleType;
 
 import com.google.common.collect.Iterators;
+import com.google.inject.BindingAnnotation;
 import com.google.inject.Inject;
 
 /**
  * Produces dot output from a Graph instance.
  */
 public class DotRenderer {
+
+	/**
+	 * Annotation to use for the Dot Output Empty string.
+	 */
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target({ ElementType.FIELD, ElementType.PARAMETER })
+	@BindingAnnotation
+	public @interface EmptyString {
+	}
+
 	private PrintStream out;
 
 	private GraphCSS theGCSS;

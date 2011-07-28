@@ -12,15 +12,31 @@
 package org.cloudsmith.graph.graphviz;
 
 import java.io.OutputStream;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 import org.cloudsmith.graph.IRootGraph;
 import org.cloudsmith.graph.graphcss.GraphCSS;
+
+import com.google.inject.BindingAnnotation;
 
 /**
  * Interface for a graphviz runner.
  * 
  */
 public interface IGraphviz {
+
+	/**
+	 * Annotation to use for the Dot Output Empty string.
+	 * 
+	 */
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target({ ElementType.FIELD, ElementType.PARAMETER })
+	@BindingAnnotation
+	public @interface SVGOutputFilter {
+	}
 
 	/**
 	 * Returns a string with the generated dot output (which is normally fed to graphviz layout).

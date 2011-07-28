@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.graph.graphviz;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -149,17 +151,12 @@ public class Graphviz implements IGraphviz {
 		catch(IOException e1) {
 			Logger log = Logger.getLogger(Graphviz.class);
 			log.error("Could not execute " + layout.toString() + " -T" + format.toString() + r);
+			// TODO: need to close the process streams or they may remain open
 			return null;
 		}
-		final OutputStream out = p.getOutputStream();
-		final InputStream in = p.getInputStream();
-		final InputStream err = p.getErrorStream();
-
-		// // Produce the dot output to a buffer (at one point we could not run this in a thread because JBoss Seam
-		// // got confused over context - maybe possible to revisit
-		// //
-		// final ByteArrayOutputStream dotOutput = new ByteArrayOutputStream();
-		// dotRenderer.write(dotOutput, graph, defaultStyleSheet, styleSheets);
+		final OutputStream out = new BufferedOutputStream(p.getOutputStream());
+		final InputStream in = new BufferedInputStream(p.getInputStream());
+		final InputStream err = new BufferedInputStream(p.getErrorStream());
 
 		// use the stream connected to the command's stdin
 		/*
@@ -196,7 +193,13 @@ public class Graphviz implements IGraphviz {
 				try {
 					int read = in.read(buffer);
 					while(read != -1) {
-						result.write(buffer, 0, read);
+						try {
+							result.write(buffer, 0, read);
+						}
+						catch(Throwable e) {
+							Logger log = Logger.getLogger(Graphviz.class);
+							log.error("Exception while writing result read from graphviz", e);
+						}
 						read = in.read(buffer);
 					}
 					// close the input - we are finished
@@ -226,30 +229,6 @@ public class Graphviz implements IGraphviz {
 						eout.write(buffer, 0, read);
 						read = err.read(buffer);
 					}
-					// TODO: it may be needed to check the error output, if it is an error or a warning
-					// warnings could be ignored - now they also terminate the output if the warning occurs before
-					// the writer is done.
-
-					// close ALL input
-					// This terminates the reader and writer as the pipe is forcefully
-					// closed on them - errors may occur after input has already been
-					// closed or after output has been closed - make sure all three
-					// are closed.
-					try {
-						in.close();
-					}
-					catch(IOException ioe) {
-					}
-					try {
-						out.close();
-					}
-					catch(IOException ioe) {
-					}
-					try {
-						err.close();
-					}
-					catch(IOException ioe) {
-					}
 
 					Logger log = Logger.getLogger(Graphviz.class);
 					// if there was no output this could be because EOF was reached due to normal end.
@@ -268,18 +247,44 @@ public class Graphviz implements IGraphviz {
 		};
 		errorHandler.start();
 		try {
+			// wait for process to finish
+			p.waitFor();
+
+			// wait until everything has been read from process
 			reader.join();
-			err.close(); // input and output are already closed - this terminates the error Handler.
+
+			// TODO: it may be needed to check the error output, if it is an error or a warning
+			// warnings could be ignored - now they also terminate the output if the warning occurs before
+			// the writer is done.
+
 		}
 		catch(InterruptedException e) {
 			Logger log = Logger.getLogger(Graphviz.class);
 			log.error("Graphviz reading interupted");
 			return null;
 		}
-		catch(IOException e) {
-			// It was not possible to close the error stream
-			Logger log = Logger.getLogger(Graphviz.class);
-			log.error("Graphviz runner could not close error input stream on otherwise completed run...");
+		finally {
+			// close ALL input
+			// This terminates the reader and writer as the pipe is forcefully
+			// closed on them - errors may occur after input has already been
+			// closed or after output has been closed - make sure all three
+			// are closed.
+			try {
+				in.close();
+			}
+			catch(IOException ioe) {
+			}
+			try {
+				out.close();
+			}
+			catch(IOException ioe) {
+			}
+			try {
+				err.close();
+			}
+			catch(IOException ioe) {
+			}
+
 		}
 		if(!reader.done)
 			return null;
@@ -303,14 +308,6 @@ public class Graphviz implements IGraphviz {
 		dotRenderer.write(dotOutput, graph, defaultStyleSheet, styleSheets);
 		return writeGraphvizOutput(output, format, renderer, layout, dotOutput.toByteArray());
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.graph.impl.dot.IGraphviz#getGraphvizOutput(java.io.OutputStream, org.cloudsmith.graph.impl.dot.Graphviz.Format,
-	 * org.cloudsmith.graph.impl.dot.Graphviz.Renderer, org.cloudsmith.graph.IGraph, org.cloudsmith.graph.impl.style.RuleSet,
-	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
-	 */
 
 	/*
 	 * (non-Javadoc)

@@ -56,8 +56,17 @@ public class DotLabelRenderer {
 	@Inject
 	IStyleFactory styles;
 
+	private final String emptyString;
+
 	@Inject
-	public DotLabelRenderer() {
+	public DotLabelRenderer(@DotRenderer.EmptyString String emptyString) {
+		this.emptyString = emptyString;
+	}
+
+	private String emptyString(String x) {
+		if(x == null || x.length() == 0)
+			x = emptyString;
+		return x;
 	}
 
 	private String escapeNewLine(String s) {
@@ -208,7 +217,7 @@ public class DotLabelRenderer {
 
 			@Override
 			public void tooltip(String x) {
-				elementStream.printf(" TOOLTIP=\"%s\"", x);
+				elementStream.printf(" TOOLTIP=\"%s\"", emptyString(x));
 			}
 
 			@Override
@@ -427,4 +436,5 @@ public class DotLabelRenderer {
 		//
 		return printGraphTable(out, theGraphElement, printComma, sepChar, gt, gcss);
 	}
+
 }
