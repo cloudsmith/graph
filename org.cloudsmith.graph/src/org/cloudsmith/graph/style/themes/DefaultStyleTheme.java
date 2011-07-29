@@ -84,7 +84,9 @@ public class DefaultStyleTheme implements IStyleTheme {
 		// SUBGRAPH
 		defaultRuleSet.addRule(Select.element(ElementType.graph).withStyles( //
 			styles.shapeBrush(LineType.dotted, 0.5, false, false), //
-			styles.lineColor(COLOR__LIGHT_GREY_BLUE) // "grey/blue" color
+			styles.lineColor(COLOR__LIGHT_GREY_BLUE), // "grey/blue" color
+			styles.tooltip("") // or the graph name is displayed over the entire surface
+
 		));
 
 		// NODE
@@ -100,7 +102,9 @@ public class DefaultStyleTheme implements IStyleTheme {
 			// Tooltip handling in graphviz is not good, if empty, the label is used, and if it is a <TABLE>
 			// then the text "<TABLE>" is displayed !!, setting it to "" means it is "unset" and the default
 			// is used. Nodes with table based labels, must set something meaningful as tooltip.
-			styles.tooltip(" ") //
+			// There is support for translation of empty strings to distinct text that can be postprocessed
+			// for textual output. (Tooltips are only relevant for SVG anyway).
+			styles.tooltip("") //
 		));
 
 		// EDGE
@@ -160,6 +164,7 @@ public class DefaultStyleTheme implements IStyleTheme {
 		// The label of a graph
 		Collections.addAll(rules, //
 			Select.and(Select.table("Label"), Select.parent(Select.graph())).withStyles( //
+				styles.cellPadding(5), // or it is too close to the graph nodes
 				styles.fontFamily("Verdana"), //
 				styles.fontSize(12), //
 				styles.color(COLOR__DARK_GREY)));

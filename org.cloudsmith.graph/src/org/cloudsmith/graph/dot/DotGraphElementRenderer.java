@@ -318,17 +318,17 @@ public class DotGraphElementRenderer {
 
 				@Override
 				public void tooltipForHead(String x) {
-					out.printf("%sheadTooltip=\"%s\"", o.separator(), emptyString(x));
+					out.printf("%sheadtooltip=\"%s\"", o.separator(), emptyString(x));
 				}
 
 				@Override
 				public void tooltipForLabel(String x) {
-					out.printf("%slabelTooltip=\"%s\"", o.separator(), emptyString(x));
+					out.printf("%slabeltooltip=\"%s\"", o.separator(), emptyString(x));
 				}
 
 				@Override
 				public void tooltipForTail(String x) {
-					out.printf("%stailTooltip=\"%s\"", o.separator(), emptyString(x));
+					out.printf("%stailtooltip=\"%s\"", o.separator(), emptyString(x));
 				}
 
 				@Override

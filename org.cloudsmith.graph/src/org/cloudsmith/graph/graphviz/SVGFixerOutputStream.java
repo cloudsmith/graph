@@ -34,7 +34,7 @@ public class SVGFixerOutputStream extends RuleFilteredOutputStream {
 		@Override
 		protected void performAction() throws IOException {
 			// a single space replaces what was deleted
-			out.write(' ');
+			// out.write(' ');
 			// write the matched, but not flushed pattern
 			buffer.writeFlush(titleEndPattern.length, out);
 		}
