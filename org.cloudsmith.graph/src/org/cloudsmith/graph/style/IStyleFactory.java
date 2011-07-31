@@ -150,6 +150,7 @@ public interface IStyleFactory {
 
 	public IStyle<VerticalAlignment> verticalAlign(VerticalAlignment x);
 
-	public IStyle<Double> width(double x);
+	public IStyle<Double> weight(double x);
 
+	public IStyle<Double> width(double x);
 }

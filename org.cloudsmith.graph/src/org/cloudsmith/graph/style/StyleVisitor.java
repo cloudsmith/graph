@@ -506,6 +506,16 @@ public class StyleVisitor implements IStyleVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.cloudsmith.graph.style.IStyleVisitor#weight(java.lang.Double)
+	 */
+	@Override
+	public void weight(double value) {
+		unsupported(StyleType.weight);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.cloudsmith.graph.style.IStyleVisitor#width(double)
 	 */
 	@Override

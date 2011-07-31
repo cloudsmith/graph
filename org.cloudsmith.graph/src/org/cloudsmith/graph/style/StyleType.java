@@ -205,5 +205,11 @@ public enum StyleType {
 	 */
 	fromCluster,
 
+	/**
+	 * Sets the weight of an edge (default 1.0). In dot, the heavier, the shorter, straighter and more vertical
+	 * the edge will be.
+	 */
+	weight,
+
 	;
 }

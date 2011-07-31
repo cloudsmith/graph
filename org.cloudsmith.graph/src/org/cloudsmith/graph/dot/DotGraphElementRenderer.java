@@ -348,6 +348,16 @@ public class DotGraphElementRenderer {
 					out.printf("%slabelloc=\"%s\"", o.separator(), c);
 				}
 
+				/*
+				 * (non-Javadoc)
+				 * 
+				 * @see org.cloudsmith.graph.style.StyleVisitor#weight(java.lang.Double)
+				 */
+				@Override
+				public void weight(double value) {
+					out.printf("%sweight=\"%s\"", o.separator(), value);
+				}
+
 			};
 			style.visit(element, visitor);
 			o.increment();

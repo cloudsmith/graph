@@ -775,6 +775,19 @@ public class StyleFactory implements IStyleFactory {
 
 	}
 
+	public static class Weight extends DoubleStyle {
+		public Weight(Double value) {
+			super(StyleType.weight, value);
+			setTypes(EDGE);
+		}
+
+		@Override
+		public void visit(IGraphElement ge, IStyleVisitor visitor) {
+			visitor.weight(getValue(ge));
+		}
+
+	}
+
 	public static class Width extends DoubleStyle {
 		public Width(Double value) {
 			super(StyleType.width, value);
@@ -1123,6 +1136,11 @@ public class StyleFactory implements IStyleFactory {
 	@Override
 	public VerticalAlign verticalAlign(VerticalAlignment x) {
 		return new VerticalAlign(x);
+	}
+
+	@Override
+	public Weight weight(double x) {
+		return new Weight(x);
 	}
 
 	@Override

@@ -106,6 +106,8 @@ public interface IStyleVisitor {
 
 	public void verticalAlign(VerticalAlignment x);
 
+	public void weight(double value);
+
 	public void width(double x);
 
 }
