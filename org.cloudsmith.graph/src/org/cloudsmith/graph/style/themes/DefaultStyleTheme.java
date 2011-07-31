@@ -81,12 +81,13 @@ public class DefaultStyleTheme implements IStyleTheme {
 
 		defaultRuleSet = new GraphCSS();
 
-		// SUBGRAPH
+		// GRAPH and SUBGRAPHS
 		defaultRuleSet.addRule(Select.element(ElementType.graph).withStyles( //
 			styles.shapeBrush(LineType.dotted, 0.5, false, false), //
 			styles.lineColor(COLOR__LIGHT_GREY_BLUE), // "grey/blue" color
-			styles.tooltip("") // or the graph name is displayed over the entire surface
-
+			styles.tooltip(""), // or the graph name is displayed over the entire surface
+			styles.mclimit(4.0), // try harder to eliminate cross-overs
+			styles.remincross(true) // run mincross a second time
 		));
 
 		// NODE

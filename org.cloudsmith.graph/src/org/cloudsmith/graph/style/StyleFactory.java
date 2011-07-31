@@ -312,7 +312,6 @@ public class StyleFactory implements IStyleFactory {
 		public void visit(IGraphElement ge, IStyleVisitor visitor) {
 			visitor.concentrate(getValue(ge));
 		}
-
 	}
 
 	public static class Decorate extends BooleanStyle {
@@ -534,6 +533,19 @@ public class StyleFactory implements IStyleFactory {
 
 	}
 
+	public static class McLimit extends DoubleStyle {
+		public McLimit(Double value) {
+			super(StyleType.width, value);
+			setTypes(GRAPH);
+		}
+
+		@Override
+		public void visit(IGraphElement ge, IStyleVisitor visitor) {
+			visitor.mclimit(getValue(ge));
+		}
+
+	}
+
 	public static class NodeBrush extends AbstractStyle<ShapeBrush> {
 		public NodeBrush(LineType lineType, Double lineWidth, boolean filled, boolean rounded) {
 			super(StyleType.shapeBrush, new ShapeBrush(lineType, lineWidth, filled, rounded));
@@ -582,6 +594,19 @@ public class StyleFactory implements IStyleFactory {
 		@Override
 		public void visit(IGraphElement ge, IStyleVisitor visitor) {
 			visitor.rankSeparation(getValue(ge));
+		}
+
+	}
+
+	public static class ReMinCross extends BooleanStyle {
+		public ReMinCross(Boolean flag) {
+			super(StyleType.remincross, flag);
+			setTypes(GRAPH);
+		}
+
+		@Override
+		public void visit(IGraphElement ge, IStyleVisitor visitor) {
+			visitor.remincross(getValue(ge));
 		}
 
 	}
@@ -798,7 +823,6 @@ public class StyleFactory implements IStyleFactory {
 		public void visit(IGraphElement ge, IStyleVisitor visitor) {
 			visitor.width(getValue(ge));
 		}
-
 	}
 
 	private IFunctionFactory functions;
@@ -1028,6 +1052,16 @@ public class StyleFactory implements IStyleFactory {
 		return new LineColor(x);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.style.IStyleFactory#mclimit(double)
+	 */
+	@Override
+	public IStyle<?> mclimit(double d) {
+		return new McLimit(d);
+	}
+
 	@Override
 	public Port port(String x) {
 		return new Port(x);
@@ -1041,6 +1075,16 @@ public class StyleFactory implements IStyleFactory {
 	@Override
 	public RankSeparation rankSeparation(double x) {
 		return new RankSeparation(x);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.style.IStyleFactory#remincross(boolean)
+	 */
+	@Override
+	public IStyle<?> remincross(boolean b) {
+		return new ReMinCross(b);
 	}
 
 	@Override

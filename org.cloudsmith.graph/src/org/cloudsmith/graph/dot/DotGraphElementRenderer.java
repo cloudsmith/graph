@@ -236,6 +236,11 @@ public class DotGraphElementRenderer {
 				}
 
 				@Override
+				public void mclimit(double value) {
+					out.printf("%smclimit=\"%s\"", o.separator(), value);
+				}
+
+				@Override
 				public void rankDirection(RankDirection x) {
 					// only applies to graph, and only if it is the root
 					//
@@ -253,6 +258,11 @@ public class DotGraphElementRenderer {
 						out.printf("%sranksep=\"%s\"", o.separator(), x);
 					else
 						o.decrement(); // nothing printed
+				}
+
+				@Override
+				public void remincross(boolean value) {
+					out.printf("%sremincross=\"%s\"", o.separator(), value);
 				}
 
 				@Override
@@ -348,11 +358,6 @@ public class DotGraphElementRenderer {
 					out.printf("%slabelloc=\"%s\"", o.separator(), c);
 				}
 
-				/*
-				 * (non-Javadoc)
-				 * 
-				 * @see org.cloudsmith.graph.style.StyleVisitor#weight(java.lang.Double)
-				 */
 				@Override
 				public void weight(double value) {
 					out.printf("%sweight=\"%s\"", o.separator(), value);

@@ -211,5 +211,16 @@ public enum StyleType {
 	 */
 	weight,
 
+	/**
+	 * Multiplicative factor (default 1.0) used to alter the graphviz parameters MinQuit (8) and MaxIter (24)
+	 * used during crossing minimization. The higher the number the more effort is used to avoid crossings.
+	 */
+	mclimit,
+
+	/**
+	 * Run crossing elimination a second time if set to true. (Dot only).
+	 */
+	remincross,
+
 	;
 }

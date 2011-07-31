@@ -320,6 +320,17 @@ public class StyleVisitor implements IStyleVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.cloudsmith.graph.style.IStyleVisitor#mclimit(double)
+	 */
+	@Override
+	public void mclimit(double value) {
+		unsupported(StyleType.mclimit);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.cloudsmith.graph.style.IStyleVisitor#port(java.lang.String)
 	 */
 	@Override
@@ -347,6 +358,17 @@ public class StyleVisitor implements IStyleVisitor {
 	@Override
 	public void rankSeparation(double x) {
 		unsupported(StyleType.rankSeparation);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.style.IStyleVisitor#remincross(boolean)
+	 */
+	@Override
+	public void remincross(boolean value) {
+		unsupported(StyleType.remincross);
 
 	}
 

@@ -74,11 +74,15 @@ public interface IStyleVisitor {
 
 	public void lineColor(String x);
 
+	public void mclimit(double value);
+
 	public void port(String x);
 
 	public void rankDirection(RankDirection x);
 
 	public void rankSeparation(double x);
+
+	public void remincross(boolean value);
 
 	public void rendered(boolean x);
 

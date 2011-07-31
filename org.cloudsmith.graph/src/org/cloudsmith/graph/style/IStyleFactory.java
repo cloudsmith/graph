@@ -110,11 +110,15 @@ public interface IStyleFactory {
 
 	public IStyle<String> lineColor(String x);
 
+	public IStyle<?> mclimit(double d);
+
 	public IStyle<String> port(String x);
 
 	public IStyle<RankDirection> rankDirectionStyle(RankDirection x);
 
 	public IStyle<Double> rankSeparation(double x);
+
+	public IStyle<?> remincross(boolean b);
 
 	public IStyle<Boolean> rendered(boolean x);
 
