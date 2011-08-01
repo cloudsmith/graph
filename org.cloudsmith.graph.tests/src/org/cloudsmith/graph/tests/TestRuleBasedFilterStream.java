@@ -49,7 +49,7 @@ public class TestRuleBasedFilterStream extends TestCase {
 		assertFalse("no \\L in the text", content.contains("\\L"));
 		assertFalse("no bbbbb in the text", content.contains("bbbbb"));
 		assertFalse("no magic empty string in the text", content.contains(SVGFixerOutputStream.EMPTY_STRING_BUG));
-		assertTrue("contins <title> </title>", content.contains("<title> </title>"));
+		assertTrue("contins <title></title>", content.contains("<title></title>"));
 		System.err.println(content);
 		assertTrue("contains xref:title=\"\"", content.contains("xref:title=\"\""));
 
