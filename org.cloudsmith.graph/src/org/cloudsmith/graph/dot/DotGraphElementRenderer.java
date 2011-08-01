@@ -369,7 +369,6 @@ public class DotGraphElementRenderer {
 			};
 			style.visit(element, visitor);
 			o.increment();
-			cancel.assertContinue();
 		}
 		// close
 		if(!statementList)

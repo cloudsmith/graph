@@ -197,16 +197,22 @@ public class DotRenderer {
 		//
 
 		// Print all the vertices
-		for(IVertex v : graph.getVertices())
+		for(IVertex v : graph.getVertices()) {
+			cancel.assertContinue();
 			printVertex(v, cancel);
+		}
 		// and all the edges
-		for(IEdge e : graph.getEdges())
+		for(IEdge e : graph.getEdges()) {
+			cancel.assertContinue();
 			printEdge(e, cancel);
+		}
 
 		// Print all the subgraphs first so they do not inherit settings intended for the root
 		// graph. All inherited styles should have been set as defaults per element type.
-		for(IGraph g : graph.getSubgraphs())
+		for(IGraph g : graph.getSubgraphs()) {
+			cancel.assertContinue();
 			printGraph(g, cancel);
+		}
 
 		ByteArrayOutputStream tmp = new ByteArrayOutputStream();
 		PrintStream tmpOut = new PrintStream(tmp);
