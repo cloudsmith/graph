@@ -136,7 +136,7 @@ public class Graphviz implements IGraphviz {
 	}
 
 	@Override
-	public OutputStream writeGraphvizOutput(final ICancel cancel, OutputStream output, GraphvizFormat format,
+	public OutputStream writeGraphvizOutput(final ICancel cancel, final OutputStream output, GraphvizFormat format,
 			GraphvizRenderer renderer, //
 			GraphvizLayout layout, //
 			final byte[] dotData //
@@ -186,8 +186,6 @@ public class Graphviz implements IGraphviz {
 
 		writer.start();
 
-		final OutputStream result = output;
-
 		class ReaderThread extends Thread {
 			public boolean done = false;
 
@@ -199,7 +197,7 @@ public class Graphviz implements IGraphviz {
 					int read = in.read(buffer);
 					while(read != -1) {
 						try {
-							result.write(buffer, 0, read);
+							output.write(buffer, 0, read);
 						}
 						catch(Throwable e) {
 							Logger log = Logger.getLogger(Graphviz.class);
@@ -224,10 +222,10 @@ public class Graphviz implements IGraphviz {
 		// start reading the output from graphviz
 		reader.start();
 
+		final ByteArrayOutputStream eout = new ByteArrayOutputStream();
 		Thread errorHandler = new Thread() {
 			@Override
 			public void run() {
-				ByteArrayOutputStream eout = new ByteArrayOutputStream();
 				byte[] buffer = new byte[512];
 				try {
 					int read = err.read(buffer);
@@ -265,6 +263,9 @@ public class Graphviz implements IGraphviz {
 			// TODO: it may be needed to check the error output, if it is an error or a warning
 			// warnings could be ignored - now they also terminate the output if the warning occurs before
 			// the writer is done.
+			if(p.exitValue() != 0) {
+				throw new GraphvizException(eout.toString());
+			}
 
 		}
 		catch(InterruptedException e) {
@@ -297,7 +298,7 @@ public class Graphviz implements IGraphviz {
 		}
 		if(!reader.done)
 			return null;
-		return result;
+		return output;
 	}
 
 	/*
