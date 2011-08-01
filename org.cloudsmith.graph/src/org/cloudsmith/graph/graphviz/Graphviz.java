@@ -20,6 +20,7 @@ import java.io.OutputStream;
 import java.util.zip.GZIPOutputStream;
 
 import org.apache.log4j.Logger;
+import org.cloudsmith.graph.ICancel;
 import org.cloudsmith.graph.IRootGraph;
 import org.cloudsmith.graph.dot.DotRenderer;
 import org.cloudsmith.graph.graphcss.GraphCSS;
@@ -59,9 +60,9 @@ public class Graphviz implements IGraphviz {
 	 * @see org.cloudsmith.graph.impl.dot.IGraphviz#getDotText(org.cloudsmith.graph.IGraph, org.cloudsmith.graph.impl.style.RuleSet)
 	 */
 	@Override
-	public String getDotText(IRootGraph graph, GraphCSS defaultCSS, GraphCSS... gCSS) {
+	public String getDotText(ICancel cancel, IRootGraph graph, GraphCSS defaultCSS, GraphCSS... gCSS) {
 		ByteArrayOutputStream bufferStream = new ByteArrayOutputStream();
-		dotRenderer.write(bufferStream, graph, defaultCSS, gCSS);
+		dotRenderer.write(ICancel.NullIndicator, bufferStream, graph, defaultCSS, gCSS);
 		return bufferStream.toString();
 	}
 
@@ -72,9 +73,9 @@ public class Graphviz implements IGraphviz {
 	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
-	public String getUsemap(GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets) {
+	public String getUsemap(ICancel cancel, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets) {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		if(writeGraphvizOutput(stream, GraphvizFormat.cmapx, null, layout, graph, defaultStyle, styleSheets) == null)
+		if(writeGraphvizOutput(ICancel.NullIndicator, stream, GraphvizFormat.cmapx, null, layout, graph, defaultStyle, styleSheets) == null)
 			return "";
 		return stream.toString();
 	}
@@ -86,10 +87,10 @@ public class Graphviz implements IGraphviz {
 	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
-	public byte[] toJPG(GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyleSheet, GraphCSS... styleSheets) {
+	public byte[] toJPG(ICancel cancel, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyleSheet, GraphCSS... styleSheets) {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		if(writeGraphvizOutput(
-			stream, GraphvizFormat.jpg, config.getRenderer(), layout, graph, defaultStyleSheet, styleSheets) == null)
+			ICancel.NullIndicator, stream, GraphvizFormat.jpg, config.getRenderer(), layout, graph, defaultStyleSheet, styleSheets) == null)
 			return null;
 		byte[] ret = stream.toByteArray();
 		return (ret == null || ret.length < 1)
@@ -104,10 +105,10 @@ public class Graphviz implements IGraphviz {
 	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
-	public byte[] toPNG(GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets) {
+	public byte[] toPNG(ICancel cancel, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets) {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		if(writeGraphvizOutput(
-			stream, GraphvizFormat.png, config.getRenderer(), layout, graph, defaultStyle, styleSheets) == null)
+			ICancel.NullIndicator, stream, GraphvizFormat.png, config.getRenderer(), layout, graph, defaultStyle, styleSheets) == null)
 			return null;
 		byte[] ret = stream.toByteArray();
 		return (ret == null || ret.length < 1)
@@ -122,18 +123,19 @@ public class Graphviz implements IGraphviz {
 	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
-	public String toSVG(GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets) {
+	public String toSVG(ICancel cancel, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle, GraphCSS... styleSheets) {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		if(writeGraphvizOutput(
-			stream, GraphvizFormat.svg, config.getRenderer(), layout, graph, defaultStyle, styleSheets) == null)
+			ICancel.NullIndicator, stream, GraphvizFormat.svg, config.getRenderer(), layout, graph, defaultStyle, styleSheets) == null)
 			return null;
 		return stream.toString();
 	}
 
 	@Override
-	public OutputStream writeGraphvizOutput(OutputStream output, GraphvizFormat format, GraphvizRenderer renderer,
-			GraphvizLayout layout, //
-			final byte[] dotData //
+	public OutputStream writeGraphvizOutput(ICancel cancel, OutputStream output, GraphvizFormat format,
+			GraphvizRenderer renderer, //
+			GraphvizLayout layout
+, final byte[] dotData //
 	// IRootGraph graph, GraphCSS defaultStyleSheet, GraphCSS... styleSheets
 	) {
 		Process p;
@@ -299,14 +301,14 @@ public class Graphviz implements IGraphviz {
 	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
-	public OutputStream writeGraphvizOutput(OutputStream output, GraphvizFormat format, GraphvizRenderer renderer,
-			GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyleSheet, GraphCSS... styleSheets) {
+	public OutputStream writeGraphvizOutput(ICancel cancel, OutputStream output, GraphvizFormat format,
+			GraphvizRenderer renderer, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyleSheet, GraphCSS... styleSheets) {
 		// Produce the dot output to a buffer (at one point we could not run this in a thread because JBoss Seam
 		// got confused over context - maybe possible to revisit
 		//
 		final ByteArrayOutputStream dotOutput = new ByteArrayOutputStream();
-		dotRenderer.write(dotOutput, graph, defaultStyleSheet, styleSheets);
-		return writeGraphvizOutput(output, format, renderer, layout, dotOutput.toByteArray());
+		dotRenderer.write(ICancel.NullIndicator, dotOutput, graph, defaultStyleSheet, styleSheets);
+		return writeGraphvizOutput(ICancel.NullIndicator, output, format, renderer, layout, dotOutput.toByteArray());
 	}
 
 	/*
@@ -316,10 +318,10 @@ public class Graphviz implements IGraphviz {
 	 * org.cloudsmith.graph.IRootGraph, org.cloudsmith.graph.graphcss.GraphCSS, org.cloudsmith.graph.graphcss.GraphCSS[])
 	 */
 	@Override
-	public boolean writePNG(OutputStream output, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle,
-			GraphCSS... styleSheets) {
+	public boolean writePNG(ICancel cancel, OutputStream output, GraphvizLayout layout, IRootGraph graph,
+			GraphCSS defaultStyle, GraphCSS... styleSheets) {
 		if(writeGraphvizOutput(
-			output, GraphvizFormat.png, config.getRenderer(), layout, graph, defaultStyle, styleSheets) == null)
+			ICancel.NullIndicator, output, GraphvizFormat.png, config.getRenderer(), layout, graph, defaultStyle, styleSheets) == null)
 			return false;
 		return true;
 	}
@@ -331,10 +333,10 @@ public class Graphviz implements IGraphviz {
 	 * org.cloudsmith.graph.impl.style.RuleSet, org.cloudsmith.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
-	public boolean writeSVG(OutputStream output, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle,
-			GraphCSS... styleSheets) {
+	public boolean writeSVG(ICancel cancel, OutputStream output, GraphvizLayout layout, IRootGraph graph,
+			GraphCSS defaultStyle, GraphCSS... styleSheets) {
 		if(writeGraphvizOutput(
-			output, GraphvizFormat.svg, config.getRenderer(), layout, graph, defaultStyle, styleSheets) == null)
+			ICancel.NullIndicator, output, GraphvizFormat.svg, config.getRenderer(), layout, graph, defaultStyle, styleSheets) == null)
 			return false;
 		return true;
 	}
@@ -346,12 +348,12 @@ public class Graphviz implements IGraphviz {
 	 * org.cloudsmith.graph.impl.style.RuleSet, org.cloudsmith.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
-	public boolean writeSVGZ(OutputStream output, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle,
-			GraphCSS... styleSheets) {
+	public boolean writeSVGZ(ICancel cancel, OutputStream output, GraphvizLayout layout, IRootGraph graph,
+			GraphCSS defaultStyle, GraphCSS... styleSheets) {
 		try {
 			GZIPOutputStream stream = new GZIPOutputStream(output);
 			if(writeGraphvizOutput(
-				stream, GraphvizFormat.svg, config.getRenderer(), layout, graph, defaultStyle, styleSheets) == null)
+				ICancel.NullIndicator, stream, GraphvizFormat.svg, config.getRenderer(), layout, graph, defaultStyle, styleSheets) == null)
 				return false;
 			stream.finish();
 			stream.flush();

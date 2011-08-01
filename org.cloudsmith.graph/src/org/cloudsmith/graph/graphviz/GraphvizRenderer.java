@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.graph.graphviz;
 
+import org.cloudsmith.graph.ICancel;
 import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.graphcss.GraphCSS;
 
@@ -20,8 +21,8 @@ import org.cloudsmith.graph.graphcss.GraphCSS;
  * on linux systems. It is unclear if it is possible to get this library also working with Graphviz on windows.
  * To check which renderers are supported run "dot -Tpng:" on a command line for a list of choices.
  * 
- * A Renderer is needed for output formats based on some sort of image (e.g. {@link Graphviz#toJPG(GraphvizLayout, IGraph, GraphCSS, GraphCSS...)},
- * and {@link Graphviz#toPNG(GraphvizLayout, IGraph, GraphCSS, GraphCSS...)}
+ * A Renderer is needed for output formats based on some sort of image (e.g. {@link Graphviz#toJPG(ICancel, GraphvizLayout, IGraph, GraphCSS, GraphCSS...)},
+ * and {@link Graphviz#toPNG(ICancel, GraphvizLayout, IGraph, GraphCSS, GraphCSS...)}
  */
 public enum GraphvizRenderer {
 	/**

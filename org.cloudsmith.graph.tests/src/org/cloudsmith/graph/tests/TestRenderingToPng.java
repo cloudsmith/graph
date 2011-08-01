@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+import org.cloudsmith.graph.ICancel;
 import org.cloudsmith.graph.IGraphProvider;
 import org.cloudsmith.graph.IRootGraph;
 import org.cloudsmith.graph.dot.DotRenderer;
@@ -54,11 +55,11 @@ public class TestRenderingToPng extends AbstractGraphTests {
 		// Render without the default styles. Use styles from SimpleGraph1
 		FileOutputStream dot = new FileOutputStream(new File("./output/abc_abc_vertical_default.dot"));
 		DotRenderer dotRenderer = get(DotRenderer.class);
-		dotRenderer.write(dot, testGraph, theme.getDefaultRules(), themeSheet);
+		dotRenderer.write(ICancel.NullIndicator, dot, testGraph, theme.getDefaultRules(), themeSheet);
 
 		// Render without the default styles. Use styles from SimpleGraph1
-		assertTrue(
-			"Writing PNG", graphviz.writePNG(tmp, GraphvizLayout.dot, testGraph, theme.getDefaultRules(), themeSheet));
+		assertTrue("Writing PNG", graphviz.writePNG(
+			ICancel.NullIndicator, tmp, GraphvizLayout.dot, testGraph, theme.getDefaultRules(), themeSheet));
 
 	}
 
@@ -81,11 +82,11 @@ public class TestRenderingToPng extends AbstractGraphTests {
 		// Render without the default styles. Use styles from SimpleGraph1
 		FileOutputStream dot = new FileOutputStream(new File("./output/abc_horizontal_default.dot"));
 		DotRenderer dotRenderer = get(DotRenderer.class);
-		dotRenderer.write(dot, testGraph, theme.getDefaultRules(), themeSheet);
+		dotRenderer.write(ICancel.NullIndicator, dot, testGraph, theme.getDefaultRules(), themeSheet);
 
 		// Render without the default styles. Use styles from SimpleGraph1
-		assertTrue(
-			"Wriging PNG", graphviz.writePNG(png, GraphvizLayout.dot, testGraph, theme.getDefaultRules(), themeSheet));
+		assertTrue("Wriging PNG", graphviz.writePNG(
+			ICancel.NullIndicator, png, GraphvizLayout.dot, testGraph, theme.getDefaultRules(), themeSheet));
 
 	}
 
@@ -106,11 +107,11 @@ public class TestRenderingToPng extends AbstractGraphTests {
 		// Render without the default styles. Use styles from SimpleGraph1
 		FileOutputStream dot = new FileOutputStream(new File("./output/abc_vertical_default.dot"));
 		DotRenderer dotRenderer = get(DotRenderer.class);
-		dotRenderer.write(dot, testGraph, theme.getDefaultRules(), themeSheet);
+		dotRenderer.write(ICancel.NullIndicator, dot, testGraph, theme.getDefaultRules(), themeSheet);
 
 		// Render without the default styles. Use styles from SimpleGraph1
-		assertTrue(
-			"Writing PNG", graphviz.writePNG(tmp, GraphvizLayout.dot, testGraph, theme.getDefaultRules(), themeSheet));
+		assertTrue("Writing PNG", graphviz.writePNG(
+			ICancel.NullIndicator, tmp, GraphvizLayout.dot, testGraph, theme.getDefaultRules(), themeSheet));
 	}
 
 	public void testPNG_abc_vertical_unstyled() throws FileNotFoundException {
@@ -124,8 +125,8 @@ public class TestRenderingToPng extends AbstractGraphTests {
 		FileOutputStream tmp = new FileOutputStream(new File("./output/abc_vertical_unstyled.png"));
 
 		// Render without the default styles. Use styles from SimpleGraph1
-		assertTrue(
-			"Writing PNG", graphviz.writePNG(tmp, GraphvizLayout.dot, testGraph, get(GraphCSS.class), themeSheet));
+		assertTrue("Writing PNG", graphviz.writePNG(
+			ICancel.NullIndicator, tmp, GraphvizLayout.dot, testGraph, get(GraphCSS.class), themeSheet));
 	}
 
 }

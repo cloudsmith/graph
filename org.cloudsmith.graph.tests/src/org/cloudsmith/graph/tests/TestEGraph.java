@@ -21,6 +21,7 @@ import org.cloudsmith.geppetto.pp.PPFactory;
 import org.cloudsmith.geppetto.pp.PuppetManifest;
 import org.cloudsmith.geppetto.pp.SingleQuotedString;
 import org.cloudsmith.geppetto.pp.VariableExpression;
+import org.cloudsmith.graph.ICancel;
 import org.cloudsmith.graph.IGraphProvider;
 import org.cloudsmith.graph.IRootGraph;
 import org.cloudsmith.graph.dot.DotRenderer;
@@ -95,11 +96,11 @@ public class TestEGraph extends AbstractGraphTests {
 		// Render without the default styles. Use styles from SimpleGraph1
 		FileOutputStream dot = new FileOutputStream(new File("./output/e_smokeTest.dot"));
 		DotRenderer dotRenderer = get(DotRenderer.class);
-		dotRenderer.write(dot, testGraph, theme.getDefaultRules(), themeSheet);
+		dotRenderer.write(ICancel.NullIndicator, dot, testGraph, theme.getDefaultRules(), themeSheet);
 
 		// Render without the default styles. Use styles from SimpleGraph1
-		assertTrue(
-			"Writing PNG", graphviz.writePNG(tmp, GraphvizLayout.dot, testGraph, theme.getDefaultRules(), themeSheet));
+		assertTrue("Writing PNG", graphviz.writePNG(
+			ICancel.NullIndicator, tmp, GraphvizLayout.dot, testGraph, theme.getDefaultRules(), themeSheet));
 
 	}
 
@@ -134,11 +135,11 @@ public class TestEGraph extends AbstractGraphTests {
 		// Render without the default styles. Use styles from SimpleGraph1
 		FileOutputStream dot = new FileOutputStream(new File("./output/e_horizontalArrayIndex.png.dot"));
 		DotRenderer dotRenderer = get(DotRenderer.class);
-		dotRenderer.write(dot, testGraph, theme.getDefaultRules(), themeSheet);
+		dotRenderer.write(ICancel.NullIndicator, dot, testGraph, theme.getDefaultRules(), themeSheet);
 
 		// Render without the default styles. Use styles from SimpleGraph1
-		assertTrue(
-			"Writing PNG", graphviz.writePNG(tmp, GraphvizLayout.dot, testGraph, theme.getDefaultRules(), themeSheet));
+		assertTrue("Writing PNG", graphviz.writePNG(
+			ICancel.NullIndicator, tmp, GraphvizLayout.dot, testGraph, theme.getDefaultRules(), themeSheet));
 
 	}
 }

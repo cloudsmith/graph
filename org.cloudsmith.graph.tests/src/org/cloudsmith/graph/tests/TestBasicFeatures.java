@@ -13,6 +13,7 @@ package org.cloudsmith.graph.tests;
 
 import java.io.ByteArrayOutputStream;
 
+import org.cloudsmith.graph.ICancel;
 import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.IGraphProvider;
 import org.cloudsmith.graph.IRootGraph;
@@ -136,7 +137,7 @@ public class TestBasicFeatures extends AbstractGraphTests {
 		ByteArrayOutputStream tmp = new ByteArrayOutputStream();
 
 		// Render without the default styles. Use styles from SimpleGraph1
-		dotRenderer.write(tmp, testGraph, get(GraphCSS.class), themeSheet);
+		dotRenderer.write(ICancel.NullIndicator, tmp, testGraph, get(GraphCSS.class), themeSheet);
 		assertEquals("Expected result differs", testGraph_Identities_expected, tmp.toString());
 	}
 
@@ -155,7 +156,7 @@ public class TestBasicFeatures extends AbstractGraphTests {
 		ByteArrayOutputStream tmp = new ByteArrayOutputStream();
 
 		// Render without the default styles. Use styles from SimpleGraph1
-		dotRenderer.write(tmp, testGraph, get(GraphCSS.class), themeSheet);
+		dotRenderer.write(ICancel.NullIndicator, tmp, testGraph, get(GraphCSS.class), themeSheet);
 		assertEquals("Expected result differs", testGraph_noIdentities_expected, tmp.toString());
 	}
 
@@ -175,8 +176,8 @@ public class TestBasicFeatures extends AbstractGraphTests {
 
 		ByteArrayOutputStream tmp = new ByteArrayOutputStream();
 		graphviz.writeGraphvizOutput(
-			tmp, GraphvizFormat.svg, GraphvizRenderer.standard, GraphvizLayout.dot, testGraph, get(GraphCSS.class),
-			themeSheet);
+			ICancel.NullIndicator, tmp, GraphvizFormat.svg, GraphvizRenderer.standard, GraphvizLayout.dot, testGraph,
+			get(GraphCSS.class), themeSheet);
 		String output = tmp.toString();
 		assertTrue("Should contain <svg", output.contains("<svg"));
 		assertTrue("Should contain <polygon", output.contains("<polygon"));
@@ -198,8 +199,8 @@ public class TestBasicFeatures extends AbstractGraphTests {
 
 		ByteArrayOutputStream tmp = new ByteArrayOutputStream();
 		graphviz.writeGraphvizOutput(
-			tmp, GraphvizFormat.xdot, GraphvizRenderer.standard, GraphvizLayout.dot, testGraph, get(GraphCSS.class),
-			themeSheet);
+			ICancel.NullIndicator, tmp, GraphvizFormat.xdot, GraphvizRenderer.standard, GraphvizLayout.dot, testGraph,
+			get(GraphCSS.class), themeSheet);
 		String output = tmp.toString();
 		assertTrue("Should contain _draw_ calls", output.contains("_draw_"));
 	}

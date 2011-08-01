@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.cloudsmith.graph.ICancel;
 import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.IGraphElement;
 
@@ -156,10 +157,12 @@ public class GraphCSS {
 	 * @param element
 	 * @return
 	 */
-	public StyleSet collectStyles(IGraphElement element) {
+	public StyleSet collectStyles(IGraphElement element, ICancel cancel) {
 		StyleSet result = new StyleSet();
-		for(Rule r : collectRules(element))
+		for(Rule r : collectRules(element)) {
+			cancel.assertContinue();
 			r.collectStyles(result);
+		}
 		return result;
 	}
 

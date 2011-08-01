@@ -19,6 +19,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.cloudsmith.graph.ICancel;
 import org.cloudsmith.graph.IClusterGraph;
 import org.cloudsmith.graph.IEdge;
 import org.cloudsmith.graph.IGraph;
@@ -116,35 +117,35 @@ public class DotRenderer {
 		return buf.toString();
 	}
 
-	private void printDefaultEdgeStyling() {
+	private void printDefaultEdgeStyling(ICancel cancel) {
 		ByteArrayOutputStream tmp = new ByteArrayOutputStream();
 		PrintStream tmpOut = new PrintStream(tmp);
 
 		tmpOut.print("edge ");
-		int numStyles = elementRenderer.printStyles(tmpOut, edgePrototype, defaultEdgeStyles, defaultGCSS);
+		int numStyles = elementRenderer.printStyles(cancel, tmpOut, edgePrototype, defaultEdgeStyles, defaultGCSS);
 		tmpOut.print(";\n");
 		if(numStyles > 0)
 			out.print(tmp.toString());
 	}
 
-	private void printDefaultGraphStyling() {
+	private void printDefaultGraphStyling(ICancel cancel) {
 		ByteArrayOutputStream tmp = new ByteArrayOutputStream();
 		PrintStream tmpOut = new PrintStream(tmp);
 
 		tmpOut.print("graph ");
-		int numStyles = elementRenderer.printStyles(tmpOut, graphPrototype, defaultGraphStyles, defaultGCSS);
+		int numStyles = elementRenderer.printStyles(cancel, tmpOut, graphPrototype, defaultGraphStyles, defaultGCSS);
 		tmpOut.print(";\n");
 
 		if(numStyles > 0)
 			out.print(tmp.toString());
 	}
 
-	private void printDefaultNodeStyling() {
+	private void printDefaultNodeStyling(ICancel cancel) {
 		ByteArrayOutputStream tmp = new ByteArrayOutputStream();
 		PrintStream tmpOut = new PrintStream(tmp);
 
 		tmpOut.print("node ");
-		int numStyles = elementRenderer.printStyles(tmpOut, vertexPrototype, defaultNodeStyles, defaultGCSS);
+		int numStyles = elementRenderer.printStyles(cancel, tmpOut, vertexPrototype, defaultNodeStyles, defaultGCSS);
 		tmpOut.print(";\n");
 
 		if(numStyles > 0)
@@ -156,7 +157,7 @@ public class DotRenderer {
 	 * 
 	 * @param edge
 	 */
-	private void printEdge(IEdge edge) {
+	private void printEdge(IEdge edge, ICancel cancel) {
 		// produce edges that link to the "north" port, but use default (from center) linking
 		// from the source node (this looks best).
 		//
@@ -165,7 +166,7 @@ public class DotRenderer {
 		ByteArrayOutputStream tmp = new ByteArrayOutputStream();
 		PrintStream tmpOut = new PrintStream(tmp);
 
-		int numStyles = elementRenderer.printStyles(tmpOut, edge, theGCSS);
+		int numStyles = elementRenderer.printStyles(cancel, tmpOut, edge, theGCSS);
 		if(numStyles > 0)
 			out.print(tmp.toString());
 		out.print(";\n");
@@ -178,13 +179,13 @@ public class DotRenderer {
 	 * 
 	 * @param graph
 	 */
-	private void printGraph(IGraph graph) {
+	private void printGraph(IGraph graph, ICancel cancel) {
 		out.printf("%s {\n", formatReference(graph));
-		printGraphBody(graph);
+		printGraphBody(graph, cancel);
 		out.print("}\n");
 	}
 
-	private void printGraphBody(IGraph graph) {
+	private void printGraphBody(IGraph graph, ICancel cancel) {
 
 		// print the root graph's attributes
 
@@ -197,20 +198,20 @@ public class DotRenderer {
 
 		// Print all the vertices
 		for(IVertex v : graph.getVertices())
-			printVertex(v);
+			printVertex(v, cancel);
 		// and all the edges
 		for(IEdge e : graph.getEdges())
-			printEdge(e);
+			printEdge(e, cancel);
 
 		// Print all the subgraphs first so they do not inherit settings intended for the root
 		// graph. All inherited styles should have been set as defaults per element type.
 		for(IGraph g : graph.getSubgraphs())
-			printGraph(g);
+			printGraph(g, cancel);
 
 		ByteArrayOutputStream tmp = new ByteArrayOutputStream();
 		PrintStream tmpOut = new PrintStream(tmp);
 
-		int numStyles = elementRenderer.printStyleStatements(tmpOut, graph, theGCSS);
+		int numStyles = elementRenderer.printStyleStatements(cancel, tmpOut, graph, theGCSS);
 		if(numStyles > 0) {
 			out.print(tmp.toString());
 			out.print("\n");
@@ -218,7 +219,7 @@ public class DotRenderer {
 
 	}
 
-	private void printVertex(IVertex vertex) {
+	private void printVertex(IVertex vertex, ICancel cancel) {
 		// get the full name as it is used in references
 		String reference = formatReference(vertex);
 		if(reference == null || reference.length() == 0)
@@ -228,7 +229,7 @@ public class DotRenderer {
 		ByteArrayOutputStream tmp = new ByteArrayOutputStream();
 		PrintStream tmpOut = new PrintStream(tmp);
 
-		int numStyles = elementRenderer.printStyles(tmpOut, vertex, theGCSS);
+		int numStyles = elementRenderer.printStyles(cancel, tmpOut, vertex, theGCSS);
 		if(numStyles > 0) {
 			tmpOut.flush();
 			out.print(tmp.toString());
@@ -245,7 +246,7 @@ public class DotRenderer {
 	 * @throws IllegalArgumentException
 	 *             for invalid input
 	 */
-	private void processGCSS(GraphCSS defaultGCSS, GraphCSS... styleRules) {
+	private void processGCSS(ICancel cancel, GraphCSS defaultGCSS, GraphCSS... styleRules) {
 		if(defaultGCSS == null)
 			throw new IllegalArgumentException("default style rules is null");
 
@@ -258,17 +259,17 @@ public class DotRenderer {
 		vertexPrototype = new Vertex(null, null, "prototype");
 		edgePrototype = new Edge(vertexPrototype, vertexPrototype, "prototype");
 
-		defaultGraphStyles = defaultGCSS.collectStyles(graphPrototype);
-		defaultNodeStyles = defaultGCSS.collectStyles(vertexPrototype);
-		defaultEdgeStyles = defaultGCSS.collectStyles(edgePrototype);
+		defaultGraphStyles = defaultGCSS.collectStyles(graphPrototype, cancel);
+		defaultNodeStyles = defaultGCSS.collectStyles(vertexPrototype, cancel);
+		defaultEdgeStyles = defaultGCSS.collectStyles(edgePrototype, cancel);
 
 		// assert that label formats are available - look up label formats in the instance rules.
 		//
-		if(theGCSS.collectStyles(graphPrototype).getStyleValue(StyleType.labelFormat, graphPrototype) == null)
+		if(theGCSS.collectStyles(graphPrototype, cancel).getStyleValue(StyleType.labelFormat, graphPrototype) == null)
 			throw new IllegalArgumentException("Default graph label format is null");
-		if(theGCSS.collectStyles(vertexPrototype).getStyleValue(StyleType.labelFormat, vertexPrototype) == null)
+		if(theGCSS.collectStyles(vertexPrototype, cancel).getStyleValue(StyleType.labelFormat, vertexPrototype) == null)
 			throw new IllegalArgumentException("Default graph label format is null");
-		if(theGCSS.collectStyles(edgePrototype).getStyleValue(StyleType.labelFormat, edgePrototype) == null)
+		if(theGCSS.collectStyles(edgePrototype, cancel).getStyleValue(StyleType.labelFormat, edgePrototype) == null)
 			throw new IllegalArgumentException("Default graph label format is null");
 
 	}
@@ -280,16 +281,18 @@ public class DotRenderer {
 	 * importance. Note that as a minimum the style must contain label format styles for the three
 	 * element types Vertex, Graph, and Edge. Failing to supply these will result in an IllegalArgumentException.
 	 * 
+	 * @param cancel
+	 *            A cancel indicator that hould periodically be checked for cancellation.
 	 * @param stream
-	 *            - where the dot output should be written
+	 *            where the dot output should be written
 	 * @param graph
-	 *            - the graph to render
+	 *            the graph to render
 	 * @param defaultCSS
-	 *            - the default (static CSS)
+	 *            the default (static CSS)
 	 * @param styleSheets
 	 *            - use case specific stylesheets.
 	 */
-	public void write(OutputStream stream, IGraph graph, GraphCSS defaultCSS, GraphCSS... styleSheets) {
+	public void write(ICancel cancel, OutputStream stream, IGraph graph, GraphCSS defaultCSS, GraphCSS... styleSheets) {
 		if(stream == null)
 			throw new IllegalArgumentException("stream is null");
 		if(!(stream instanceof PrintStream))
@@ -297,18 +300,18 @@ public class DotRenderer {
 		else
 			out = (PrintStream) stream;
 
-		processGCSS(defaultCSS, styleSheets);
+		processGCSS(cancel, defaultCSS, styleSheets);
 
 		// a directed graph (this is the root graph).
 		out.printf("digraph %s {\n", graph.getId());
 
 		// print the default styling for graph, node and edge
-		printDefaultGraphStyling();
-		printDefaultNodeStyling();
-		printDefaultEdgeStyling();
+		printDefaultGraphStyling(cancel);
+		printDefaultNodeStyling(cancel);
+		printDefaultEdgeStyling(cancel);
 
 		// print the graph
-		printGraphBody(graph);
+		printGraphBody(graph, cancel);
 
 		// printGraph(graph);
 

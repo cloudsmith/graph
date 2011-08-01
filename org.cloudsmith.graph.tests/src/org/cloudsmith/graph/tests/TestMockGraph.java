@@ -13,6 +13,7 @@ package org.cloudsmith.graph.tests;
 
 import java.io.ByteArrayOutputStream;
 
+import org.cloudsmith.graph.ICancel;
 import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.IGraphProvider;
 import org.cloudsmith.graph.dot.DotRenderer;
@@ -54,7 +55,7 @@ public class TestMockGraph extends AbstractGraphTests {
 		ByteArrayOutputStream tmp = new ByteArrayOutputStream();
 
 		// Render without the default styles. Use styles from SimpleGraph1
-		dotRenderer.write(tmp, testGraph, get(GraphCSS.class), themeSheet);
+		dotRenderer.write(ICancel.NullIndicator, tmp, testGraph, get(GraphCSS.class), themeSheet);
 		assertEquals("Expected result differs", testSimpleGraph1_dotOutput_text, tmp.toString());
 	}
 
@@ -70,7 +71,7 @@ public class TestMockGraph extends AbstractGraphTests {
 		themeSheet.addAll(graphProvider.getRules());
 
 		DotRenderer dotRenderer = get(DotRenderer.class);
-		dotRenderer.write(System.err, testGraph, theme.getDefaultRules(), themeSheet);
+		dotRenderer.write(ICancel.NullIndicator, System.err, testGraph, theme.getDefaultRules(), themeSheet);
 		// String dotText = graphviz.getDotText(testGraph, theme.getDefaultRules(), themeSheet);
 		// System.err.println(dotText);
 	}

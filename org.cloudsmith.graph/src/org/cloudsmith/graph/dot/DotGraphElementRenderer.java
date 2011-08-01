@@ -15,6 +15,7 @@ import java.io.PrintStream;
 import java.util.Collection;
 
 import org.cloudsmith.graph.ElementType;
+import org.cloudsmith.graph.ICancel;
 import org.cloudsmith.graph.IClusterGraph;
 import org.cloudsmith.graph.IEdge;
 import org.cloudsmith.graph.IGraphElement;
@@ -67,6 +68,8 @@ public class DotGraphElementRenderer {
 	/**
 	 * Do the actual printing.
 	 * 
+	 * @param cancel
+	 *            TODO
 	 * @param out
 	 *            - where to print
 	 * @param element
@@ -78,8 +81,8 @@ public class DotGraphElementRenderer {
 	 * @param gcss
 	 *            - css for nested label elements
 	 */
-	private int printStyles(final PrintStream out, final IGraphElement element, final boolean statementList,
-			final Collection<IStyle<?>> s, final GraphCSS gcss) {
+	private int printStyles(final ICancel cancel, final PrintStream out, final IGraphElement element,
+			final boolean statementList, final Collection<IStyle<?>> s, final GraphCSS gcss) {
 		// if no styles, output nothing
 		if(s == null || s.size() < 1)
 			return 0;
@@ -211,7 +214,7 @@ public class DotGraphElementRenderer {
 						if(tmp != null) {
 							// print the label, and if nothing printed, adjust the comma count
 							if(!labelRenderer.print(
-								out, (ILabeledGraphElement) element, tmp, o.isSeparatorNeeded(), sepChar, gcss))
+								out, (ILabeledGraphElement) element, tmp, o.isSeparatorNeeded(), sepChar, gcss, cancel))
 								o.decrement(); // nothing printed
 						}
 						else
@@ -366,6 +369,7 @@ public class DotGraphElementRenderer {
 			};
 			style.visit(element, visitor);
 			o.increment();
+			cancel.assertContinue();
 		}
 		// close
 		if(!statementList)
@@ -375,23 +379,25 @@ public class DotGraphElementRenderer {
 		return o.value();
 	}
 
-	private int printStyles(PrintStream out, IGraphElement element, Collection<IStyle<?>> s, GraphCSS gcss) {
-		return printStyles(out, element, false, s, gcss);
+	private int printStyles(ICancel cancel, PrintStream out, IGraphElement element, Collection<IStyle<?>> s,
+			GraphCSS gcss) {
+		return printStyles(cancel, out, element, false, s, gcss);
 	}
 
-	public int printStyles(PrintStream out, IGraphElement element, GraphCSS gcss) {
-		return printStyles(out, element, gcss.collectStyles(element).getStyles(), gcss);
+	public int printStyles(ICancel cancel, PrintStream out, IGraphElement element, GraphCSS gcss) {
+		return printStyles(cancel, out, element, gcss.collectStyles(element, cancel).getStyles(), gcss);
 	}
 
-	public int printStyles(PrintStream out, IGraphElement element, StyleSet styleMap, GraphCSS gcss) {
-		return printStyles(out, element, styleMap.getStyles(), gcss);
+	public int printStyles(ICancel cancel, PrintStream out, IGraphElement element, StyleSet styleMap, GraphCSS gcss) {
+		return printStyles(cancel, out, element, styleMap.getStyles(), gcss);
 	}
 
-	public int printStyleStatements(PrintStream out, IGraphElement element, Collection<IStyle<?>> s, GraphCSS gcss) {
-		return printStyles(out, element, true, s, gcss);
+	public int printStyleStatements(ICancel cancel, PrintStream out, IGraphElement element, Collection<IStyle<?>> s,
+			GraphCSS gcss) {
+		return printStyles(cancel, out, element, true, s, gcss);
 	}
 
-	public int printStyleStatements(PrintStream out, IGraphElement element, GraphCSS gcss) {
-		return printStyles(out, element, true, gcss.collectStyles(element).getStyles(), gcss);
+	public int printStyleStatements(ICancel cancel, PrintStream out, IGraphElement element, GraphCSS gcss) {
+		return printStyles(cancel, out, element, true, gcss.collectStyles(element, cancel).getStyles(), gcss);
 	}
 }

@@ -16,6 +16,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Collection;
 
+import org.cloudsmith.graph.ICancel;
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.ILabeledGraphElement;
 import org.cloudsmith.graph.ITable;
@@ -80,7 +81,7 @@ public class DotLabelRenderer {
 	 * @return a vector of three strings - the parsed element attributes, attributes for font, and attribute for rendered.
 	 */
 	private String[] parseGraphTableAttributes(final ILabeledGraphElement ge, final IGraphElement labelnode,
-			GraphCSS styleRules) {
+			GraphCSS styleRules, ICancel cancel) {
 		final String[] result = new String[3];
 		// in case there are no attributes to set
 		result[0] = "";
@@ -93,7 +94,7 @@ public class DotLabelRenderer {
 		final PrintStream fontStream = new PrintStream(fontText);
 
 		// get the styling for the gt
-		Collection<IStyle<?>> s = styleRules.collectStyles(labelnode).getStyles();
+		Collection<IStyle<?>> s = styleRules.collectStyles(labelnode, cancel).getStyles();
 		if(s == null || s.size() < 1)
 			return result; // no attributes to set
 
@@ -243,6 +244,7 @@ public class DotLabelRenderer {
 		for(IStyle<?> style : s) {
 			style.visit(ge, visitor);
 			count.increment();
+			cancel.assertContinue();
 		}
 		result[0] = elementText.toString();
 		result[1] = fontText.toString();
@@ -262,19 +264,19 @@ public class DotLabelRenderer {
 	 * @return
 	 */
 	public boolean print(PrintStream out, ILabeledGraphElement theGraphElement, ILabelTemplate labelTemplate,
-			boolean printComma, char sepChar, GraphCSS gcss) {
+			boolean printComma, char sepChar, GraphCSS gcss, ICancel cancel) {
 		if(labelTemplate instanceof LabelStringTemplate)
 			return printStringLabel(
 				out, theGraphElement, ((LabelStringTemplate) labelTemplate).getTemplateString(theGraphElement),
 				printComma, sepChar);
 		else if(labelTemplate instanceof LabelMatrix)
-			return printMatrix(out, theGraphElement, (LabelMatrix) labelTemplate, printComma, sepChar, gcss);
-		return printTable(out, theGraphElement, (LabelTable) labelTemplate, printComma, sepChar, gcss);
+			return printMatrix(out, theGraphElement, (LabelMatrix) labelTemplate, printComma, sepChar, gcss, cancel);
+		return printTable(out, theGraphElement, (LabelTable) labelTemplate, printComma, sepChar, gcss, cancel);
 
 	}
 
-	private void printGraphCell(PrintStream out, ILabeledGraphElement ge, ITableCell gc, GraphCSS gcss) {
-		String[] p = parseGraphTableAttributes(ge, gc, gcss);
+	private void printGraphCell(PrintStream out, ILabeledGraphElement ge, ITableCell gc, GraphCSS gcss, ICancel cancel) {
+		String[] p = parseGraphTableAttributes(ge, gc, gcss, cancel);
 		// if "rendered" == false, do not output anything
 		if(p[2].toLowerCase().equals("false"))
 			return;
@@ -294,16 +296,16 @@ public class DotLabelRenderer {
 		out.print("</TD>");
 	}
 
-	private void printGraphRow(PrintStream out, ILabeledGraphElement ge, ITableRow gr, GraphCSS gcss) {
+	private void printGraphRow(PrintStream out, ILabeledGraphElement ge, ITableRow gr, GraphCSS gcss, ICancel cancel) {
 		out.print("<TR>");
 		for(ITableCell gc : gr.getCells())
-			printGraphCell(out, ge, gc, gcss);
+			printGraphCell(out, ge, gc, gcss, cancel);
 		out.print("</TR>");
 	}
 
 	private boolean printGraphTable(PrintStream out, ILabeledGraphElement theGraphElement, boolean printComma,
-			char sepChar, ITable gt, GraphCSS gcss) {
-		String[] p = parseGraphTableAttributes(theGraphElement, gt, gcss);
+			char sepChar, ITable gt, GraphCSS gcss, ICancel cancel) {
+		String[] p = parseGraphTableAttributes(theGraphElement, gt, gcss, cancel);
 		// if "rendered" == false, do not output anything
 		if(p[2].toLowerCase().equals("false"))
 			return false;
@@ -320,7 +322,7 @@ public class DotLabelRenderer {
 			out.printf("<FONT %s>", p[1]);
 		out.printf("<TABLE %s>", p[0]);
 		for(ITableRow r : gt.getRows())
-			printGraphRow(out, theGraphElement, r, gcss);
+			printGraphRow(out, theGraphElement, r, gcss, cancel);
 		out.print("</TABLE>");
 		if(withFontData)
 			out.print("</FONT>");
@@ -329,7 +331,7 @@ public class DotLabelRenderer {
 	}
 
 	private boolean printMatrix(PrintStream out, ILabeledGraphElement theGraphElement, LabelMatrix templateMatrix,
-			boolean printComma, char sepChar, GraphCSS gcss) {
+			boolean printComma, char sepChar, GraphCSS gcss, ICancel cancel) {
 
 		// create the GraphTable using a styleClass that is possibly set using
 		// EL
@@ -363,7 +365,7 @@ public class DotLabelRenderer {
 		// Now armed with the label graph - we need to visit those nodes, get the styling of them, and provide
 		// output!
 		//
-		return printGraphTable(out, theGraphElement, printComma, sepChar, gt, gcss);
+		return printGraphTable(out, theGraphElement, printComma, sepChar, gt, gcss, cancel);
 	}
 
 	private boolean printStringLabel(PrintStream out, ILabeledGraphElement theGraphElement, String simpleTemplate,
@@ -382,7 +384,7 @@ public class DotLabelRenderer {
 	}
 
 	private boolean printTable(PrintStream out, ILabeledGraphElement theGraphElement, LabelTable templateTable,
-			boolean printComma, char sepChar, GraphCSS gcss) {
+			boolean printComma, char sepChar, GraphCSS gcss, ICancel cancel) {
 		// Context methodContext = Contexts.getMethodContext();
 		// methodContext.set("element", m_ge);
 
@@ -397,6 +399,8 @@ public class DotLabelRenderer {
 
 		// For all rows in the template, create a GraphRow
 		for(LabelRow r : templateTable.getRows()) {
+			cancel.assertContinue();
+
 			tmp = r.getStyleClass(theGraphElement);
 			GraphRow gr = new GraphRow(tmp);
 			gt.addRow(gr);
@@ -434,7 +438,7 @@ public class DotLabelRenderer {
 		// Now armed with the label graph - we need to visit those nodes, get the styling of them, and provide
 		// output!
 		//
-		return printGraphTable(out, theGraphElement, printComma, sepChar, gt, gcss);
+		return printGraphTable(out, theGraphElement, printComma, sepChar, gt, gcss, cancel);
 	}
 
 }

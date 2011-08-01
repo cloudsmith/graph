@@ -65,8 +65,9 @@ public interface IStyle<T> {
 	 * Visiting this IStyle means it will call back to the given visitor method named after the style type.
 	 * 
 	 * @param ge
-	 *            TODO
+	 *            The visited graph element
 	 * @param visitor
+	 *            The visitor that will be called
 	 */
 	public void visit(IGraphElement ge, IStyleVisitor visitor);
 
