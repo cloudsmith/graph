@@ -3,8 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Graph
 Bundle-SymbolicName: org.cloudsmith.graph
 Bundle-Version: 1.0.0.qualifier
-Require-Bundle: org.eclipse.core.runtime,
- com.google.collect,
+Require-Bundle: com.google.collect,
  com.google.inject
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6,

@@ -11,8 +11,6 @@
  */
 package org.cloudsmith.graph.graphviz;
 
-import org.eclipse.core.runtime.Platform;
-
 import com.google.inject.Singleton;
 
 /**
@@ -30,7 +28,10 @@ public class DefaultGraphvizConfig implements IGraphvizConfig {
 	 */
 	@Override
 	public GraphvizRenderer getRenderer() {
-		if(Platform.getOS() == Platform.OS_MACOSX)
+		String osName = System.getProperty("os.name", "");
+		osName = osName.toLowerCase();
+		osName = osName.replace(" ", "");
+		if(osName.contains("macosx"))
 			return GraphvizRenderer.quartz;
 		return GraphvizRenderer.cairo;
 	}
