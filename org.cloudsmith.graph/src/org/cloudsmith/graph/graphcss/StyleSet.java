@@ -71,14 +71,16 @@ public class StyleSet {
 	 * Add all style settings from map into this map - overwrite existing values.
 	 * 
 	 * @param map
+	 * @return this map
 	 */
-	public void add(StyleSet map) {
+	public StyleSet add(StyleSet map) {
 		// avoid doing work if there is nothing to add
 		if(map == null || map.styleMap.size() == 0)
-			return;
+			return this;
 		if(styleMap == null)
 			styleMap = new EnumMap<StyleType, IStyle<? extends Object>>(StyleType.class);
 		styleMap.putAll(map.styleMap);
+		return this;
 	}
 
 	public Collection<IStyle<? extends Object>> getStyles() {
