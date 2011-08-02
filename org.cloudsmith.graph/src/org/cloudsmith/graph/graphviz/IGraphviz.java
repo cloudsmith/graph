@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.graph.graphviz;
 
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -166,7 +167,9 @@ public interface IGraphviz {
 	 * @return the output stream with the data, or null if there was an error
 	 */
 	OutputStream writeGraphvizOutput(ICancel cancel, OutputStream output, GraphvizFormat format,
-			GraphvizRenderer renderer, GraphvizLayout layout, byte[] dotData);
+			GraphvizRenderer renderer, GraphvizLayout layout, InputStream dotData);
+
+	// byte[] dotData);
 
 	/**
 	 * Generic routine to produce output from Graphviz.

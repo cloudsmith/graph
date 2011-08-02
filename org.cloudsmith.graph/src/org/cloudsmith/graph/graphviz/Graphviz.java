@@ -24,6 +24,7 @@ import org.cloudsmith.graph.ICancel;
 import org.cloudsmith.graph.IRootGraph;
 import org.cloudsmith.graph.dot.DotRenderer;
 import org.cloudsmith.graph.graphcss.GraphCSS;
+import org.cloudsmith.graph.utils.ByteArrayOutputStream2;
 
 import com.google.inject.Inject;
 
@@ -139,7 +140,8 @@ public class Graphviz implements IGraphviz {
 	public OutputStream writeGraphvizOutput(final ICancel cancel, final OutputStream output, GraphvizFormat format,
 			GraphvizRenderer renderer, //
 			GraphvizLayout layout, //
-			final byte[] dotData //
+			final InputStream dotData
+	// final byte[] dotData //
 	) {
 		Process p;
 		// graphviz -T format:renderer is something like -T png:cairo
@@ -173,7 +175,11 @@ public class Graphviz implements IGraphviz {
 			public void run() {
 				// print the dot output on the stream
 				try {
-					out.write(dotData); // dotOutput.toByteArray());
+					byte[] buf = new byte[1024];
+					int length = 0;
+					while((length = dotData.read(buf)) != -1)
+						out.write(buf, 0, length); // dotOutput.toByteArray());
+
 					// close the stream, or graphviz will read for ever
 					out.close();
 				}
@@ -315,9 +321,9 @@ public class Graphviz implements IGraphviz {
 		// Produce the dot output to a buffer (at one point we could not run this in a thread because JBoss Seam
 		// got confused over context - maybe possible to revisit
 		//
-		final ByteArrayOutputStream dotOutput = new ByteArrayOutputStream();
+		final ByteArrayOutputStream2 dotOutput = new ByteArrayOutputStream2();
 		dotRenderer.write(cancel, dotOutput, graph, defaultStyleSheet, styleSheets);
-		return writeGraphvizOutput(cancel, output, format, renderer, layout, dotOutput.toByteArray());
+		return writeGraphvizOutput(cancel, output, format, renderer, layout, dotOutput.toInputStream(false));
 	}
 
 	/*
