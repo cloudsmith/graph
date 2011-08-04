@@ -23,6 +23,8 @@ public class AllTests {
 	public static Test suite() {
 		TestSuite suite = new TestSuite(AllTests.class.getName());
 		// $JUnit-BEGIN$
+		suite.addTestSuite(TestBase64.class);
+		suite.addTestSuite(TestSVGFixer.class);
 		suite.addTestSuite(TestBasicFeatures.class);
 		suite.addTestSuite(TestMockGraph.class);
 		suite.addTestSuite(TestRenderingToPng.class);

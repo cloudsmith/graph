@@ -11,13 +11,10 @@
  */
 package org.cloudsmith.graph.elements;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.ILabeledGraphElement;
-
-import com.google.common.collect.Maps;
 
 /**
  * 
@@ -26,8 +23,6 @@ import com.google.common.collect.Maps;
 public abstract class LabeledGraphElement extends GraphElement implements IGraphElement, ILabeledGraphElement {
 	private String label;
 
-	private Map<String, String> data;
-
 	public LabeledGraphElement() {
 		this(null, "", "", null);
 	}
@@ -35,10 +30,6 @@ public abstract class LabeledGraphElement extends GraphElement implements IGraph
 	protected LabeledGraphElement(LabeledGraphElement that) {
 		super(that);
 		this.label = that.label;
-		if(that.data != null) {
-			this.data = Maps.newHashMap();
-			this.data.putAll(that.data);
-		}
 	}
 
 	public LabeledGraphElement(Map<String, String> data) {
@@ -56,7 +47,8 @@ public abstract class LabeledGraphElement extends GraphElement implements IGraph
 	public LabeledGraphElement(Map<String, String> data, String label, String styleClass, String id) {
 		super(styleClass, id);
 		this.label = label;
-		this.data = data;
+		if(data != null)
+			getUserData().putAll(data);
 	}
 
 	public LabeledGraphElement(String styleClass) {
@@ -71,10 +63,12 @@ public abstract class LabeledGraphElement extends GraphElement implements IGraph
 		this(null, label, styleClass, id);
 	}
 
+	/**
+	 * @deprecated use {@link #getUserData()}
+	 */
+	@Deprecated
 	public Map<String, String> getData() {
-		if(data == null)
-			data = new HashMap<String, String>();
-		return data;
+		return getUserData();
 	}
 
 	public String getLabel() {
@@ -82,6 +76,6 @@ public abstract class LabeledGraphElement extends GraphElement implements IGraph
 	}
 
 	public void setData(Map<String, String> dataMap) {
-		data = dataMap;
+		getUserData().putAll(dataMap);
 	}
 }

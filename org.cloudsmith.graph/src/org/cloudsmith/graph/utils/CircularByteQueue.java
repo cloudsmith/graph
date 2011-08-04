@@ -215,6 +215,30 @@ public final class CircularByteQueue implements Serializable, Cloneable {
 
 	}
 
+	/**
+	 * Returns the index of the given byte, or -1 if not present in the buffer.
+	 * 
+	 * @param b
+	 * @return
+	 */
+	public int indexOf(byte b) {
+		return indexOf(b, 0);
+	}
+
+	/**
+	 * Returns the index of the given byte starting at index 0, or -1 if not present in the buffer.
+	 * The returned index is relative to the head of the buffer (i.e. position 0).
+	 * 
+	 * @param b
+	 * @return
+	 */
+	public int indexOf(byte b, int start) {
+		for(int i = start; i < contentSize; i++)
+			if(buffer[(head + i) & (buffer.length - 1)] == b)
+				return i;
+		return -1;
+	}
+
 	public boolean isEmpty() {
 		return contentSize == 0;
 	}
@@ -233,6 +257,38 @@ public final class CircularByteQueue implements Serializable, Cloneable {
 		for(int i = 0; i < count; i++)
 			result[i] = buffer[(head + i) & (buffer.length - 1)];
 		return result;
+	}
+
+	/**
+	 * Returns the length of a sequence starting and ending with given bytes.
+	 * A successful probe returns at least 2 (start byte immediately followed by end byte).
+	 * A return of 0 indicates that the byte at head is not the start byte, and a return of
+	 * 1 indicates that there is not enough data in the buffer to determine if the end byte
+	 * is present. A returned length of -1 indicates that the queue is empty.
+	 * 
+	 * @param start
+	 *            byte expected at head
+	 * @param end
+	 *            byte ending the probe
+	 * @return the length from head of buffer including the start and end bytes with special meaning of -1, 0, and 1
+	 */
+	public int probeForSequence(byte start, byte end) {
+		if(isEmpty())
+			return -1;
+		if(peek() != start)
+			return 0;
+		for(int i = 1; i < contentSize; i++)
+			if(buffer[(head + i) & (buffer.length - 1)] == end)
+				return i;
+		return 1; // report start byte as seen ok
+	}
+
+	/**
+	 * Returns the length of a string enclosed in "" where the opening " is at the head of
+	 * the buffer.
+	 */
+	public int probeForString() {
+		return probeForSequence((byte) '"', (byte) '"');
 	}
 
 	/**

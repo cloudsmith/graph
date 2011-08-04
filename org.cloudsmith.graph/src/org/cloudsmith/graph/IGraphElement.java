@@ -12,6 +12,7 @@
 package org.cloudsmith.graph;
 
 import java.util.Iterator;
+import java.util.Map;
 
 import org.cloudsmith.graph.graphcss.StyleSet;
 
@@ -69,5 +70,29 @@ public interface IGraphElement {
 	 * @return a style set for the instance.
 	 */
 	public StyleSet getStyles();
+
+	/**
+	 * Returns user data values.
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public Map<String, String> getUserData();
+
+	/**
+	 * Return a user data value by key.
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public String getUserData(String key);
+
+	/**
+	 * Set a user data value by key.
+	 * 
+	 * @param key
+	 * @param value
+	 */
+	public void putUserData(String key, String value);
 
 }

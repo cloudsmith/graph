@@ -11,13 +11,10 @@
  */
 package org.cloudsmith.graph.elements;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.ILabeledGraphElement;
-
-import com.google.common.collect.Maps;
 
 /**
  * An IGraph that is also ILabeledGraphElement
@@ -26,8 +23,6 @@ import com.google.common.collect.Maps;
 public abstract class LabeledGraph extends Graph implements ILabeledGraphElement {
 
 	private String label;
-
-	private Map<String, String> data;
 
 	protected LabeledGraph() {
 		this(null, "", "", null);
@@ -39,10 +34,6 @@ public abstract class LabeledGraph extends Graph implements ILabeledGraphElement
 			throw new IllegalArgumentException("graph must implement ILabeledGraphElement");
 		ILabeledGraphElement that = (ILabeledGraphElement) graph;
 		this.label = that.getLabel();
-		if(that.getData() != null) {
-			this.data = Maps.newHashMap();
-			this.data.putAll(that.getData());
-		}
 	}
 
 	protected LabeledGraph(Map<String, String> data) {
@@ -60,7 +51,8 @@ public abstract class LabeledGraph extends Graph implements ILabeledGraphElement
 	protected LabeledGraph(Map<String, String> data, String label, String styleClass, String id) {
 		super(styleClass, id);
 		this.label = label;
-		this.data = data;
+		if(data != null)
+			getUserData().putAll(data);
 	}
 
 	protected LabeledGraph(String styleClass) {
@@ -80,10 +72,12 @@ public abstract class LabeledGraph extends Graph implements ILabeledGraphElement
 		this(null, label, styleClass, id);
 	}
 
+	/**
+	 * @deprecated use {@link #getUserData()}.
+	 */
+	@Deprecated
 	public Map<String, String> getData() {
-		if(data == null)
-			data = new HashMap<String, String>();
-		return data;
+		return getUserData();
 	}
 
 	public String getLabel() {
@@ -91,7 +85,7 @@ public abstract class LabeledGraph extends Graph implements ILabeledGraphElement
 	}
 
 	public void setData(Map<String, String> dataMap) {
-		data = dataMap;
+		getUserData().putAll(dataMap);
 	}
 
 	public void setLabel(String label) {

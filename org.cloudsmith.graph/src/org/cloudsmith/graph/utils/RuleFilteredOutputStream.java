@@ -75,6 +75,8 @@ public class RuleFilteredOutputStream extends FilterOutputStream implements IOut
 
 	private PatternRule deleteUntilRule;
 
+	private PatternRule pendingRule;
+
 	private boolean inclusiveDelete;
 
 	/**
@@ -124,16 +126,45 @@ public class RuleFilteredOutputStream extends FilterOutputStream implements IOut
 	/**
 	 * Finishes the filtering. Any remaining bytes (too short to be matched by any rules) is written
 	 * to the output. Only call this method when there is a need to "restart" the filtering.
+	 * If in delete mode, the remaining bytes are deleted.
 	 */
 	public void finish() throws IOException {
-		buffer.writeFlush(out);
+		if(isDeleteMode()) {
+			buffer.delete(buffer.size());
+		}
+		else if(pendingRule != null) {
+			// give a pending rule a last chance to do something
+			// before flushing the output
+			pendingRule.performAction();
+		}
+		while(buffer.size() > 0) {
+			for(PatternRule r : rules) {
+				if(!r.isActive())
+					continue;
+				// skip patterns that are longer than what remains
+				if(r.pattern.length > buffer.size())
+					continue;
+				if(buffer.startsWith(r.pattern)) {
+					r.performAction();
+				}
+			}
+			// At this point, none of the patterns wanted the content (if some processing
+			// took place, the scanning has been redone). Write one byte, and retest patterns.
+			if(buffer.size() > 0)
+				buffer.writeFlush(1, out);
+		}
 	}
 
 	public boolean isDeleteMode() {
 		return deleteMode;
 	}
 
-	public void onWrite() throws IOException {
+	private void onWrite() throws IOException {
+		// a pending rule is in effect until it's action sets pending null
+		if(pendingRule != null) {
+			pendingRule.performAction();
+			return;
+		}
 		boolean keepScanning = true;
 		RESCAN: while(keepScanning) {
 
@@ -175,6 +206,16 @@ public class RuleFilteredOutputStream extends FilterOutputStream implements IOut
 		this.deleteUntilRule = r;
 		inclusiveDelete = inclusive;
 		deleteMode = true;
+	}
+
+	/**
+	 * Sets a rule as pending - it will be activated on each write, until it
+	 * setPendingRule is called with null.
+	 * 
+	 * @param rule
+	 */
+	public void setPendingRule(PatternRule rule) {
+		pendingRule = rule;
 	}
 
 	public void setRules(PatternRule[] rules) {

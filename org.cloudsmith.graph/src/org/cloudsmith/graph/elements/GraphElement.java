@@ -12,11 +12,14 @@
 package org.cloudsmith.graph.elements;
 
 import java.util.Iterator;
+import java.util.Map;
 
 import org.cloudsmith.graph.ElementType;
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.graphcss.StyleSet;
 import org.cloudsmith.graph.style.IStyle;
+
+import com.google.common.collect.Maps;
 
 /**
  * Base implementation of an IGraphElement.
@@ -57,9 +60,9 @@ public abstract class GraphElement implements IGraphElement {
 
 	private IGraphElement parentElement;
 
-	// private IGraphElement[] context;
-
 	private StyleSet instanceStyleMap;
+
+	private Map<String, String> data;
 
 	/**
 	 * If a graph element is created without an id, it must either be set explicitly
@@ -70,9 +73,16 @@ public abstract class GraphElement implements IGraphElement {
 		this("", null);
 	}
 
+	/**
+	 * Copy constructor.
+	 * 
+	 * @param that
+	 */
 	protected GraphElement(IGraphElement that) {
 		this.id = that.getId();
 		this.styleClass = that.getStyleClass();
+		this.data = Maps.newHashMap();
+		this.data.putAll(that.getUserData());
 		if(that.getStyles() != null) {
 			this.instanceStyleMap = new StyleSet();
 			this.instanceStyleMap.add(that.getStyles());
@@ -86,6 +96,7 @@ public abstract class GraphElement implements IGraphElement {
 	public GraphElement(String styleClass, String id) {
 		this.id = id;
 		this.styleClass = styleClass;
+		this.data = Maps.newHashMap();
 	}
 
 	/*
@@ -127,6 +138,20 @@ public abstract class GraphElement implements IGraphElement {
 
 	public String getUrlString() {
 		return urlString;
+	}
+
+	public Map<String, String> getUserData() {
+		return data;
+	}
+
+	@Override
+	public String getUserData(String key) {
+		return data.get(key);
+	}
+
+	@Override
+	public void putUserData(String key, String value) {
+		data.put(key, value);
 	}
 
 	public void setId(String id) {
