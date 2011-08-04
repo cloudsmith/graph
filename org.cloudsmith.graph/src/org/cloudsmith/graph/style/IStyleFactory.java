@@ -86,6 +86,10 @@ public interface IStyleFactory {
 
 	public IStyle<String> href(String x);
 
+	public IStyle<String> id(Function<IGraphElement, String> idClassReplacer);
+
+	public IStyle<String> id(String s);
+
 	public LabelCell labelCell(Function<IGraphElement, String> styleClass, Function<IGraphElement, String> f, Span span);
 
 	public LabelCell labelCell(String styleClass, Function<IGraphElement, String> f);

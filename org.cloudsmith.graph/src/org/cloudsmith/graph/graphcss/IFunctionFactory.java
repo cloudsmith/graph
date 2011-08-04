@@ -17,7 +17,7 @@ import com.google.common.base.Function;
 
 /**
  * @author henrik
- *
+ * 
  */
 public interface IFunctionFactory {
 
@@ -34,6 +34,14 @@ public interface IFunctionFactory {
 	 * @return
 	 */
 	public Function<IGraphElement, Boolean> emptyLabelData(Object key);
+
+	/**
+	 * Returns a string with id="ID" class="CLASSES" based on an optional user data key (or the
+	 * fully qualified id if missing), and the combination of graph element type and graph element style class.
+	 * 
+	 * @return
+	 */
+	Function<IGraphElement, String> idClassReplacer();
 
 	/**
 	 * Returns the label string of the graph element.

@@ -288,6 +288,16 @@ public class StyleVisitor implements IStyleVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.cloudsmith.graph.style.IStyleVisitor#id(java.lang.String)
+	 */
+	@Override
+	public void id(String value) {
+		unsupported(StyleType.id);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.cloudsmith.graph.style.IStyleVisitor#labelFormat(org.cloudsmith.graph.style.labels.ILabelTemplate)
 	 */
 	@Override

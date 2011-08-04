@@ -144,9 +144,9 @@ public class TestGraph implements IGraphProvider {
 		g.addEdge(new Edge(vv[2], vv[3]));
 
 		// add some data to a node
-		vv[4].getData().put("name", "John Doe");
-		vv[4].getData().put("version", "1.2.3");
-		vv[4].getData().put("type", "demo");
+		vv[4].getUserData().put("name", "John Doe");
+		vv[4].getUserData().put("version", "1.2.3");
+		vv[4].getUserData().put("type", "demo");
 		vv[4].setStyleClass("WithData");
 
 		ev[1].setStyleClass("SpecialArrows");

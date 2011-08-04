@@ -205,6 +205,11 @@ public class DotGraphElementRenderer {
 				}
 
 				@Override
+				public void id(String value) {
+					out.printf("%sid=\"%s\"", o.separator(), value);
+				}
+
+				@Override
 				public void labelFormat(ILabelTemplate x) {
 					// labels are tricky - if there is no label format nothing is printed,
 					// if the label format EL evaluated rendered to false, nothing is printed

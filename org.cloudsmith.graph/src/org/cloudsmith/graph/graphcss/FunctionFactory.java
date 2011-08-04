@@ -11,10 +11,14 @@
  */
 package org.cloudsmith.graph.graphcss;
 
+import java.io.UnsupportedEncodingException;
+
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.ILabeledGraphElement;
+import org.cloudsmith.graph.utils.Base64;
 
 import com.google.common.base.Function;
+import com.google.common.collect.Iterators;
 import com.google.inject.Singleton;
 
 /**
@@ -63,6 +67,64 @@ public class FunctionFactory implements IFunctionFactory {
 			return item == null || item.length() == 0;
 		}
 
+	}
+
+	/**
+	 * A Function that translates a IGraphElement into a base64 encoded string containing
+	 * id="ID" class="CLASS" where:
+	 * <ul>
+	 * <li>ID is the user data {@link #ID_KEY} value from the element, or if missing the fully qualified id of the given element.</li>
+	 * <li>CLASS</li> is the type of element and the style class of the given element</li>
+	 * </ul>
+	 * The intention is to combine the user of this function to set the id style of
+	 * an element and use a SVG post processor that replaces the generated id="..." class="..."
+	 * sequence with that encoded in what this function produces.
+	 * 
+	 * @author henrik
+	 * 
+	 */
+	public static class IdClassReplacerFunction implements Function<IGraphElement, String> {
+		public final static String ID_KEY = IdClassReplacerFunction.class.getName() + "_Id";
+
+		@Override
+		public String apply(IGraphElement from) {
+
+			String idString = from.getUserData(ID_KEY);
+			if(idString == null)
+				idString = computeID(from);
+			String styleClass = from.getStyleClass();
+			StringBuilder builder = new StringBuilder(idString.length() + styleClass.length() + 20);
+			builder.append("id=\"");
+			builder.append(idString);
+			builder.append("\" class=\"");
+			builder.append(from.getElementType()); // e.g. "vertex", "edge", etc.
+			builder.append(" ");
+			builder.append(from.getStyleClass());
+			builder.append("\"");
+			try {
+				return "base64:" + Base64.byteArrayToBase64(builder.toString().getBytes("UTF8"));
+			}
+			catch(UnsupportedEncodingException e) {
+				throw new IllegalStateException(e);
+			}
+		}
+
+		private String computeID(IGraphElement element) {
+			IGraphElement[] parents = Iterators.toArray(element.getContext(), IGraphElement.class);
+			int plength = (parents == null)
+					? 0
+					: parents.length;
+			StringBuilder buf = new StringBuilder(10 + 5 * plength);
+			// add each parents id separated by - start with root (last in array)
+			if(parents != null)
+				for(int i = parents.length - 1; i >= 0; i--)
+					buf.append((i == (plength - 1)
+							? ""
+							: "-") + parents[i].getId());
+			buf.append("-");
+			buf.append(element.getId());
+			return buf.toString();
+		}
 	}
 
 	private static class Label implements Function<IGraphElement, String> {
@@ -147,7 +209,9 @@ public class FunctionFactory implements IFunctionFactory {
 
 	private static final Label theLabelFunction = new Label();
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#emptyLabel()
 	 */
 	@Override
@@ -155,7 +219,9 @@ public class FunctionFactory implements IFunctionFactory {
 		return theEmptyLabelFunction;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#emptyLabelData(java.lang.Object)
 	 */
 	@Override
@@ -163,7 +229,14 @@ public class FunctionFactory implements IFunctionFactory {
 		return new EmptyLabelData(key);
 	}
 
-	/* (non-Javadoc)
+	@Override
+	public Function<IGraphElement, String> idClassReplacer() {
+		return new IdClassReplacerFunction();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#label()
 	 */
 	@Override
@@ -171,7 +244,9 @@ public class FunctionFactory implements IFunctionFactory {
 		return theLabelFunction;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#labelData(java.lang.Object)
 	 */
 	@Override
@@ -179,7 +254,9 @@ public class FunctionFactory implements IFunctionFactory {
 		return new LabelData(key);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#literalString(java.lang.String)
 	 */
 	@Override
@@ -187,7 +264,9 @@ public class FunctionFactory implements IFunctionFactory {
 		return new LiteralString(s);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#notEmptyLabel()
 	 */
 	@Override
@@ -195,12 +274,13 @@ public class FunctionFactory implements IFunctionFactory {
 		return theNotEmptyLabelFunction;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#notEmptyLabelData(java.lang.Object)
 	 */
 	@Override
 	public Function<IGraphElement, Boolean> notEmptyLabelData(Object key) {
 		return new Not(emptyLabelData(key));
 	}
-
 }

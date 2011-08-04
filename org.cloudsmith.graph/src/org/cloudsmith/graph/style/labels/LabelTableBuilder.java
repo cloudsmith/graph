@@ -87,6 +87,17 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#idClassReplacer()
+	 */
+	@Override
+	public Function<IGraphElement, String> idClassReplacer() {
+		// TODO Auto-generated method stub
+		return functions.idClassReplacer();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#label()
 	 */
 	@Override
@@ -150,5 +161,4 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 	final protected LabelTable table(String styleClass, LabelRow... rows) {
 		return new LabelTable(styleClass, rows);
 	}
-
 }

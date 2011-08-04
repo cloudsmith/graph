@@ -68,6 +68,8 @@ public interface IStyleVisitor {
 
 	public void href(String x);
 
+	void id(String value);
+
 	public void labelFormat(ILabelTemplate x);
 
 	public void lineBrush(LineBrush brush);

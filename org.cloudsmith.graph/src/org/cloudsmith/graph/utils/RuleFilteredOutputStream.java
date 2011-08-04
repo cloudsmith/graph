@@ -163,7 +163,8 @@ public class RuleFilteredOutputStream extends FilterOutputStream implements IOut
 		// a pending rule is in effect until it's action sets pending null
 		if(pendingRule != null) {
 			pendingRule.performAction();
-			return;
+			if(pendingRule != null)
+				return;
 		}
 		boolean keepScanning = true;
 		RESCAN: while(keepScanning) {
@@ -184,7 +185,9 @@ public class RuleFilteredOutputStream extends FilterOutputStream implements IOut
 						continue;
 					if(buffer.startsWith(r.pattern)) {
 						r.performAction();
-						keepScanning = true;
+						// if a rule is now pending, it needs more input to continue
+						if(pendingRule == null)
+							keepScanning = true;
 						continue RESCAN;
 					}
 				}

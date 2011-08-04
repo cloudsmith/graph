@@ -496,6 +496,19 @@ public class StyleFactory implements IStyleFactory {
 
 	}
 
+	public static class Id extends StringStyle {
+		public Id(Function<IGraphElement, String> text) {
+			super(StyleType.id, text);
+			setTypes(EDGE_AND_GRAPH_AND_VERTEX); // TODO: can clusters have id in SVG?
+		}
+
+		@Override
+		public void visit(IGraphElement ge, IStyleVisitor visitor) {
+			visitor.id(getValue(ge));
+		}
+
+	}
+
 	protected abstract static class IntegerStyle extends AbstractStyle<Integer> {
 		public IntegerStyle(StyleType style, Integer value) {
 			super(style, value);
@@ -965,6 +978,26 @@ public class StyleFactory implements IStyleFactory {
 	@Override
 	public Href href(String x) {
 		return new Href(x);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.style.IStyleFactory#id(com.google.common.base.Function)
+	 */
+	@Override
+	public IStyle<String> id(Function<IGraphElement, String> f) {
+		return new Id(f);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.style.IStyleFactory#id(java.lang.String)
+	 */
+	@Override
+	public IStyle<String> id(String s) {
+		return new Id(functions.literalString(s));
 	}
 
 	/*

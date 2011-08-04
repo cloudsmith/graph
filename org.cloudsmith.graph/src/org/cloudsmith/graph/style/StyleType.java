@@ -222,5 +222,8 @@ public enum StyleType {
 	 */
 	remincross,
 
-	;
+	/**
+	 * Set the id for the resulting SVG, PS, HTML MAP element.
+	 */
+	id, ;
 }
