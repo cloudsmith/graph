@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.graph.graphcss;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
@@ -20,6 +22,7 @@ import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.style.IStyle;
 
 import com.google.common.collect.Iterators;
+import com.google.common.collect.Sets;
 
 /**
  * Style Select is used to produce a configured Selector.
@@ -204,39 +207,46 @@ public class Select {
 	public static class Element extends Selector {
 		private Set<ElementType> matchElement;
 
-		private String matchClass;
+		private Set<String> matchClasses;
 
 		private String matchId;
 
 		private int specificity = 0;
 
+		public Element(Collection<String> styleClasses, String id) {
+			this(EnumSet.allOf(ElementType.class), styleClasses, id);
+		}
+
 		public Element(ElementType t) {
 			this(EnumSet.of(t));
 		}
 
-		public Element(ElementType elementType, String styleClass, String id) {
-			this(EnumSet.of(elementType), styleClass, id);
+		// public Element(ElementType elementType, String styleClass, String id) {
+		// this(EnumSet.of(elementType), Sets.newHashSet(styleClass), id);
+		// }
+
+		public Element(ElementType elementType, Collection<String> styleClasses, String id) {
+			this(EnumSet.of(elementType), styleClasses, id);
 		}
 
 		public Element(Set<ElementType> elementType) {
 			this(elementType, null, null);
 		}
 
-		public Element(Set<ElementType> elementType, String styleClass, String id) {
+		public Element(Set<ElementType> elementType, Collection<String> styleClass, String id) {
 			if(elementType == null) {
 				elementType = EnumSet.allOf(ElementType.class);
 			}
 			this.matchElement = elementType;
-			this.matchClass = styleClass != null
-					? styleClass
-					: "";
+			this.matchClasses = Sets.newHashSet();
+			if(styleClass != null)
+				this.matchClasses.addAll(styleClass);
+			// this.matchClass = styleClass != null
+			// ? styleClass
+			// : "";
 			this.matchId = id != null
 					? id
 					: "";
-		}
-
-		public Element(String styleClass, String id) {
-			this(EnumSet.allOf(ElementType.class), styleClass, id);
 		}
 
 		@Override
@@ -246,8 +256,10 @@ public class Select {
 			Element e = (Element) selector;
 			if(!matchElement.equals(e.matchElement))
 				return false;
-			if(!matchClass.equals(e.matchClass))
+			if(!(matchClasses.size() == e.matchClasses.size() && e.matchClasses.containsAll(matchClasses)))
 				return false;
+			// if(!matchClass.equals(e.matchClass))
+			// return false;
 			if(!matchId.equals(e.matchId))
 				return false;
 			return true;
@@ -262,8 +274,9 @@ public class Select {
 			if(matchId != null && matchId.length() > 0)
 				specificity += 100;
 
-			if(matchClass != null && matchClass.length() > 0)
-				specificity += 10;
+			specificity = matchClasses.size() * 10;
+			// if(matchClass != null && matchClass.length() > 0)
+			// specificity += 10;
 
 			switch(matchElement.size()) {
 				case ElementType.NUM_TYPES:
@@ -285,13 +298,16 @@ public class Select {
 			if(!matchElement.contains(element.getElementType()))
 				return false;
 
-			if(matchClass != null //
-					&&
-					matchClass.length() > 0 //
-					// && !matchClass.equals(element.getStyleClass()) //
-					&& !element.hasStyleClass(matchClass) //
-			)
+			// i.e styleClass && styleClass && ...
+			if(matchClasses.size() > 0 && !element.getStyleClasses().containsAll(matchClasses))
 				return false;
+			// if(matchClass != null //
+			// &&
+			// matchClass.length() > 0 //
+			// // && !matchClass.equals(element.getStyleClass()) //
+			// && !element.hasStyleClass(matchClass) //
+			// )
+			// return false;
 			if(matchId != null && matchId.length() > 0 && !matchId.equals(element.getId()))
 				return false;
 			return true;
@@ -416,11 +432,11 @@ public class Select {
 	}
 
 	public static Select.Element any(String styleClass) {
-		return new Select.Element(ElementType.ANY, styleClass, null);
+		return new Select.Element(ElementType.ANY, Sets.newHashSet(styleClass), null);
 	}
 
 	public static Select.Element any(String styleClass, String id) {
-		return new Select.Element(ElementType.ANY, styleClass, id);
+		return new Select.Element(ElementType.ANY, Sets.newHashSet(styleClass), id);
 	}
 
 	public static Select.Between between(Select.Selector source, Select.Selector target) {
@@ -431,12 +447,20 @@ public class Select {
 		return new Select.Element(ElementType.cell);
 	}
 
+	public static Select.Element cell(Collection<String> styleClasses) {
+		return new Select.Element(ElementType.cell, styleClasses, null);
+	}
+
+	public static Select.Element cell(Collection<String> styleClasses, String id) {
+		return new Select.Element(ElementType.cell, styleClasses, id);
+	}
+
 	public static Select.Element cell(String styleClass) {
-		return new Select.Element(ElementType.cell, styleClass, null);
+		return new Select.Element(ElementType.cell, Collections.singleton(styleClass), null);
 	}
 
 	public static Select.Element cell(String styleClass, String id) {
-		return new Select.Element(ElementType.cell, styleClass, id);
+		return new Select.Element(ElementType.cell, Collections.singleton(styleClass), id);
 	}
 
 	public static Select.Containment containment(Select.Selector... selectors) {
@@ -447,40 +471,72 @@ public class Select {
 		return new Select.Element(ElementType.edge);
 	}
 
+	public static Select.Element edge(Collection<String> styleClasses) {
+		return new Select.Element(ElementType.edge, styleClasses, null);
+	}
+
+	public static Select.Element edge(Collection<String> styleClasses, String id) {
+		return new Select.Element(ElementType.edge, styleClasses, id);
+	}
+
 	public static Select.Element edge(String styleClass) {
-		return new Select.Element(ElementType.edge, styleClass, null);
+		return new Select.Element(ElementType.edge, Collections.singleton(styleClass), null);
 	}
 
 	public static Select.Element edge(String styleClass, String id) {
-		return new Select.Element(ElementType.edge, styleClass, id);
+		return new Select.Element(ElementType.edge, Collections.singleton(styleClass), id);
+	}
+
+	public static Select.Element element(Collection<String> styleClasses) {
+		return new Select.Element(styleClasses, null);
+	}
+
+	public static Select.Element element(Collection<String> styleClasses, String id) {
+		return new Select.Element(styleClasses, id);
 	}
 
 	public static Select.Element element(ElementType type) {
 		return new Select.Element(type);
 	}
 
+	public static Select.Element element(ElementType type, Collection<String> styleClasses, String id) {
+		return new Select.Element(type, styleClasses, id);
+	}
+
+	public static Select.Element element(ElementType type, String styleClass) {
+		return new Select.Element(type, Collections.singleton(styleClass), null);
+	}
+
 	public static Select.Element element(ElementType type, String styleClass, String id) {
-		return new Select.Element(type, styleClass, id);
+		return new Select.Element(type, Collections.singleton(styleClass), id);
 	}
 
 	public static Select.Element element(String styleClass) {
-		return new Select.Element(styleClass, null);
+		return new Select.Element(Collections.singleton(styleClass), null);
 	}
 
 	public static Select.Element element(String styleClass, String id) {
-		return new Select.Element(styleClass, id);
+		return new Select.Element(Collections.singleton(styleClass), id);
 	}
 
 	public static Select.Element graph() {
 		return new Select.Element(ElementType.graph);
 	}
 
+	public static Select.Element graph(Collection<String> styleClasses) {
+		return new Select.Element(ElementType.graph, styleClasses, null);
+	}
+
+	public static Select.Element graph(Collection<String> styleClasses, String id) {
+		return new Select.Element(ElementType.graph, styleClasses, id);
+	}
+
 	public static Select.Element graph(String styleClass) {
-		return new Select.Element(ElementType.graph, styleClass, null);
+		return new Select.Element(ElementType.graph, Collections.singleton(styleClass), null);
 	}
 
 	public static Select.Element graph(String styleClass, String id) {
-		return new Select.Element(ElementType.graph, styleClass, id);
+		return new Select.Element(ElementType.graph, Collections.singleton(styleClass), id);
 	}
 
 	public static Select.Instance instance(IGraphElement x) {
@@ -499,24 +555,40 @@ public class Select {
 		return new Select.Element(ElementType.table);
 	}
 
+	public static Select.Element table(Collection<String> styleClasses) {
+		return new Select.Element(ElementType.table, styleClasses, null);
+	}
+
+	public static Select.Element table(Collection<String> styleClasses, String id) {
+		return new Select.Element(ElementType.table, styleClasses, id);
+	}
+
 	public static Select.Element table(String styleClass) {
-		return new Select.Element(ElementType.table, styleClass, null);
+		return new Select.Element(ElementType.table, Collections.singleton(styleClass), null);
 	}
 
 	public static Select.Element table(String styleClass, String id) {
-		return new Select.Element(ElementType.table, styleClass, id);
+		return new Select.Element(ElementType.table, Collections.singleton(styleClass), id);
 	}
 
 	public static Select.Element vertex() {
 		return new Select.Element(ElementType.vertex);
 	}
 
+	public static Select.Element vertex(Collection<String> styleClasses) {
+		return new Select.Element(ElementType.vertex, styleClasses, null);
+	}
+
+	public static Select.Element vertex(Collection<String> styleClasses, String id) {
+		return new Select.Element(ElementType.vertex, styleClasses, id);
+	}
+
 	public static Select.Element vertex(String styleClass) {
-		return new Select.Element(ElementType.vertex, styleClass, null);
+		return new Select.Element(ElementType.vertex, Collections.singleton(styleClass), null);
 	}
 
 	public static Select.Element vertex(String styleClass, String id) {
-		return new Select.Element(ElementType.vertex, styleClass, id);
+		return new Select.Element(ElementType.vertex, Collections.singleton(styleClass), id);
 	}
 
 }

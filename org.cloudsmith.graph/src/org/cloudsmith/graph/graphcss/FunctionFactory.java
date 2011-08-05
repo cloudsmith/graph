@@ -63,7 +63,7 @@ public class FunctionFactory implements IFunctionFactory {
 		public Boolean apply(IGraphElement ge) {
 			if(!(ge instanceof ILabeledGraphElement))
 				return false;
-			String item = ((ILabeledGraphElement) ge).getData().get(key);
+			String item = ((ILabeledGraphElement) ge).getUserData().get(key);
 			return item == null || item.length() == 0;
 		}
 
@@ -160,7 +160,7 @@ public class FunctionFactory implements IFunctionFactory {
 		public String apply(IGraphElement ge) {
 			if(!(ge instanceof ILabeledGraphElement))
 				return "";
-			return ((ILabeledGraphElement) ge).getData().get(key);
+			return ((ILabeledGraphElement) ge).getUserData().get(key);
 		}
 	}
 

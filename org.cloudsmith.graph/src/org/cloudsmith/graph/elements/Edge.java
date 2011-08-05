@@ -11,6 +11,9 @@
  */
 package org.cloudsmith.graph.elements;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import org.cloudsmith.graph.ElementType;
 import org.cloudsmith.graph.IEdge;
 import org.cloudsmith.graph.IVertex;
@@ -36,6 +39,20 @@ public class Edge extends LabeledGraphElement implements IEdge {
 		this("", "", from, to, id);
 	}
 
+	public Edge(String label, Collection<String> styleClasses, IVertex from, IVertex to) {
+		this(label, styleClasses, from, to, null);
+	}
+
+	public Edge(String label, Collection<String> styleClass, IVertex from, IVertex to, String id) {
+		super(label, styleClass, id);
+		if(from == null)
+			throw new IllegalArgumentException("from can not be null");
+		if(to == null)
+			throw new IllegalArgumentException("to can not be null");
+		this.from = from;
+		this.to = to;
+	}
+
 	public Edge(String label, IVertex from, IVertex to) {
 		this(label, "", from, to, null);
 	}
@@ -49,13 +66,7 @@ public class Edge extends LabeledGraphElement implements IEdge {
 	}
 
 	public Edge(String label, String styleClass, IVertex from, IVertex to, String id) {
-		super(label, styleClass, id);
-		if(from == null)
-			throw new IllegalArgumentException("from can not be null");
-		if(to == null)
-			throw new IllegalArgumentException("to can not be null");
-		this.from = from;
-		this.to = to;
+		this(label, Collections.singleton(styleClass), from, to, id);
 	}
 
 	/*

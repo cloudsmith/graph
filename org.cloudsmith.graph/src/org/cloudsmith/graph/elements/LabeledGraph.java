@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.graph.elements;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 
 import org.cloudsmith.graph.IGraph;
@@ -44,19 +46,27 @@ public abstract class LabeledGraph extends Graph implements ILabeledGraphElement
 		this(null, "", styleClass, null);
 	}
 
-	protected LabeledGraph(Map<String, String> data, String styleClass, String id) {
-		this(null, "", styleClass, id);
-	}
-
-	protected LabeledGraph(Map<String, String> data, String label, String styleClass, String id) {
-		super(styleClass, id);
+	protected LabeledGraph(Map<String, String> data, String label, Collection<String> styleClasses, String id) {
+		super(styleClasses, id);
 		this.label = label;
 		if(data != null)
 			getUserData().putAll(data);
 	}
 
+	protected LabeledGraph(Map<String, String> data, String styleClass, String id) {
+		this(null, "", styleClass, id);
+	}
+
+	protected LabeledGraph(Map<String, String> data, String label, String styleClass, String id) {
+		this(data, label, Collections.singleton(styleClass), id);
+	}
+
 	protected LabeledGraph(String styleClass) {
 		this(null, "", styleClass, null);
+	}
+
+	protected LabeledGraph(String label, Collection<String> styleClasses, String id) {
+		this(null, label, styleClasses, id);
 	}
 
 	protected LabeledGraph(String label, IGraph that) {
@@ -72,13 +82,13 @@ public abstract class LabeledGraph extends Graph implements ILabeledGraphElement
 		this(null, label, styleClass, id);
 	}
 
-	/**
-	 * @deprecated use {@link #getUserData()}.
-	 */
-	@Deprecated
-	public Map<String, String> getData() {
-		return getUserData();
-	}
+	// /**
+	// * @deprecated use {@link #getUserData()}.
+	// */
+	// @Deprecated
+	// public Map<String, String> getData() {
+	// return getUserData();
+	// }
 
 	public String getLabel() {
 		return label;

@@ -12,6 +12,8 @@
 package org.cloudsmith.graph.elements;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import org.cloudsmith.graph.ElementType;
 import org.cloudsmith.graph.IEdge;
@@ -34,6 +36,18 @@ public class Graph extends GraphElement implements IGraph {
 
 	private ArrayList<IVertex> vertices;
 
+	protected Graph(Collection<String> styleClasses) {
+		this(styleClasses, null);
+	}
+
+	protected Graph(Collection<String> styleClasses, String id) {
+		super(styleClasses, id);
+
+		edges = new ArrayList<IEdge>();
+		vertices = new ArrayList<IVertex>();
+		subgraphs = new ArrayList<ISubGraph>();
+	}
+
 	protected Graph(IGraph that) {
 		super(that);
 		edges = new ArrayList<IEdge>();
@@ -47,15 +61,11 @@ public class Graph extends GraphElement implements IGraph {
 	}
 
 	protected Graph(String styleClass) {
-		this(styleClass, null);
+		this(Collections.singleton(styleClass), null);
 	}
 
 	protected Graph(String styleClass, String id) {
-		super(styleClass, id);
-
-		edges = new ArrayList<IEdge>();
-		vertices = new ArrayList<IVertex>();
-		subgraphs = new ArrayList<ISubGraph>();
+		this(Collections.singleton(styleClass), id);
 	}
 
 	/**

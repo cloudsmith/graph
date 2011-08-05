@@ -261,8 +261,8 @@ public class DotRenderer {
 			theGCSS.addAll(gcss);
 
 		this.defaultGCSS = defaultGCSS;
-		graphPrototype = new RootGraph(null, null, "prototype");
-		vertexPrototype = new Vertex(null, null, "prototype");
+		graphPrototype = new RootGraph("", "", "prototype");
+		vertexPrototype = new Vertex("", "", "prototype");
 		edgePrototype = new Edge(vertexPrototype, vertexPrototype, "prototype");
 
 		defaultGraphStyles = defaultGCSS.collectStyles(graphPrototype, cancel);

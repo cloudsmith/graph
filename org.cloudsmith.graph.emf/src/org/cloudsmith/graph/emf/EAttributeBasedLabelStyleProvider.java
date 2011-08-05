@@ -17,7 +17,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-import org.cloudsmith.graph.ElementType;
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.graphcss.IFunctionFactory;
 import org.cloudsmith.graph.graphcss.Rule;
@@ -123,8 +122,7 @@ public class EAttributeBasedLabelStyleProvider implements IELabelStyleProvider {
 	}
 
 	protected Rule computeLabelRule(EClass classifier) {
-		return new Rule(
-			new Select.Element(ElementType.vertex, classifier.getName(), null), computeLabelStyle(classifier));
+		return new Rule(Select.vertex(classifier.getName()), computeLabelStyle(classifier));
 
 	}
 
@@ -219,7 +217,7 @@ public class EAttributeBasedLabelStyleProvider implements IELabelStyleProvider {
 	}
 
 	protected Rule getLabelRule(EClass classifier) {
-		return new Rule(new Select.Element(ElementType.vertex, classifier.getName(), null), getLabelStyle(classifier));
+		return new Rule(Select.vertex(classifier.getName()), getLabelStyle(classifier));
 
 	}
 

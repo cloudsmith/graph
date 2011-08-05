@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.graph.elements;
 
+import java.util.Collection;
+
 import org.cloudsmith.graph.ElementType;
 import org.cloudsmith.graph.IVertex;
 
@@ -19,6 +21,14 @@ import org.cloudsmith.graph.IVertex;
  * 
  */
 public class Vertex extends LabeledGraphElement implements IVertex {
+	public Vertex(String label, Collection<String> styleClasses) {
+		super(label, styleClasses, null);
+	}
+
+	public Vertex(String label, Collection<String> styleClasses, String id) {
+		super(label, styleClasses, id);
+	}
+
 	public Vertex(String label, String styleClass) {
 		super(label, styleClass, null);
 	}

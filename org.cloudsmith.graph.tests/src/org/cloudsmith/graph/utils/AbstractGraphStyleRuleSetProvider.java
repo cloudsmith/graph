@@ -1,5 +1,7 @@
 package org.cloudsmith.graph.utils;
 
+import java.util.Collections;
+
 import org.cloudsmith.graph.ElementType;
 import org.cloudsmith.graph.graphcss.GraphCSS;
 import org.cloudsmith.graph.graphcss.Rule;
@@ -77,13 +79,13 @@ public class AbstractGraphStyleRuleSetProvider implements IGraphStyleRuleSetProv
 		// "FirstRow", new LabelCell("TypeCell", "#{element.data['type']}")), new LabelRow(
 		// "SecondRow", new LabelCell("NameCell", "#{element.data['name']}")), new LabelRow(
 		// "ThirdRow", new LabelCell("VersionCell", "#{element.data['version']}")))));
-		result.addRule(new Rule(new Select.Element(ElementType.vertex, "CSpec", null), withDataStyle));
+		result.addRule(new Rule(Select.element(ElementType.vertex, "CSpec"), withDataStyle));
 		// Make the cells in a "DataTable" left aligned
 		StyleSet leftAligned = new StyleSet();
 		leftAligned.put(new StyleFactory.Align(Alignment.left));
 		result.addRule(new Rule(new Select.And(new Select.Element(ElementType.cell), // a cell
 			new Select.Containment( // contained
-				new Select.Element(ElementType.table, "DataTable", null))),// in a data table
+				new Select.Element(ElementType.table, Collections.singleton("DataTable"), null))),// in a data table
 			leftAligned)); // left aligned
 
 		return result;

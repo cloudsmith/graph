@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.graph.elements;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 
 import org.cloudsmith.graph.IGraphElement;
@@ -27,6 +29,14 @@ public abstract class LabeledGraphElement extends GraphElement implements IGraph
 		this(null, "", "", null);
 	}
 
+	public LabeledGraphElement(Collection<String> styleClasses) {
+		this(null, "", styleClasses, null);
+	}
+
+	public LabeledGraphElement(Collection<String> styleClasses, String id) {
+		this(null, "", styleClasses, id);
+	}
+
 	protected LabeledGraphElement(LabeledGraphElement that) {
 		super(that);
 		this.label = that.label;
@@ -40,19 +50,27 @@ public abstract class LabeledGraphElement extends GraphElement implements IGraph
 		this(null, "", styleClass, null);
 	}
 
-	public LabeledGraphElement(Map<String, String> data, String styleClass, String id) {
-		this(null, "", styleClass, id);
-	}
-
-	public LabeledGraphElement(Map<String, String> data, String label, String styleClass, String id) {
-		super(styleClass, id);
+	public LabeledGraphElement(Map<String, String> data, String label, Collection<String> styleClasses, String id) {
+		super(styleClasses, id);
 		this.label = label;
 		if(data != null)
 			getUserData().putAll(data);
 	}
 
+	public LabeledGraphElement(Map<String, String> data, String styleClass, String id) {
+		this(null, "", styleClass, id);
+	}
+
+	public LabeledGraphElement(Map<String, String> data, String label, String styleClass, String id) {
+		this(data, label, Collections.singleton(styleClass), id);
+	}
+
 	public LabeledGraphElement(String styleClass) {
 		this(null, "", styleClass, null);
+	}
+
+	public LabeledGraphElement(String label, Collection<String> styleClasses, String id) {
+		this(null, label, styleClasses, id);
 	}
 
 	public LabeledGraphElement(String styleClass, String id) {

@@ -11,7 +11,6 @@
  */
 package org.cloudsmith.graph;
 
-import java.util.Map;
 
 /**
  * A graph element that supports a label.
@@ -20,12 +19,6 @@ import java.util.Map;
  * 
  */
 public interface ILabeledGraphElement extends IGraphElement {
-	/**
-	 * Labeled elements can have a map of data. The data elements can be interpolated using EL statements.
-	 * 
-	 * @return
-	 */
-	public Map<String, String> getData();
 
 	/**
 	 * Return a simple string label. The label may contain new lines on the form '\' 'n'.

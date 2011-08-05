@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.graph.elements;
 
+import java.util.Collection;
+
 import org.cloudsmith.graph.ElementType;
 import org.cloudsmith.graph.IClusterGraph;
 import org.cloudsmith.graph.IGraph;
@@ -34,6 +36,15 @@ public class RootGraph extends LabeledGraph implements IRootGraph {
 
 	public RootGraph(IRootGraph that) {
 		super(that);
+	}
+
+	public RootGraph(String label, Collection<String> styleClasses) {
+		this(label, styleClasses, null);
+	}
+
+	public RootGraph(String label, Collection<String> styleClasses, String id) {
+		super(label, styleClasses, id);
+
 	}
 
 	public RootGraph(String label, IGraph that) {

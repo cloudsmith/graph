@@ -79,6 +79,19 @@ public abstract class GraphElement implements IGraphElement {
 		this("", null);
 	}
 
+	public GraphElement(Collection<String> styleClasses) {
+		this(styleClasses, null);
+	}
+
+	public GraphElement(Collection<String> styleClasses, String id) {
+		this.id = id;
+		this.styleClasses = Sets.newHashSet();
+		// do this to handle null and "" styleClass
+		addAllStyleClasses(styleClasses);
+		this.unmodifiableStyleClasses = Collections.unmodifiableSet(this.styleClasses);
+		this.data = Maps.newHashMap();
+	}
+
 	/**
 	 * Copy constructor.
 	 * 
@@ -101,19 +114,26 @@ public abstract class GraphElement implements IGraphElement {
 	}
 
 	public GraphElement(String styleClass, String id) {
-		this.id = id;
-		this.styleClasses = Sets.newHashSet(styleClass);
-		this.unmodifiableStyleClasses = Collections.unmodifiableSet(this.styleClasses);
-		this.data = Maps.newHashMap();
+		this(Collections.singleton(styleClass), id);
 	}
 
+	/**
+	 * Add all styles (and filter out nulls and empty strings).
+	 */
 	@Override
 	public boolean addAllStyleClasses(Collection<String> styleClasses) {
-		return this.styleClasses.addAll(styleClasses);
+		boolean result = false;
+		for(String s : styleClasses)
+			if(isValidClass(s))
+				if(this.styleClasses.add(s))
+					result = true;
+		return result;
 	}
 
 	@Override
 	public boolean addStyleClass(String styleClass) {
+		if(styleClass == null || styleClass.length() == 0)
+			return false;
 		return this.styleClasses.add(styleClass);
 	}
 
@@ -180,6 +200,18 @@ public abstract class GraphElement implements IGraphElement {
 	@Override
 	public boolean hasStyleClass(String styleClass) {
 		return this.styleClasses.contains(styleClass);
+	}
+
+	/**
+	 * Check if style class name is valid. (not null and have length).
+	 * 
+	 * @param s
+	 * @return
+	 */
+	private boolean isValidClass(String s) {
+		if(s == null || s.length() < 1)
+			return false;
+		return true;
 	}
 
 	@Override
