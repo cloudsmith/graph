@@ -92,14 +92,14 @@ public class FunctionFactory implements IFunctionFactory {
 			String idString = from.getUserData(ID_KEY);
 			if(idString == null)
 				idString = computeID(from);
-			String styleClass = from.getStyleClass();
-			StringBuilder builder = new StringBuilder(idString.length() + styleClass.length() + 20);
+			String allStyleClasses = from.getAllStyleClasses();
+			StringBuilder builder = new StringBuilder(idString.length() + allStyleClasses.length() + 20);
 			builder.append("id=\"");
 			builder.append(idString);
 			builder.append("\" class=\"");
 			builder.append(from.getElementType()); // e.g. "vertex", "edge", etc.
 			builder.append(" ");
-			builder.append(from.getStyleClass());
+			builder.append(allStyleClasses);
 			builder.append("\"");
 			try {
 				return "base64:" + Base64.byteArrayToBase64(builder.toString().getBytes("UTF8"));

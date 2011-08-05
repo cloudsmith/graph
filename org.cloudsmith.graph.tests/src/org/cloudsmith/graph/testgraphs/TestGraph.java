@@ -133,7 +133,7 @@ public class TestGraph implements IGraphProvider {
 			vv[i].setStyles(StyleSet.withImmutableStyles(styleFactory.href("http://www.google.com")));
 			g.addVertex(vv[i]);
 		}
-		vv[1].setStyleClass("MakeMePink");
+		vv[1].addStyleClass("MakeMePink");
 		Edge[] ev = new Edge[4];
 		for(int i = 0; i < ev.length; i++) {
 			ev[i] = new Edge("label_" + Integer.toString(i), vv[0], vv[i + 1]);
@@ -147,11 +147,11 @@ public class TestGraph implements IGraphProvider {
 		vv[4].getUserData().put("name", "John Doe");
 		vv[4].getUserData().put("version", "1.2.3");
 		vv[4].getUserData().put("type", "demo");
-		vv[4].setStyleClass("WithData");
+		vv[4].addStyleClass("WithData");
 
-		ev[1].setStyleClass("SpecialArrows");
-		ev[2].setStyleClass("Testing");
-		ev[3].setStyleClass("MakeMePink");
+		ev[1].addStyleClass("SpecialArrows");
+		ev[2].addStyleClass("Testing");
+		ev[3].addStyleClass("MakeMePink");
 
 		return g;
 	}

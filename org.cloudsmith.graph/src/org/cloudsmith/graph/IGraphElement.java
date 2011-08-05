@@ -11,6 +11,7 @@
  */
 package org.cloudsmith.graph;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -21,6 +22,29 @@ import org.cloudsmith.graph.graphcss.StyleSet;
  * 
  */
 public interface IGraphElement {
+	/**
+	 * Adds all style classes in the given collection to the set of style classes for the element.
+	 * 
+	 * @param styleClasses
+	 * @return true if the set of style classes did not already contain all o the given style classes.
+	 */
+	public boolean addAllStyleClasses(Collection<String> styleClasses);
+
+	/**
+	 * Adds a style class to the set of style classes for the element.
+	 * 
+	 * @param className
+	 * @return true if the set of style classes did not already contain the specified element
+	 */
+	public boolean addStyleClass(String className);
+
+	/**
+	 * Returns a space separated list of all style classes.
+	 * 
+	 * @return
+	 */
+	public String getAllStyleClasses();
+
 	/**
 	 * Returns all containing graph elements, the immediate parent first.
 	 * The returned iterator does not support the {@link Iterator#remove()} operation.
@@ -54,15 +78,15 @@ public interface IGraphElement {
 	public IGraphElement getParentElement();
 
 	/**
-	 * The style class of the element.
+	 * The style classes of the element.
 	 * Examples; for a graph it can be the name of the depicted type (e.g. "Dependency graph", a file etc.),
 	 * for an vertex it can be the vertex type (i.e. what the vertex represents), and for an edge
 	 * it can be the type name of the edge (e.g. "dependency"). If style class is omitted a default style
 	 * is used.
 	 * 
-	 * @return the style class name
+	 * @return collection of the style class names
 	 */
-	public String getStyleClass();
+	public Collection<String> getStyleClasses();
 
 	/**
 	 * A StyleMap for this instance, or null if no instance specific style are set.
@@ -88,6 +112,14 @@ public interface IGraphElement {
 	public String getUserData(String key);
 
 	/**
+	 * Tests if the element has the given style class as one of the style classes for the element.
+	 * 
+	 * @param className
+	 * @return
+	 */
+	public boolean hasStyleClass(String className);
+
+	/**
 	 * Set a user data value by key.
 	 * 
 	 * @param key
@@ -95,4 +127,11 @@ public interface IGraphElement {
 	 */
 	public void putUserData(String key, String value);
 
+	/**
+	 * Removes the given style class from the set of style classes for the element.
+	 * 
+	 * @param className
+	 * @return true if the element was removed, false if not present
+	 */
+	public boolean removeStyleClass(String className);
 }

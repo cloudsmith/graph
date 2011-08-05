@@ -285,31 +285,12 @@ public class Select {
 			if(!matchElement.contains(element.getElementType()))
 				return false;
 
-			// switch(matchElement) {
-			// case any:
-			// break;
-			// case graph:
-			// if(!(element instanceof IGraph))
-			// return false;
-			// break;
-			// case vertex:
-			// if(!(element instanceof IVertex))
-			// return false;
-			// break;
-			// case edge:
-			// if(!(element instanceof IEdge))
-			// return false;
-			// break;
-			// case table:
-			// if(!(element instanceof IGraphTable))
-			// return false;
-			// break;
-			// case cell:
-			// if(!(element instanceof IGraphCell))
-			// return false;
-			// break;
-			// }
-			if(matchClass != null && matchClass.length() > 0 && !matchClass.equals(element.getStyleClass()))
+			if(matchClass != null //
+					&&
+					matchClass.length() > 0 //
+					// && !matchClass.equals(element.getStyleClass()) //
+					&& !element.hasStyleClass(matchClass) //
+			)
 				return false;
 			if(matchId != null && matchId.length() > 0 && !matchId.equals(element.getId()))
 				return false;

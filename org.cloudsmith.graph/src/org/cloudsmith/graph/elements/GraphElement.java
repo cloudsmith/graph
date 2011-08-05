@@ -11,8 +11,11 @@
  */
 package org.cloudsmith.graph.elements;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.cloudsmith.graph.ElementType;
 import org.cloudsmith.graph.IGraphElement;
@@ -20,6 +23,7 @@ import org.cloudsmith.graph.graphcss.StyleSet;
 import org.cloudsmith.graph.style.IStyle;
 
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 /**
  * Base implementation of an IGraphElement.
@@ -54,7 +58,9 @@ public abstract class GraphElement implements IGraphElement {
 
 	private String id;
 
-	private String styleClass;
+	private Set<String> styleClasses;
+
+	private Set<String> unmodifiableStyleClasses;
 
 	private String urlString;
 
@@ -80,7 +86,8 @@ public abstract class GraphElement implements IGraphElement {
 	 */
 	protected GraphElement(IGraphElement that) {
 		this.id = that.getId();
-		this.styleClass = that.getStyleClass();
+		this.styleClasses = Sets.newHashSet(that.getStyleClasses());
+		this.unmodifiableStyleClasses = Collections.unmodifiableSet(this.styleClasses);
 		this.data = Maps.newHashMap();
 		this.data.putAll(that.getUserData());
 		if(that.getStyles() != null) {
@@ -95,8 +102,29 @@ public abstract class GraphElement implements IGraphElement {
 
 	public GraphElement(String styleClass, String id) {
 		this.id = id;
-		this.styleClass = styleClass;
+		this.styleClasses = Sets.newHashSet(styleClass);
+		this.unmodifiableStyleClasses = Collections.unmodifiableSet(this.styleClasses);
 		this.data = Maps.newHashMap();
+	}
+
+	@Override
+	public boolean addAllStyleClasses(Collection<String> styleClasses) {
+		return this.styleClasses.addAll(styleClasses);
+	}
+
+	@Override
+	public boolean addStyleClass(String styleClass) {
+		return this.styleClasses.add(styleClass);
+	}
+
+	@Override
+	public String getAllStyleClasses() {
+		StringBuilder builder = new StringBuilder();
+		for(String s : styleClasses) {
+			builder.append(s);
+			builder.append(" ");
+		}
+		return builder.substring(0, builder.length() - 1);
 	}
 
 	/*
@@ -127,8 +155,8 @@ public abstract class GraphElement implements IGraphElement {
 	}
 
 	@Override
-	public String getStyleClass() {
-		return styleClass;
+	public Set<String> getStyleClasses() {
+		return this.unmodifiableStyleClasses;
 	}
 
 	@Override
@@ -150,8 +178,18 @@ public abstract class GraphElement implements IGraphElement {
 	}
 
 	@Override
+	public boolean hasStyleClass(String styleClass) {
+		return this.styleClasses.contains(styleClass);
+	}
+
+	@Override
 	public void putUserData(String key, String value) {
 		data.put(key, value);
+	}
+
+	@Override
+	public boolean removeStyleClass(String styleClass) {
+		return this.styleClasses.remove(styleClass);
 	}
 
 	public void setId(String id) {
@@ -160,10 +198,6 @@ public abstract class GraphElement implements IGraphElement {
 
 	public void setParentElement(IGraphElement parent) {
 		this.parentElement = parent;
-	}
-
-	public void setStyleClass(String styleClass) {
-		this.styleClass = styleClass;
 	}
 
 	public void setStyles(IStyle<?>... styles) {
