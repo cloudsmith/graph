@@ -151,6 +151,10 @@ public class SVGFixerOutputStream extends RuleFilteredOutputStream {
 
 	private final RemoveClassRule removeClassRule;
 
+	private final ReplaceRule replaceHTMLQuote;
+
+	private final ReplaceRule replaceHTMLDash;
+
 	/**
 	 * @param out
 	 */
@@ -162,6 +166,11 @@ public class SVGFixerOutputStream extends RuleFilteredOutputStream {
 
 		// Replace the string "\L" with ""
 		replaceEmptyLabelTooltip = new ReplaceRule("\"\\L\"".getBytes(), "\"\"".getBytes());
+
+		// These sequences are escaped by graphviz when they do not have to be (causing problems in
+		// javascript output).
+		replaceHTMLDash = new ReplaceRule("&#45;".getBytes(), "-".getBytes());
+		replaceHTMLQuote = new ReplaceRule("&#39;".getBytes(), "'".getBytes());
 
 		// trigger delete of everything after <title>
 		titleStartRule = new TitleStartRule();
@@ -178,7 +187,9 @@ public class SVGFixerOutputStream extends RuleFilteredOutputStream {
 				replaceEmptyLabelTooltip, //
 				titleStartRule, //
 				replaceIdWithIdContentRule, //
-				removeClassRule //
+				removeClassRule, //
+				replaceHTMLDash, //
+				replaceHTMLQuote //
 		});
 
 	}
