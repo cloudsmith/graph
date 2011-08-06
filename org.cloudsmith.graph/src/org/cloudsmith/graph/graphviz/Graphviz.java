@@ -197,7 +197,7 @@ public class Graphviz implements IGraphviz {
 
 			@Override
 			public void run() {
-				byte[] buffer = new byte[512];
+				byte[] buffer = new byte[1024];
 
 				try {
 					int read = in.read(buffer);
