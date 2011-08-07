@@ -21,6 +21,8 @@ import com.google.common.base.Function;
  */
 public interface IFunctionFactory {
 
+	public final static String ID_KEY = IFunctionFactory.class.getName() + "_Id";
+
 	/**
 	 * Returns a function returning true if the graph element has an empty label.
 	 * 

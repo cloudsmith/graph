@@ -84,7 +84,6 @@ public class FunctionFactory implements IFunctionFactory {
 	 * 
 	 */
 	public static class IdClassReplacerFunction implements Function<IGraphElement, String> {
-		public final static String ID_KEY = IdClassReplacerFunction.class.getName() + "_Id";
 
 		@Override
 		public String apply(IGraphElement from) {
