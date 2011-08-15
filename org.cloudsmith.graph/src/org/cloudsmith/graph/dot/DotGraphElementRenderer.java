@@ -69,7 +69,7 @@ public class DotGraphElementRenderer {
 	 * Do the actual printing.
 	 * 
 	 * @param cancel
-	 *            TODO
+	 *            User cancel request
 	 * @param out
 	 *            - where to print
 	 * @param element
