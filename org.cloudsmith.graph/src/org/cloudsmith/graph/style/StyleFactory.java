@@ -891,6 +891,11 @@ public class StyleFactory implements IStyleFactory {
 	}
 
 	@Override
+	public LabelCell cellSeparator() {
+		return new LabelCell.Separator(functions.literalString(""), functions.literalString(""));
+	}
+
+	@Override
 	public CellSpacing cellSpacing(int x) {
 		return new CellSpacing(x);
 	}
@@ -1138,6 +1143,11 @@ public class StyleFactory implements IStyleFactory {
 	@Override
 	public Routing routing(EdgeRouting x) {
 		return new Routing(x);
+	}
+
+	@Override
+	public LabelRow rowSeparator() {
+		return new LabelRow.Separator(functions.literalString(""));
 	}
 
 	@Override

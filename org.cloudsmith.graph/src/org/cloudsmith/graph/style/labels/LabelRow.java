@@ -20,6 +20,17 @@ import com.google.common.base.Function;
  * 
  */
 public class LabelRow {
+	public static class Separator extends LabelRow {
+		public Separator(Function<IGraphElement, String> styleClass) {
+			super(styleClass);
+		}
+
+		@Override
+		public boolean isSeparator() {
+			return true;
+		}
+	}
+
 	LabelCell[] cells;
 
 	Function<IGraphElement, String> styleClass;
@@ -48,5 +59,9 @@ public class LabelRow {
 
 	public String getStyleClass(IGraphElement ge) {
 		return styleClass.apply(ge);
+	}
+
+	public boolean isSeparator() {
+		return false;
 	}
 }

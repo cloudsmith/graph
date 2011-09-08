@@ -23,6 +23,17 @@ import org.cloudsmith.graph.ITableRow;
  * 
  */
 public class GraphRow extends GraphElement implements ITableRow {
+	public static class SeparatorRow extends GraphRow {
+		public SeparatorRow() {
+			super(SeparatorRow.class.getName());
+		}
+
+		@Override
+		public boolean isSeparator() {
+			return true;
+		}
+	}
+
 	private ArrayList<ITableCell> cells;
 
 	/**
@@ -52,5 +63,10 @@ public class GraphRow extends GraphElement implements ITableRow {
 	@Override
 	public ElementType getElementType() {
 		return ElementType.row;
+	}
+
+	@Override
+	public boolean isSeparator() {
+		return false;
 	}
 }

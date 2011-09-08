@@ -26,6 +26,20 @@ import com.google.inject.ImplementedBy;
 public interface IStyleTheme {
 
 	/**
+	 * Produce the default font family name.
+	 * 
+	 * @return a font family name
+	 */
+	public String defaultFontFamily();
+
+	/**
+	 * Produce the default point size.
+	 * 
+	 * @return a point size
+	 */
+	public int defaultPointSize();
+
+	/**
 	 * Returns a the static rules output as defaults.
 	 * Do not include this set in the GraphCSS that is passed as an instance css as it would lead
 	 * to output of matching style per instance.

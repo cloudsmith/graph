@@ -127,7 +127,7 @@ public class DotLabelRenderer {
 
 			@Override
 			public void cellPadding(int x) {
-				if(!(labelnode instanceof ITable))
+				if(!(labelnode instanceof ITable || labelnode instanceof ITableCell))
 					throw new IllegalArgumentException("cellPadding is not a supported style attribute of a " +
 							labelnode.getClass());
 				elementStream.printf(" CELLPADDING=\"%s\"", x);
@@ -276,6 +276,10 @@ public class DotLabelRenderer {
 	}
 
 	private void printGraphCell(PrintStream out, ILabeledGraphElement ge, ITableCell gc, GraphCSS gcss, ICancel cancel) {
+		if(gc.isSeparator()) {
+			out.print("<VR/>");
+			return;
+		}
 		String[] p = parseGraphTableAttributes(ge, gc, gcss, cancel);
 		// if "rendered" == false, do not output anything
 		if(p[2].toLowerCase().equals("false"))
@@ -297,6 +301,11 @@ public class DotLabelRenderer {
 	}
 
 	private void printGraphRow(PrintStream out, ILabeledGraphElement ge, ITableRow gr, GraphCSS gcss, ICancel cancel) {
+		if(gr.isSeparator()) {
+			out.print("<HR/>");
+			return;
+		}
+
 		out.print("<TR>");
 		for(ITableCell gc : gr.getCells())
 			printGraphCell(out, ge, gc, gcss, cancel);
@@ -402,7 +411,9 @@ public class DotLabelRenderer {
 			cancel.assertContinue();
 
 			tmp = r.getStyleClass(theGraphElement);
-			GraphRow gr = new GraphRow(tmp);
+			GraphRow gr = r.isSeparator()
+					? new GraphRow.SeparatorRow()
+					: new GraphRow(tmp);
 			gt.addRow(gr);
 			// for all cells in the template, create a GraphCell
 			for(LabelCell c : r.getCells()) {
@@ -411,7 +422,10 @@ public class DotLabelRenderer {
 				val = (val == null)
 						? ""
 						: val;
-				GraphCell gc = new GraphCell(val, tmp);
+
+				GraphCell gc = c.isSeparator()
+						? new GraphCell.SeparatorCell()
+						: new GraphCell(val, tmp);
 
 				// TODO: MUST BE ABLE TO PICK UP INSTANCE STYLES FOR LABEL CELL
 

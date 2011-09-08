@@ -52,6 +52,8 @@ public interface IStyleFactory {
 
 	public IStyle<Integer> cellPadding(int x);
 
+	public LabelCell cellSeparator();
+
 	public IStyle<Integer> cellSpacing(int x);
 
 	public IStyle<String> color(String x);
@@ -129,6 +131,8 @@ public interface IStyleFactory {
 	public IStyle<Boolean> rendered(Function<IGraphElement, Boolean> f);
 
 	public IStyle<EdgeRouting> routing(EdgeRouting x);
+
+	public LabelRow rowSeparator();
 
 	public IStyle<Integer> rowSpan(int x);
 

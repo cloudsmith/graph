@@ -19,6 +19,18 @@ import org.cloudsmith.graph.ITableCell;
  * 
  */
 public class GraphCell extends GraphElement implements ITableCell {
+
+	public static class SeparatorCell extends GraphCell {
+		public SeparatorCell() {
+			super("", SeparatorCell.class.getName());
+		}
+
+		@Override
+		public boolean isSeparator() {
+			return true;
+		}
+	}
+
 	private String value;
 
 	public GraphCell(String value, int rowspan, int colspan, String styleClass, String id) {
@@ -48,5 +60,10 @@ public class GraphCell extends GraphElement implements ITableCell {
 	@Override
 	public String getValue() {
 		return value;
+	}
+
+	@Override
+	public boolean isSeparator() {
+		return false;
 	}
 }

@@ -19,4 +19,6 @@ import java.util.List;
  */
 public interface ITableRow extends IGraphElement {
 	List<ITableCell> getCells();
+
+	boolean isSeparator();
 }

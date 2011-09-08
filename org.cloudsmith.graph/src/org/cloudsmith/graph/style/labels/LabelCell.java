@@ -22,6 +22,17 @@ import com.google.common.base.Function;
  * Data for label format.
  */
 public class LabelCell {
+	public static class Separator extends LabelCell {
+		public Separator(Function<IGraphElement, String> styleClass, Function<IGraphElement, String> value) {
+			super(styleClass, value);
+		}
+
+		@Override
+		public boolean isSeparator() {
+			return true;
+		}
+	}
+
 	private Function<IGraphElement, String> valueFunc;
 
 	private Function<IGraphElement, String> styleClassFunc;
@@ -60,6 +71,10 @@ public class LabelCell {
 
 	public String getValue(IGraphElement ge) {
 		return valueFunc.apply(ge);
+	}
+
+	public boolean isSeparator() {
+		return false;
 	}
 
 	public LabelCell withStyle(IStyle<?> style) {

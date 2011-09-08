@@ -72,6 +72,26 @@ public class DefaultStyleTheme implements IStyleTheme {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see org.cloudsmith.graph.style.themes.IStyleTheme#defaultFontFamily()
+	 */
+	@Override
+	public String defaultFontFamily() {
+		return "Verdana";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.style.themes.IStyleTheme#defaultPointSize()
+	 */
+	@Override
+	public int defaultPointSize() {
+		return 8;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.cloudsmith.graph.style.themes.IStyleTheme#getDefaultRules()
 	 */
 	@Override
@@ -95,8 +115,8 @@ public class DefaultStyleTheme implements IStyleTheme {
 			styles.color(COLOR__MID_BLUE), //
 			styles.fillColor(COLOR__WHITE), //
 			styles.lineColor(COLOR__MID_GREY), //
-			styles.fontFamily("Verdana"), //
-			styles.fontSize(8), //
+			styles.fontFamily(defaultFontFamily()), //
+			styles.fontSize(defaultPointSize()), //
 			styles.shape(NodeShape.rectangle), //
 			styles.shapeBrush(LineType.solid, 0.5, true, true), //
 
@@ -112,7 +132,7 @@ public class DefaultStyleTheme implements IStyleTheme {
 		defaultRuleSet.addRule(Select.element(ElementType.edge).withStyles( //
 			styles.color(COLOR__DARK_GREY), //
 			styles.lineColor(COLOR__MID_GREY), //
-			styles.fontFamily("Verdana"), //
+			styles.fontFamily(defaultFontFamily()), //
 			styles.fontSize(7), //
 			styles.lineBrush(LineType.solid, 0.5), //
 
@@ -166,7 +186,7 @@ public class DefaultStyleTheme implements IStyleTheme {
 		Collections.addAll(rules, //
 			Select.and(Select.table("Label"), Select.parent(Select.graph())).withStyles( //
 				styles.cellPadding(5), // or it is too close to the graph nodes
-				styles.fontFamily("Verdana"), //
+				styles.fontFamily(defaultFontFamily()), //
 				styles.fontSize(12), //
 				styles.color(COLOR__DARK_GREY)));
 

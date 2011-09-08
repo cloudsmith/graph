@@ -17,6 +17,6 @@ package org.cloudsmith.graph.style;
  * 
  */
 public enum Alignment {
-	center, left, right;
+	center, left, right, text;
 
 }
