@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.graph.style.labels;
 
+import java.util.Set;
+
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.graphcss.StyleSet;
 import org.cloudsmith.graph.style.IStyle;
@@ -23,7 +25,7 @@ import com.google.common.base.Function;
  */
 public class LabelCell {
 	public static class Separator extends LabelCell {
-		public Separator(Function<IGraphElement, String> styleClass, Function<IGraphElement, String> value) {
+		public Separator(Function<IGraphElement, Set<String>> styleClass, Function<IGraphElement, String> value) {
 			super(styleClass, value);
 		}
 
@@ -35,7 +37,7 @@ public class LabelCell {
 
 	private Function<IGraphElement, String> valueFunc;
 
-	private Function<IGraphElement, String> styleClassFunc;
+	private Function<IGraphElement, Set<String>> styleClassFunc;
 
 	private final Span span;
 
@@ -45,13 +47,13 @@ public class LabelCell {
 	 * @param styleClass2
 	 * @param f
 	 */
-	public LabelCell(Function<IGraphElement, String> styleClass, Function<IGraphElement, String> value) {
+	public LabelCell(Function<IGraphElement, Set<String>> styleClass, Function<IGraphElement, String> value) {
 		this.valueFunc = value;
 		this.styleClassFunc = styleClass;
 		this.span = Span.SPAN_1x1;
 	}
 
-	public LabelCell(Function<IGraphElement, String> styleClass, Function<IGraphElement, String> value, Span span) {
+	public LabelCell(Function<IGraphElement, Set<String>> styleClass, Function<IGraphElement, String> value, Span span) {
 		this.valueFunc = value;
 		this.styleClassFunc = styleClass;
 		this.span = span;
@@ -61,7 +63,7 @@ public class LabelCell {
 		return span;
 	}
 
-	public String getStyleClass(IGraphElement ge) {
+	public Set<String> getStyleClass(IGraphElement ge) {
 		return styleClassFunc.apply(ge);
 	}
 

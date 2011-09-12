@@ -11,6 +11,9 @@
  */
 package org.cloudsmith.graph.style.labels;
 
+import java.util.Collections;
+import java.util.Set;
+
 import org.cloudsmith.graph.IGraphElement;
 
 import com.google.common.base.Function;
@@ -21,7 +24,7 @@ import com.google.common.base.Function;
  */
 public class LabelRow {
 	public static class Separator extends LabelRow {
-		public Separator(Function<IGraphElement, String> styleClass) {
+		public Separator(Function<IGraphElement, Set<String>> styleClass) {
 			super(styleClass);
 		}
 
@@ -33,9 +36,9 @@ public class LabelRow {
 
 	LabelCell[] cells;
 
-	Function<IGraphElement, String> styleClass;
+	Function<IGraphElement, Set<String>> styleClass;
 
-	public LabelRow(final Function<IGraphElement, String> styleClass, LabelCell... cells) {
+	public LabelRow(final Function<IGraphElement, Set<String>> styleClass, LabelCell... cells) {
 		this.styleClass = styleClass;
 		this.cells = cells;
 	}
@@ -45,9 +48,9 @@ public class LabelRow {
 	}
 
 	public LabelRow(final String styleClass, LabelCell... cells) {
-		this.styleClass = new Function<IGraphElement, String>() {
-			public String apply(IGraphElement ge) {
-				return styleClass;
+		this.styleClass = new Function<IGraphElement, Set<String>>() {
+			public Set<String> apply(IGraphElement ge) {
+				return Collections.singleton(styleClass);
 			}
 		};
 		this.cells = cells;
@@ -57,7 +60,7 @@ public class LabelRow {
 		return cells;
 	}
 
-	public String getStyleClass(IGraphElement ge) {
+	public Set<String> getStyleClasses(IGraphElement ge) {
 		return styleClass.apply(ge);
 	}
 

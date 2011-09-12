@@ -11,6 +11,9 @@
  */
 package org.cloudsmith.graph.style;
 
+import java.util.Collection;
+import java.util.Set;
+
 import org.cloudsmith.graph.IClusterGraph;
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.style.labels.ILabelTemplate;
@@ -92,7 +95,16 @@ public interface IStyleFactory {
 
 	public IStyle<String> id(String s);
 
-	public LabelCell labelCell(Function<IGraphElement, String> styleClass, Function<IGraphElement, String> f, Span span);
+	public LabelCell labelCell(Collection<String> styleClass, Function<IGraphElement, String> f);
+
+	LabelCell labelCell(Collection<String> styleClasses, Function<IGraphElement, String> f, Span span);
+
+	public LabelCell labelCell(Collection<String> styleClass, String value);
+
+	LabelCell labelCell(Collection<String> styleClasses, String value, Span span);
+
+	public LabelCell labelCell(Function<IGraphElement, Set<String>> styleClass, Function<IGraphElement, String> f,
+			Span span);
 
 	public LabelCell labelCell(String styleClass, Function<IGraphElement, String> f);
 
@@ -165,4 +177,5 @@ public interface IStyleFactory {
 	public IStyle<Double> weight(double x);
 
 	public IStyle<Double> width(double x);
+
 }

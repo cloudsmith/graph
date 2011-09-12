@@ -212,6 +212,7 @@ public class TestGraph implements IGraphProvider {
 					row("ThirdRow", cell("VersionCell", labelData("version"))) //
 				);
 			}
+
 		};
 
 		result.add(Select.vertex("WithData").withStyle(styleFactory.labelFormat(tableBuilder.build())));

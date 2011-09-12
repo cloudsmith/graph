@@ -13,6 +13,7 @@ package org.cloudsmith.graph.elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.cloudsmith.graph.ElementType;
 import org.cloudsmith.graph.ITableCell;
@@ -44,6 +45,18 @@ public class GraphRow extends GraphElement implements ITableRow {
 	 * @param styleClass
 	 */
 	public GraphRow(String styleClass) {
+		super(styleClass, null);
+		cells = new ArrayList<ITableCell>(1);
+	}
+
+	/**
+	 * Creates a default row with the id "row".
+	 * Note that styles can not be set on the GrapRow, but a style class is useful
+	 * in containment rules for cells.
+	 * 
+	 * @param styleClass
+	 */
+	public GraphRow(Set<String> styleClass) {
 		super(styleClass, null);
 		cells = new ArrayList<ITableCell>(1);
 	}

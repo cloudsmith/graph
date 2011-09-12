@@ -13,6 +13,7 @@ package org.cloudsmith.graph.elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.cloudsmith.graph.ElementType;
 import org.cloudsmith.graph.ITable;
@@ -24,6 +25,20 @@ import org.cloudsmith.graph.ITableRow;
  */
 public class GraphTable extends GraphElement implements ITable {
 	private ArrayList<ITableRow> rows;
+
+	/**
+	 * Creates a default table with the id "label".
+	 * (Which is a bit superflous as a styling rule for "#label" will find all
+	 * tables just as the element type 'table' will).
+	 * When creating a graph table for a graph element - the styleClass of the graph
+	 * element should be applied to the table as well.
+	 * 
+	 * @param styleClass
+	 */
+	public GraphTable(Set<String> styleClass) {
+		super(styleClass, "label");
+		rows = new ArrayList<ITableRow>(1);
+	}
 
 	/**
 	 * Creates a default table with the id "label".

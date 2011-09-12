@@ -15,6 +15,7 @@ package org.cloudsmith.graph.dot;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Collection;
+import java.util.Set;
 
 import org.cloudsmith.graph.ICancel;
 import org.cloudsmith.graph.IGraphElement;
@@ -399,7 +400,7 @@ public class DotLabelRenderer {
 
 		// create the GraphTable using a styleClass that is possibly set using
 		// EL
-		String tmp = templateTable.getStyleClass(theGraphElement);
+		Set<String> tmp = templateTable.getStyleClasses(theGraphElement);
 
 		GraphTable gt = new GraphTable(tmp);
 
@@ -410,7 +411,7 @@ public class DotLabelRenderer {
 		for(LabelRow r : templateTable.getRows()) {
 			cancel.assertContinue();
 
-			tmp = r.getStyleClass(theGraphElement);
+			tmp = r.getStyleClasses(theGraphElement);
 			GraphRow gr = r.isSeparator()
 					? new GraphRow.SeparatorRow()
 					: new GraphRow(tmp);

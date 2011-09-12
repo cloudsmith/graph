@@ -12,6 +12,9 @@
 package org.cloudsmith.graph.graphcss;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
 
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.ILabeledGraphElement;
@@ -19,6 +22,7 @@ import org.cloudsmith.graph.utils.Base64;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Iterators;
+import com.google.common.collect.Sets;
 import com.google.inject.Singleton;
 
 /**
@@ -182,6 +186,25 @@ public class FunctionFactory implements IFunctionFactory {
 		}
 	}
 
+	private static class LiteralStringSet implements Function<IGraphElement, Set<String>> {
+
+		private Set<String> value;
+
+		public LiteralStringSet(Set<String> value) {
+			this.value = value;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see com.google.common.base.Function#apply(java.lang.Object)
+		 */
+		@Override
+		public Set<String> apply(IGraphElement ge) {
+			return value;
+		}
+	}
+
 	public static class Not implements Function<IGraphElement, Boolean> {
 
 		Function<IGraphElement, Boolean> function;
@@ -281,5 +304,25 @@ public class FunctionFactory implements IFunctionFactory {
 	@Override
 	public Function<IGraphElement, Boolean> notEmptyLabelData(Object key) {
 		return new Not(emptyLabelData(key));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#literalStringSet(java.lang.String)
+	 */
+	@Override
+	public Function<IGraphElement, Set<String>> literalStringSet(String s) {
+		return new LiteralStringSet(Collections.singleton(s));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#literalStringSet(java.util.Collection)
+	 */
+	@Override
+	public Function<IGraphElement, Set<String>> literalStringSet(Collection<String> s) {
+		return new LiteralStringSet(Sets.newHashSet(s));
 	}
 }

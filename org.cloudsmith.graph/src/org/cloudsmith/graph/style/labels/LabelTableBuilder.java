@@ -11,6 +11,9 @@
  */
 package org.cloudsmith.graph.style.labels;
 
+import java.util.Collection;
+import java.util.Set;
+
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.graphcss.IFunctionFactory;
 import org.cloudsmith.graph.style.IStyleFactory;
@@ -51,7 +54,7 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 	 */
 	public abstract LabelTable build();
 
-	final protected LabelCell cell(Function<IGraphElement, String> styleClass, Function<IGraphElement, String> f) {
+	final protected LabelCell cell(Function<IGraphElement, Set<String>> styleClass, Function<IGraphElement, String> f) {
 		return styleFactory.labelCell(styleClass, f, null);
 	}
 
@@ -126,6 +129,16 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 		return functions.literalString(s);
 	}
 
+	@Override
+	public Function<IGraphElement, Set<String>> literalStringSet(Collection<String> s) {
+		return functions.literalStringSet(s);
+	}
+
+	@Override
+	public Function<IGraphElement, Set<String>> literalStringSet(String s) {
+		return functions.literalStringSet(s);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -146,7 +159,7 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 		return functions.notEmptyLabelData(key);
 	}
 
-	final protected LabelRow row(Function<IGraphElement, String> styleClass, LabelCell... cells) {
+	final protected LabelRow row(Function<IGraphElement, Set<String>> styleClass, LabelCell... cells) {
 		return new LabelRow(styleClass, cells);
 	}
 
@@ -154,7 +167,7 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 		return new LabelRow(styleClass, cells);
 	}
 
-	final protected LabelTable table(Function<IGraphElement, String> styleClass, LabelRow... rows) {
+	final protected LabelTable table(Function<IGraphElement, Set<String>> styleClass, LabelRow... rows) {
 		return new LabelTable(styleClass, rows);
 	}
 

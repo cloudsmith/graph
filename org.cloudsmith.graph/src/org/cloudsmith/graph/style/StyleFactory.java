@@ -27,6 +27,7 @@ import static org.cloudsmith.graph.ElementType.TABLE;
 import static org.cloudsmith.graph.ElementType.TABLE_AND_CELL;
 import static org.cloudsmith.graph.ElementType.VERTEX;
 
+import java.util.Collection;
 import java.util.Set;
 
 import org.cloudsmith.graph.ElementType;
@@ -50,13 +51,13 @@ import com.google.inject.Singleton;
 @Singleton
 public class StyleFactory implements IStyleFactory {
 	protected static abstract class AbstractStyle<T> implements IStyle<T> {
-		private StyleType style;
-
-		private T value;
-
 		private Function<IGraphElement, T> function;
 
+		private StyleType style;
+
 		private Set<ElementType> types;
+
+		private T value;
 
 		public AbstractStyle(StyleType style, Function<IGraphElement, T> function) {
 			this.style = style;
@@ -68,21 +69,11 @@ public class StyleFactory implements IStyleFactory {
 			this.value = value;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.graph.impl.style.IStyle#getStyle()
-		 */
 		@Override
 		public StyleType getStyleType() {
 			return style;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.graph.impl.style.IStyle#getValue(ge)
-		 */
 		@Override
 		public T getValue(IGraphElement ge) {
 			return function != null
@@ -90,11 +81,6 @@ public class StyleFactory implements IStyleFactory {
 					: value;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.graph.style.IStyle#isFunction()
-		 */
 		@Override
 		public boolean isFunction() {
 			return function != null;
@@ -104,21 +90,11 @@ public class StyleFactory implements IStyleFactory {
 			this.types = types;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.graph.impl.style.IStyle#supports(org.cloudsmith.graph.ElementType)
-		 */
 		@Override
 		public boolean supports(ElementType type) {
 			return types.contains(type) || types.contains(ElementType.ANY);
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.cloudsmith.graph.IStyle#supports(java.util.Set)
-		 */
 		@Override
 		public boolean supports(Set<ElementType> types) {
 			return this.types.containsAll(types);
@@ -892,7 +868,7 @@ public class StyleFactory implements IStyleFactory {
 
 	@Override
 	public LabelCell cellSeparator() {
-		return new LabelCell.Separator(functions.literalString(""), functions.literalString(""));
+		return new LabelCell.Separator(functions.literalStringSet(""), functions.literalString(""));
 	}
 
 	@Override
@@ -950,11 +926,6 @@ public class StyleFactory implements IStyleFactory {
 		return new FontSize(x);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.graph.style.IStyleFactory#headCluster(org.cloudsmith.graph.IClusterGraph)
-	 */
 	@Override
 	public IStyle<IClusterGraph> headCluster(IClusterGraph x) {
 		return new HeadCluster(x);
@@ -985,64 +956,62 @@ public class StyleFactory implements IStyleFactory {
 		return new Href(x);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.graph.style.IStyleFactory#id(com.google.common.base.Function)
-	 */
 	@Override
 	public IStyle<String> id(Function<IGraphElement, String> f) {
 		return new Id(f);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.graph.style.IStyleFactory#id(java.lang.String)
-	 */
 	@Override
 	public IStyle<String> id(String s) {
 		return new Id(functions.literalString(s));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.graph.style.IStyleFactory#labelCell(com.google.common.base.Function, com.google.common.base.Function)
-	 */
 	@Override
-	public LabelCell labelCell(Function<IGraphElement, String> styleClass, Function<IGraphElement, String> f, Span span) {
+	public LabelCell labelCell(Collection<String> styleClasses, Function<IGraphElement, String> f) {
+
+		return new LabelCell(functions.literalStringSet(styleClasses), f, Span.SPAN_1x1);
+	}
+
+	@Override
+	public LabelCell labelCell(Collection<String> styleClasses, Function<IGraphElement, String> f, Span span) {
+
+		return new LabelCell(functions.literalStringSet(styleClasses), f, span);
+	}
+
+	@Override
+	public LabelCell labelCell(Collection<String> styleClass, String value) {
+		return new LabelCell(functions.literalStringSet(styleClass), functions.literalString(value), Span.SPAN_1x1);
+	}
+
+	@Override
+	public LabelCell labelCell(Collection<String> styleClass, String value, Span span) {
+		return new LabelCell(functions.literalStringSet(styleClass), functions.literalString(value), span);
+	}
+
+	@Override
+	public LabelCell labelCell(Function<IGraphElement, Set<String>> styleClass, Function<IGraphElement, String> f,
+			Span span) {
 		return new LabelCell(styleClass, f, span);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.graph.style.IStyleFactory#labelCell(java.lang.String, com.google.common.base.Function)
-	 */
 	@Override
 	public LabelCell labelCell(String styleClass, Function<IGraphElement, String> f) {
-		return new LabelCell(functions.literalString(styleClass), f);
+		return new LabelCell(functions.literalStringSet(styleClass), f);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.graph.style.IStyleFactory#labelCell(java.lang.String, com.google.common.base.Function)
-	 */
 	@Override
 	public LabelCell labelCell(String styleClass, Function<IGraphElement, String> f, Span span) {
-		return new LabelCell(functions.literalString(styleClass), f, span);
+		return new LabelCell(functions.literalStringSet(styleClass), f, span);
 	}
 
 	@Override
 	public LabelCell labelCell(String styleClass, String value) {
-		return new LabelCell(functions.literalString(styleClass), functions.literalString(value));
+		return new LabelCell(functions.literalStringSet(styleClass), functions.literalString(value));
 	}
 
 	@Override
 	public LabelCell labelCell(String styleClass, String value, Span span) {
-		return new LabelCell(functions.literalString(styleClass), functions.literalString(value), span);
+		return new LabelCell(functions.literalStringSet(styleClass), functions.literalString(value), span);
 	}
 
 	@Override
@@ -1055,11 +1024,6 @@ public class StyleFactory implements IStyleFactory {
 		return new LabelRow(styleClass, cells);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.graph.style.IStyleFactory#labelStringTemplate(com.google.common.base.Function)
-	 */
 	@Override
 	public LabelStringTemplate labelStringTemplate(Function<IGraphElement, String> f) {
 		return new LabelStringTemplate(f);
@@ -1080,21 +1044,11 @@ public class StyleFactory implements IStyleFactory {
 		return new EdgeBrush(lineType, lineWidth);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.graph.style.IStyleFactory#lineColor(java.lang.String)
-	 */
 	@Override
 	public LineColor lineColor(String x) {
 		return new LineColor(x);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.graph.style.IStyleFactory#mclimit(double)
-	 */
 	@Override
 	public IStyle<?> mclimit(double d) {
 		return new McLimit(d);
@@ -1115,11 +1069,6 @@ public class StyleFactory implements IStyleFactory {
 		return new RankSeparation(x);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.graph.style.IStyleFactory#remincross(boolean)
-	 */
 	@Override
 	public IStyle<?> remincross(boolean b) {
 		return new ReMinCross(b);
@@ -1130,11 +1079,6 @@ public class StyleFactory implements IStyleFactory {
 		return new Rendered(x);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.graph.style.IStyleFactory#rendered(com.google.common.base.Function)
-	 */
 	@Override
 	public IStyle<Boolean> rendered(Function<IGraphElement, Boolean> f) {
 		return new Rendered(f);
@@ -1147,7 +1091,7 @@ public class StyleFactory implements IStyleFactory {
 
 	@Override
 	public LabelRow rowSeparator() {
-		return new LabelRow.Separator(functions.literalString(""));
+		return new LabelRow.Separator(functions.literalStringSet(""));
 	}
 
 	@Override
@@ -1165,11 +1109,6 @@ public class StyleFactory implements IStyleFactory {
 		return new NodeBrush(lineType, lineWidth, filled, rounded);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.cloudsmith.graph.style.IStyleFactory#tailCluster(org.cloudsmith.graph.IClusterGraph)
-	 */
 	@Override
 	public IStyle<IClusterGraph> tailCluster(IClusterGraph x) {
 		return new TailCluster(x);

@@ -11,6 +11,9 @@
  */
 package org.cloudsmith.graph.graphcss;
 
+import java.util.Collection;
+import java.util.Set;
+
 import org.cloudsmith.graph.IGraphElement;
 
 import com.google.common.base.Function;
@@ -61,6 +64,10 @@ public interface IFunctionFactory {
 	public Function<IGraphElement, String> labelData(Object key);
 
 	public Function<IGraphElement, String> literalString(String s);
+
+	public Function<IGraphElement, Set<String>> literalStringSet(Collection<String> s);
+
+	public Function<IGraphElement, Set<String>> literalStringSet(String s);
 
 	/**
 	 * Returns true if the graph element's label is not empty.

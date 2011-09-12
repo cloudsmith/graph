@@ -11,6 +11,9 @@
  */
 package org.cloudsmith.graph.style.labels;
 
+import java.util.Collections;
+import java.util.Set;
+
 import org.cloudsmith.graph.IGraphElement;
 
 import com.google.common.base.Function;
@@ -22,18 +25,18 @@ import com.google.common.base.Function;
 public class LabelTable implements ILabelTemplate {
 	private LabelRow[] rows;
 
-	private Function<IGraphElement, String> styleClass;
+	private Function<IGraphElement, Set<String>> styleClass;
 
-	public LabelTable(final Function<IGraphElement, String> styleClass, LabelRow... rows) {
+	public LabelTable(final Function<IGraphElement, Set<String>> styleClass, LabelRow... rows) {
 		this.rows = rows;
 		this.styleClass = styleClass;
 	}
 
 	public LabelTable(final String styleClass, LabelRow... rows) {
 		this.rows = rows;
-		this.styleClass = new Function<IGraphElement, String>() {
-			public String apply(IGraphElement ge) {
-				return styleClass;
+		this.styleClass = new Function<IGraphElement, Set<String>>() {
+			public Set<String> apply(IGraphElement ge) {
+				return Collections.singleton(styleClass);
 			}
 		};
 	}
@@ -42,7 +45,7 @@ public class LabelTable implements ILabelTemplate {
 		return rows;
 	}
 
-	public String getStyleClass(IGraphElement ge) {
+	public Set<String> getStyleClasses(IGraphElement ge) {
 		return styleClass.apply(ge);
 	}
 }

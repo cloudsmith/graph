@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.graph.elements;
 
+import java.util.Collection;
+
 import org.cloudsmith.graph.ElementType;
 import org.cloudsmith.graph.ITableCell;
 
@@ -38,6 +40,11 @@ public class GraphCell extends GraphElement implements ITableCell {
 		this.value = value;
 	}
 
+	public GraphCell(String value, int rowspan, int colspan, Collection<String> styleClass, String id) {
+		super(styleClass, id);
+		this.value = value;
+	}
+
 	/**
 	 * Creates a default cell with null id.
 	 * 
@@ -47,8 +54,17 @@ public class GraphCell extends GraphElement implements ITableCell {
 		this(value, styleClass, null);
 	}
 
+	public GraphCell(String value, Collection<String> styleClasses) {
+		this(value, styleClasses, null);
+	}
+
 	public GraphCell(String value, String styleClass, String id) {
 		super(styleClass, id);
+		this.value = value;
+	}
+
+	public GraphCell(String value, Collection<String> styleClasses, String id) {
+		super(styleClasses, id);
 		this.value = value;
 	}
 
