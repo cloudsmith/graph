@@ -6,7 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.cloudsmith.graph.tests.Activator
 Require-Bundle: org.cloudsmith.graph,
  org.eclipse.core.runtime,
- javax.servlet;bundle-version="2.5.0",
  org.eclipse.emf.ecore,
  com.google.collect,
  com.google.inject,
