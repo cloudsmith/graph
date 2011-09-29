@@ -286,16 +286,18 @@ public class DotLabelRenderer {
 		if(p[2].toLowerCase().equals("false"))
 			return;
 
+		String cellText = gc.getValue();
+
 		// if there are font attributes - output that around the text in the cell
-		//
-		boolean withFontData = p[1] != null && p[1].length() > 0;
+		// (unless text is empty string = graphviz error).
+		boolean withFontData = p[1] != null && p[1].length() > 0 && cellText.length() > 0;
 		out.printf("<TD %s>", p[0]);
 		if(withFontData)
 			out.printf("<FONT %s>", p[1]);
 
 		// the value has already been interpolated when the GraphCell was set up
 		// so just output the string here.
-		out.print(escapeNewLine(gc.getValue()));
+		out.print(escapeNewLine(cellText));
 		if(withFontData)
 			out.print("</FONT>");
 		out.print("</TD>");
