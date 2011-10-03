@@ -26,6 +26,8 @@ import org.cloudsmith.graph.style.Alignment;
 import org.cloudsmith.graph.style.Compass;
 import org.cloudsmith.graph.style.IStyleFactory;
 import org.cloudsmith.graph.style.Span;
+import org.cloudsmith.graph.style.labels.ILabelTemplate;
+import org.cloudsmith.graph.style.labels.LabelStringTemplate;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -45,7 +47,7 @@ import com.google.inject.Inject;
  */
 public class EAttributeBasedLabelStyleProvider implements IELabelStyleProvider {
 
-	private static class AttributeFunction implements Function<IGraphElement, String> {
+	private static class AttributeFunction implements Function<IGraphElement, ILabelTemplate> {
 		private EAttribute attribute;
 
 		public AttributeFunction(EAttribute attribute) {
@@ -58,14 +60,14 @@ public class EAttributeBasedLabelStyleProvider implements IELabelStyleProvider {
 		 * @see com.google.common.base.Function#apply(java.lang.Object)
 		 */
 		@Override
-		public String apply(IGraphElement from) {
+		public ILabelTemplate apply(IGraphElement from) {
 			if(!(from instanceof EVertex))
-				return "ERROR: not an EVertex";
+				return new LabelStringTemplate("ERROR: not an EVertex");
 			EObject obj = ((EVertex) from).getEObject();
 			Object x = obj.eGet(attribute);
 			if(x == null)
-				return "null"; // TODO: should probably be ""
-			return x.toString(); // TODO: should use a to string provider
+				return new LabelStringTemplate("null"); // TODO: should probably be ""
+			return new LabelStringTemplate(x.toString()); // TODO: should use a to string provider
 		}
 	}
 
@@ -153,10 +155,10 @@ public class EAttributeBasedLabelStyleProvider implements IELabelStyleProvider {
 
 		// First row contains an index cell that spans all rows
 		// Class-name cell spans two columns.
-		labelRows[0] = styles.labelRow(
-			STYLE__CLASS_ROW, //
+		labelRows[0] = styles.labelRow(STYLE__CLASS_ROW, //
 			styles.labelCell(
-				STYLE__INDEX_CELL, functions.labelData(EVertex.DATA_KEY_INDEX), Span.rowSpan(labelRows.length)), //
+				STYLE__INDEX_CELL, functions.labelTemplate(functions.labelData(EVertex.DATA_KEY_INDEX)),
+				Span.rowSpan(labelRows.length)), //
 			styles.labelCell(STYLE__CLASS_NAME_CELL, "<B>" + classifier.getName() + "</B>", Span.colSpan(2)));
 
 		int index = 1;

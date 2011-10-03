@@ -15,6 +15,8 @@ import java.util.Collection;
 import java.util.Set;
 
 import org.cloudsmith.graph.IGraphElement;
+import org.cloudsmith.graph.style.labels.ILabelTemplate;
+import org.cloudsmith.graph.style.labels.LabelTable;
 
 import com.google.common.base.Function;
 
@@ -53,7 +55,7 @@ public interface IFunctionFactory {
 	 * 
 	 * @return
 	 */
-	public Function<IGraphElement, String> label();
+	public Function<IGraphElement, ILabelTemplate> label();
 
 	/**
 	 * Returns the label data of the given key from the graph element.
@@ -62,6 +64,12 @@ public interface IFunctionFactory {
 	 * @return
 	 */
 	public Function<IGraphElement, String> labelData(Object key);
+
+	public Function<IGraphElement, ILabelTemplate> labelTemplate(Function<IGraphElement, String> stringfunc);
+
+	public Function<IGraphElement, ILabelTemplate> literalLabelTemplate(LabelTable t);
+
+	public Function<IGraphElement, ILabelTemplate> literalLabelTemplate(String s);
 
 	public Function<IGraphElement, String> literalString(String s);
 

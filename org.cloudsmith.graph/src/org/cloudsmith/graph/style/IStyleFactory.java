@@ -19,7 +19,6 @@ import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.style.labels.ILabelTemplate;
 import org.cloudsmith.graph.style.labels.LabelCell;
 import org.cloudsmith.graph.style.labels.LabelRow;
-import org.cloudsmith.graph.style.labels.LabelStringTemplate;
 import org.cloudsmith.graph.style.labels.LabelTable;
 
 import com.google.common.base.Function;
@@ -95,20 +94,28 @@ public interface IStyleFactory {
 
 	public IStyle<String> id(String s);
 
-	public LabelCell labelCell(Collection<String> styleClass, Function<IGraphElement, String> f);
+	public LabelCell labelCell(Collection<String> styleClasses, Function<IGraphElement, ILabelTemplate> f);
 
-	LabelCell labelCell(Collection<String> styleClasses, Function<IGraphElement, String> f, Span span);
+	public LabelCell labelCell(Collection<String> styleClasses, Function<IGraphElement, ILabelTemplate> f, Span span);
 
-	public LabelCell labelCell(Collection<String> styleClass, String value);
+	public LabelCell labelCell(Collection<String> styleClasses, LabelTable value);
 
-	LabelCell labelCell(Collection<String> styleClasses, String value, Span span);
+	public LabelCell labelCell(Collection<String> styleClasses, LabelTable value, Span span);
 
-	public LabelCell labelCell(Function<IGraphElement, Set<String>> styleClass, Function<IGraphElement, String> f,
-			Span span);
+	public LabelCell labelCell(Collection<String> styleClasses, String value);
 
-	public LabelCell labelCell(String styleClass, Function<IGraphElement, String> f);
+	public LabelCell labelCell(Collection<String> styleClasses, String value, Span span);
 
-	public LabelCell labelCell(String styleClass, Function<IGraphElement, String> f, Span span);
+	public LabelCell labelCell(Function<IGraphElement, Set<String>> styleClass,
+			Function<IGraphElement, ILabelTemplate> f, Span span);
+
+	public LabelCell labelCell(String styleClass, Function<IGraphElement, ILabelTemplate> f);
+
+	public LabelCell labelCell(String styleClass, Function<IGraphElement, ILabelTemplate> f, Span span);
+
+	public LabelCell labelCell(String styleClasse, LabelTable value);
+
+	public LabelCell labelCell(String styleClass, LabelTable value, Span span);
 
 	public LabelCell labelCell(String styleClass, String value);
 
@@ -118,11 +125,13 @@ public interface IStyleFactory {
 
 	public LabelRow labelRow(String styleClass, LabelCell... cells);
 
-	public LabelStringTemplate labelStringTemplate(Function<IGraphElement, String> f);
+	public ILabelTemplate labelStringTemplate(Function<IGraphElement, String> f);
 
-	public LabelStringTemplate labelStringTemplate(String x);
+	public ILabelTemplate labelStringTemplate(String x);
 
 	public LabelTable labelTable(String styleClass, LabelRow... rows);
+
+	public ILabelTemplate labelTemplate(Function<IGraphElement, ILabelTemplate> f);
 
 	public IStyle<LineBrush> lineBrush(LineType lineType, double lineWidth);
 

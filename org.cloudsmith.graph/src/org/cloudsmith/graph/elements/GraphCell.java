@@ -17,7 +17,7 @@ import org.cloudsmith.graph.ElementType;
 import org.cloudsmith.graph.ITableCell;
 
 /**
- * Implementation of IGraphCell
+ * Implementation of ITableCell
  * 
  */
 public class GraphCell extends GraphElement implements ITableCell {
@@ -35,15 +35,17 @@ public class GraphCell extends GraphElement implements ITableCell {
 
 	private String value;
 
-	public GraphCell(String value, int rowspan, int colspan, String styleClass, String id) {
-		super(styleClass, id);
-		this.value = value;
-	}
+	private GraphTable table;
 
-	public GraphCell(String value, int rowspan, int colspan, Collection<String> styleClass, String id) {
-		super(styleClass, id);
-		this.value = value;
-	}
+	// private GraphCell(String value, int rowspan, int colspan, String styleClass, String id) {
+	// super(styleClass, id);
+	// this.value = value;
+	// }
+	//
+	// private GraphCell(String value, int rowspan, int colspan, Collection<String> styleClass, String id) {
+	// super(styleClass, id);
+	// this.value = value;
+	// }
 
 	/**
 	 * Creates a default cell with null id.
@@ -66,6 +68,20 @@ public class GraphCell extends GraphElement implements ITableCell {
 	public GraphCell(String value, Collection<String> styleClasses, String id) {
 		super(styleClasses, id);
 		this.value = value;
+	}
+
+	public void setTableContent(GraphTable gt) {
+		this.table = gt;
+		gt.setParentElement(this);
+		String id = gt.getId();
+		if(id == null || id.length() == 0)
+			gt.setId("t");
+
+	}
+
+	@Override
+	public GraphTable getTableContents() {
+		return this.table;
 	}
 
 	@Override

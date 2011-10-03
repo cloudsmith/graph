@@ -18,6 +18,9 @@ import java.util.Set;
 
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.ILabeledGraphElement;
+import org.cloudsmith.graph.style.labels.ILabelTemplate;
+import org.cloudsmith.graph.style.labels.LabelStringTemplate;
+import org.cloudsmith.graph.style.labels.LabelTable;
 import org.cloudsmith.graph.utils.Base64;
 
 import com.google.common.base.Function;
@@ -130,7 +133,7 @@ public class FunctionFactory implements IFunctionFactory {
 		}
 	}
 
-	private static class Label implements Function<IGraphElement, String> {
+	private static class Label implements Function<IGraphElement, ILabelTemplate> {
 
 		/*
 		 * (non-Javadoc)
@@ -138,10 +141,11 @@ public class FunctionFactory implements IFunctionFactory {
 		 * @see com.google.common.base.Function#apply(java.lang.Object)
 		 */
 		@Override
-		public String apply(IGraphElement ge) {
-			if(!(ge instanceof ILabeledGraphElement))
-				return "";
-			return ((ILabeledGraphElement) ge).getLabel();
+		public ILabelTemplate apply(IGraphElement ge) {
+			String text = "";
+			if(ge instanceof ILabeledGraphElement)
+				text = ((ILabeledGraphElement) ge).getLabel();
+			return new LabelStringTemplate(text);
 		}
 
 	}
@@ -161,9 +165,27 @@ public class FunctionFactory implements IFunctionFactory {
 		 */
 		@Override
 		public String apply(IGraphElement ge) {
-			if(!(ge instanceof ILabeledGraphElement))
-				return "";
-			return ((ILabeledGraphElement) ge).getUserData().get(key);
+			String text = "";
+			if(ge instanceof ILabeledGraphElement)
+				text = ((ILabeledGraphElement) ge).getUserData().get(key);
+			return text;
+		}
+	}
+
+	private static class LiteralLabelTemplate implements Function<IGraphElement, ILabelTemplate> {
+		final private ILabelTemplate value;
+
+		public LiteralLabelTemplate(String value) {
+			this.value = new LabelStringTemplate(value);
+		}
+
+		public LiteralLabelTemplate(LabelTable value) {
+			this.value = value;
+		}
+
+		@Override
+		public ILabelTemplate apply(IGraphElement from) {
+			return value;
 		}
 	}
 
@@ -262,7 +284,7 @@ public class FunctionFactory implements IFunctionFactory {
 	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#label()
 	 */
 	@Override
-	public Function<IGraphElement, String> label() {
+	public Function<IGraphElement, ILabelTemplate> label() {
 		return theLabelFunction;
 	}
 
@@ -324,5 +346,40 @@ public class FunctionFactory implements IFunctionFactory {
 	@Override
 	public Function<IGraphElement, Set<String>> literalStringSet(Collection<String> s) {
 		return new LiteralStringSet(Sets.newHashSet(s));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#literalStringTemplate(java.lang.String)
+	 */
+	@Override
+	public Function<IGraphElement, ILabelTemplate> literalLabelTemplate(String s) {
+		return new LiteralLabelTemplate(s);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#tableStringTemplate(org.cloudsmith.graph.style.labels.LabelTable)
+	 */
+	@Override
+	public Function<IGraphElement, ILabelTemplate> literalLabelTemplate(LabelTable t) {
+		return new LiteralLabelTemplate(t);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#labelTemplate(com.google.common.base.Function)
+	 */
+	@Override
+	public Function<IGraphElement, ILabelTemplate> labelTemplate(final Function<IGraphElement, String> stringFunc) {
+		return new Function<IGraphElement, ILabelTemplate>() {
+			@Override
+			public ILabelTemplate apply(IGraphElement from) {
+				return new LiteralLabelTemplate(stringFunc.apply(from)).apply(from);
+			}
+		};
 	}
 }

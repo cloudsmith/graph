@@ -27,6 +27,8 @@ import com.google.common.base.Function;
  * functions as values in the calls to {@link #row(Function, LabelCell...)}, {@link #cell(Function, Function)},
  * (and related methods).
  * 
+ * TODO: Add support for tables in cells.
+ * 
  */
 public abstract class LabelTableBuilder implements IFunctionFactory {
 
@@ -54,11 +56,12 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 	 */
 	public abstract LabelTable build();
 
-	final protected LabelCell cell(Function<IGraphElement, Set<String>> styleClass, Function<IGraphElement, String> f) {
+	final protected LabelCell cell(Function<IGraphElement, Set<String>> styleClass,
+			Function<IGraphElement, ILabelTemplate> f) {
 		return styleFactory.labelCell(styleClass, f, null);
 	}
 
-	final protected LabelCell cell(String styleClass, Function<IGraphElement, String> f) {
+	final protected LabelCell cell(String styleClass, Function<IGraphElement, ILabelTemplate> f) {
 		return styleFactory.labelCell(styleClass, f, null);
 	}
 
@@ -104,7 +107,7 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#label()
 	 */
 	@Override
-	public Function<IGraphElement, String> label() {
+	public Function<IGraphElement, ILabelTemplate> label() {
 		return functions.label();
 
 	}
@@ -117,6 +120,26 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 	@Override
 	public Function<IGraphElement, String> labelData(Object key) {
 		return functions.labelData(key);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#labelTemplate(com.google.common.base.Function)
+	 */
+	@Override
+	public Function<IGraphElement, ILabelTemplate> labelTemplate(Function<IGraphElement, String> stringFunc) {
+		return functions.labelTemplate(stringFunc);
+	}
+
+	@Override
+	public Function<IGraphElement, ILabelTemplate> literalLabelTemplate(LabelTable t) {
+		return functions.literalLabelTemplate(t);
+	}
+
+	@Override
+	public Function<IGraphElement, ILabelTemplate> literalLabelTemplate(String s) {
+		return functions.literalLabelTemplate(s);
 	}
 
 	/*

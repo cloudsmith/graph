@@ -207,9 +207,9 @@ public class TestGraph implements IGraphProvider {
 			@Override
 			public LabelTable build() {
 				return table("DataTable", //
-					row("FirstRow", cell("NameCell", labelData("name"))), //
-					row("SecondRow", cell("TypeCell", labelData("type"))), //
-					row("ThirdRow", cell("VersionCell", labelData("version"))) //
+					row("FirstRow", cell("NameCell", "name")), //
+					row("SecondRow", cell("TypeCell", "type")), //
+					row("ThirdRow", cell("VersionCell", "version")) //
 				);
 			}
 

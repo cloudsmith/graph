@@ -172,7 +172,7 @@ public class DefaultStyleTheme implements IStyleTheme {
 		));
 
 		StyleSet simpleLabelFormat = new StyleSet();
-		simpleLabelFormat.put(styles.labelFormat(styles.labelStringTemplate(functionFactory.label())));
+		simpleLabelFormat.put(styles.labelFormat(styles.labelTemplate(functionFactory.label())));
 
 		// use a simple label format for edges, as this reduces dot data a lot
 		//

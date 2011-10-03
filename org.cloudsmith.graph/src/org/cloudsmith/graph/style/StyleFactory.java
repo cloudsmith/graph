@@ -34,6 +34,7 @@ import org.cloudsmith.graph.ElementType;
 import org.cloudsmith.graph.IClusterGraph;
 import org.cloudsmith.graph.IGraphElement;
 import org.cloudsmith.graph.graphcss.IFunctionFactory;
+import org.cloudsmith.graph.style.labels.DynamicLabelTemplate;
 import org.cloudsmith.graph.style.labels.ILabelTemplate;
 import org.cloudsmith.graph.style.labels.LabelCell;
 import org.cloudsmith.graph.style.labels.LabelRow;
@@ -41,6 +42,7 @@ import org.cloudsmith.graph.style.labels.LabelStringTemplate;
 import org.cloudsmith.graph.style.labels.LabelTable;
 
 import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -868,7 +870,7 @@ public class StyleFactory implements IStyleFactory {
 
 	@Override
 	public LabelCell cellSeparator() {
-		return new LabelCell.Separator(functions.literalStringSet(""), functions.literalString(""));
+		return new LabelCell.Separator(functions.literalStringSet(""), functions.literalLabelTemplate(""));
 	}
 
 	@Override
@@ -967,51 +969,72 @@ public class StyleFactory implements IStyleFactory {
 	}
 
 	@Override
-	public LabelCell labelCell(Collection<String> styleClasses, Function<IGraphElement, String> f) {
+	public LabelCell labelCell(Collection<String> styleClasses, Function<IGraphElement, ILabelTemplate> f) {
 
 		return new LabelCell(functions.literalStringSet(styleClasses), f, Span.SPAN_1x1);
 	}
 
 	@Override
-	public LabelCell labelCell(Collection<String> styleClasses, Function<IGraphElement, String> f, Span span) {
+	public LabelCell labelCell(Collection<String> styleClasses, Function<IGraphElement, ILabelTemplate> f, Span span) {
 
 		return new LabelCell(functions.literalStringSet(styleClasses), f, span);
 	}
 
 	@Override
 	public LabelCell labelCell(Collection<String> styleClass, String value) {
-		return new LabelCell(functions.literalStringSet(styleClass), functions.literalString(value), Span.SPAN_1x1);
+		return new LabelCell(
+			functions.literalStringSet(styleClass), functions.literalLabelTemplate(value), Span.SPAN_1x1);
 	}
 
 	@Override
 	public LabelCell labelCell(Collection<String> styleClass, String value, Span span) {
-		return new LabelCell(functions.literalStringSet(styleClass), functions.literalString(value), span);
+		return new LabelCell(functions.literalStringSet(styleClass), functions.literalLabelTemplate(value), span);
 	}
 
 	@Override
-	public LabelCell labelCell(Function<IGraphElement, Set<String>> styleClass, Function<IGraphElement, String> f,
-			Span span) {
+	public LabelCell labelCell(Function<IGraphElement, Set<String>> styleClass,
+			Function<IGraphElement, ILabelTemplate> f, Span span) {
 		return new LabelCell(styleClass, f, span);
 	}
 
 	@Override
-	public LabelCell labelCell(String styleClass, Function<IGraphElement, String> f) {
+	public LabelCell labelCell(String styleClass, Function<IGraphElement, ILabelTemplate> f) {
 		return new LabelCell(functions.literalStringSet(styleClass), f);
 	}
 
 	@Override
-	public LabelCell labelCell(String styleClass, Function<IGraphElement, String> f, Span span) {
+	public LabelCell labelCell(String styleClass, Function<IGraphElement, ILabelTemplate> f, Span span) {
 		return new LabelCell(functions.literalStringSet(styleClass), f, span);
 	}
 
 	@Override
 	public LabelCell labelCell(String styleClass, String value) {
-		return new LabelCell(functions.literalStringSet(styleClass), functions.literalString(value));
+		return new LabelCell(functions.literalStringSet(styleClass), functions.literalLabelTemplate(value));
+	}
+
+	@Override
+	public LabelCell labelCell(String styleClass, LabelTable value) {
+		return labelCell(Lists.newArrayList(styleClass), value);
+	}
+
+	@Override
+	public LabelCell labelCell(String styleClass, LabelTable value, Span span) {
+		return labelCell(Lists.newArrayList(styleClass), value, span);
 	}
 
 	@Override
 	public LabelCell labelCell(String styleClass, String value, Span span) {
-		return new LabelCell(functions.literalStringSet(styleClass), functions.literalString(value), span);
+		return new LabelCell(functions.literalStringSet(styleClass), functions.literalLabelTemplate(value), span);
+	}
+
+	@Override
+	public LabelCell labelCell(Collection<String> styleClass, LabelTable value) {
+		return new LabelCell(functions.literalStringSet(styleClass), functions.literalLabelTemplate(value));
+	}
+
+	@Override
+	public LabelCell labelCell(Collection<String> styleClasses, LabelTable value, Span span) {
+		return new LabelCell(functions.literalStringSet(styleClasses), functions.literalLabelTemplate(value), span);
 	}
 
 	@Override
@@ -1032,6 +1055,11 @@ public class StyleFactory implements IStyleFactory {
 	@Override
 	public LabelStringTemplate labelStringTemplate(String x) {
 		return new LabelStringTemplate(x);
+	}
+
+	@Override
+	public ILabelTemplate labelTemplate(Function<IGraphElement, ILabelTemplate> f) {
+		return new DynamicLabelTemplate(f);
 	}
 
 	@Override

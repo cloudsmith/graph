@@ -87,7 +87,7 @@ public class SimpleGraph2 implements IGraphProvider {
 		List<Rule> result = Lists.newArrayList();
 
 		StyleSet simpleLabelFormat = new StyleSet();
-		simpleLabelFormat.put(styleFactory.labelFormat(styleFactory.labelStringTemplate(functions.label())));
+		simpleLabelFormat.put(styleFactory.labelFormat(styleFactory.labelTemplate(functions.label())));
 
 		// use a simple label format for edges, as this reduces dot data a lot
 		//

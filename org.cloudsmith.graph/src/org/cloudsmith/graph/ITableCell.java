@@ -16,6 +16,8 @@ package org.cloudsmith.graph;
  * 
  */
 public interface ITableCell extends IGraphElement {
+	public ITable getTableContents();
+
 	public String getValue();
 
 	public boolean isSeparator();

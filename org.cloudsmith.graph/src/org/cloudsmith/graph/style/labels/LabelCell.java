@@ -25,7 +25,7 @@ import com.google.common.base.Function;
  */
 public class LabelCell {
 	public static class Separator extends LabelCell {
-		public Separator(Function<IGraphElement, Set<String>> styleClass, Function<IGraphElement, String> value) {
+		public Separator(Function<IGraphElement, Set<String>> styleClass, Function<IGraphElement, ILabelTemplate> value) {
 			super(styleClass, value);
 		}
 
@@ -35,7 +35,7 @@ public class LabelCell {
 		}
 	}
 
-	private Function<IGraphElement, String> valueFunc;
+	private Function<IGraphElement, ILabelTemplate> valueFunc;
 
 	private Function<IGraphElement, Set<String>> styleClassFunc;
 
@@ -47,13 +47,14 @@ public class LabelCell {
 	 * @param styleClass2
 	 * @param f
 	 */
-	public LabelCell(Function<IGraphElement, Set<String>> styleClass, Function<IGraphElement, String> value) {
+	public LabelCell(Function<IGraphElement, Set<String>> styleClass, Function<IGraphElement, ILabelTemplate> value) {
 		this.valueFunc = value;
 		this.styleClassFunc = styleClass;
 		this.span = Span.SPAN_1x1;
 	}
 
-	public LabelCell(Function<IGraphElement, Set<String>> styleClass, Function<IGraphElement, String> value, Span span) {
+	public LabelCell(Function<IGraphElement, Set<String>> styleClass, Function<IGraphElement, ILabelTemplate> value,
+			Span span) {
 		this.valueFunc = value;
 		this.styleClassFunc = styleClass;
 		this.span = span;
@@ -71,7 +72,7 @@ public class LabelCell {
 		return instanceStyles;
 	}
 
-	public String getValue(IGraphElement ge) {
+	public ILabelTemplate getValue(IGraphElement ge) {
 		return valueFunc.apply(ge);
 	}
 

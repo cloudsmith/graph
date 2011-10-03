@@ -37,6 +37,7 @@ import org.cloudsmith.graph.style.StyleFactory;
 import org.cloudsmith.graph.style.StyleType;
 import org.cloudsmith.graph.style.StyleVisitor;
 import org.cloudsmith.graph.style.VerticalAlignment;
+import org.cloudsmith.graph.style.labels.DynamicLabelTemplate;
 import org.cloudsmith.graph.style.labels.ILabelTemplate;
 import org.cloudsmith.graph.style.labels.LabelCell;
 import org.cloudsmith.graph.style.labels.LabelMatrix;
@@ -63,6 +64,84 @@ public class DotLabelRenderer {
 	@Inject
 	public DotLabelRenderer(@DotRenderer.EmptyString String emptyString) {
 		this.emptyString = emptyString;
+	}
+
+	private GraphTable createTable(ILabeledGraphElement theGraphElement, LabelTable templateTable, ICancel cancel) {
+		// Context methodContext = Contexts.getMethodContext();
+		// methodContext.set("element", m_ge);
+
+		// create the GraphTable using a styleClass that is possibly set using
+		// EL
+		Set<String> tmp = templateTable.getStyleClasses(theGraphElement);
+
+		GraphTable gt = new GraphTable(tmp);
+
+		// set parent so containment selection for styles work
+		gt.setParentElement(theGraphElement);
+
+		// For all rows in the template, create a GraphRow
+		for(LabelRow r : templateTable.getRows()) {
+			cancel.assertContinue();
+
+			tmp = r.getStyleClasses(theGraphElement);
+			GraphRow gr = r.isSeparator()
+					? new GraphRow.SeparatorRow()
+					: new GraphRow(tmp);
+			gt.addRow(gr);
+
+			// for all cells in the template, create a GraphCell
+			for(LabelCell c : r.getCells()) {
+				tmp = c.getStyleClass(theGraphElement);
+				ILabelTemplate template = c.getValue(theGraphElement);
+				if(template == null)
+					template = new LabelStringTemplate("");
+
+				// resolve dynamic template to depth 100
+				for(int i = 0; template instanceof DynamicLabelTemplate; i++) {
+					if(i > 100)
+						throw new IllegalArgumentException("Dynamic Templates nested too deep > 100");
+					template = ((DynamicLabelTemplate) template).getTemplate(theGraphElement);
+				}
+
+				GraphCell gc = null;
+				if(c.isSeparator()) {
+					gc = new GraphCell.SeparatorCell();
+				}
+				else if(template instanceof LabelStringTemplate) {
+					String val = ((LabelStringTemplate) template).getTemplateString(theGraphElement);
+					val = (val == null)
+							? ""
+							: val;
+
+					gc = new GraphCell(val, tmp);
+				}
+				else if(template instanceof LabelTable) {
+					gc = new GraphCell("", tmp);
+					gc.setTableContent(createTable(theGraphElement, (LabelTable) template, cancel));
+				}
+				// TODO: MUST BE ABLE TO PICK UP INSTANCE STYLES FOR LABEL CELL
+
+				// If the labelCell has instance styles, make sure they are included
+				StyleSet instanceSet = c.getStyles();
+				StyleSet styleMap = new StyleSet();
+				styleMap.add(instanceSet);
+
+				// If the label cell has a span that is not 1x1, set that as instance style
+				// of the rendered IGraphCell.
+				Span span = c.getSpan();
+				if(span != null && span != Span.SPAN_1x1) {
+					if(span.getRowspan() != 1)
+						styleMap.put(new StyleFactory.RowSpan(span.getRowspan()));
+					if(span.getColspan() != 1)
+						styleMap.put(new StyleFactory.ColSpan(span.getColspan()));
+				}
+				// If there were any instance styles - apply them
+				if(styleMap.getStyles().size() > 0)
+					gc.setStyles(styleMap);
+				gr.addCell(gc);
+			}
+		}
+		return gt;
 	}
 
 	private String emptyString(String x) {
@@ -266,6 +345,13 @@ public class DotLabelRenderer {
 	 */
 	public boolean print(PrintStream out, ILabeledGraphElement theGraphElement, ILabelTemplate labelTemplate,
 			boolean printComma, char sepChar, GraphCSS gcss, ICancel cancel) {
+		// resolve dynamic template to depth 100
+		for(int i = 0; labelTemplate instanceof DynamicLabelTemplate; i++) {
+			if(i > 100)
+				throw new IllegalArgumentException("Dynamic Templates nested too deep > 100");
+			labelTemplate = ((DynamicLabelTemplate) labelTemplate).getTemplate(theGraphElement);
+		}
+
 		if(labelTemplate instanceof LabelStringTemplate)
 			return printStringLabel(
 				out, theGraphElement, ((LabelStringTemplate) labelTemplate).getTemplateString(theGraphElement),
@@ -286,18 +372,22 @@ public class DotLabelRenderer {
 		if(p[2].toLowerCase().equals("false"))
 			return;
 
+		ITable gt = gc.getTableContents();
 		String cellText = gc.getValue();
 
 		// if there are font attributes - output that around the text in the cell
 		// (unless text is empty string = graphviz error).
-		boolean withFontData = p[1] != null && p[1].length() > 0 && cellText.length() > 0;
+		boolean withFontData = gt == null && p[1] != null && p[1].length() > 0 && cellText.length() > 0;
 		out.printf("<TD %s>", p[0]);
 		if(withFontData)
 			out.printf("<FONT %s>", p[1]);
 
 		// the value has already been interpolated when the GraphCell was set up
-		// so just output the string here.
-		out.print(escapeNewLine(cellText));
+		// so just output the table or a string here.
+		if(gt != null)
+			printGraphTable(out, ge, gt, gcss, cancel);
+		else
+			out.print(escapeNewLine(cellText));
 		if(withFontData)
 			out.print("</FONT>");
 		out.print("</TD>");
@@ -315,21 +405,17 @@ public class DotLabelRenderer {
 		out.print("</TR>");
 	}
 
-	private boolean printGraphTable(PrintStream out, ILabeledGraphElement theGraphElement, boolean printComma,
-			char sepChar, ITable gt, GraphCSS gcss, ICancel cancel) {
+	private boolean printGraphTable(PrintStream out, ILabeledGraphElement theGraphElement, ITable gt, GraphCSS gcss,
+			ICancel cancel) {
 		String[] p = parseGraphTableAttributes(theGraphElement, gt, gcss, cancel);
 		// if "rendered" == false, do not output anything
 		if(p[2].toLowerCase().equals("false"))
 			return false;
 
-		out.printf("%slabel=", printComma
-				? sepChar + " "
-				: "");
-
 		// if there are font attributes - output that around the table
 		//
 		boolean withFontData = p[1] != null && p[1].length() > 0;
-		out.print("<");
+		// out.print("<");
 		if(withFontData)
 			out.printf("<FONT %s>", p[1]);
 		out.printf("<TABLE %s>", p[0]);
@@ -338,7 +424,7 @@ public class DotLabelRenderer {
 		out.print("</TABLE>");
 		if(withFontData)
 			out.print("</FONT>");
-		out.print(">");
+		// out.print(">");
 		return true;
 	}
 
@@ -377,7 +463,16 @@ public class DotLabelRenderer {
 		// Now armed with the label graph - we need to visit those nodes, get the styling of them, and provide
 		// output!
 		//
-		return printGraphTable(out, theGraphElement, printComma, sepChar, gt, gcss, cancel);
+		String[] p = parseGraphTableAttributes(theGraphElement, gt, gcss, cancel);
+		// if "rendered" == false, do not output anything
+		if(p[2].toLowerCase().equals("false"))
+			return false;
+
+		out.printf("%slabel=", printComma
+				? sepChar + " "
+				: "");
+
+		return printGraphTable(out, theGraphElement, gt, gcss, cancel);
 	}
 
 	private boolean printStringLabel(PrintStream out, ILabeledGraphElement theGraphElement, String simpleTemplate,
@@ -395,67 +490,38 @@ public class DotLabelRenderer {
 		return true;
 	}
 
+	/**
+	 * Print the top level table label.
+	 * 
+	 * @param out
+	 * @param theGraphElement
+	 * @param templateTable
+	 * @param printComma
+	 * @param sepChar
+	 * @param gcss
+	 * @param cancel
+	 * @return
+	 */
 	private boolean printTable(PrintStream out, ILabeledGraphElement theGraphElement, LabelTable templateTable,
 			boolean printComma, char sepChar, GraphCSS gcss, ICancel cancel) {
-		// Context methodContext = Contexts.getMethodContext();
-		// methodContext.set("element", m_ge);
+		GraphTable gt = createTable(theGraphElement, templateTable, cancel);
 
-		// create the GraphTable using a styleClass that is possibly set using
-		// EL
-		Set<String> tmp = templateTable.getStyleClasses(theGraphElement);
-
-		GraphTable gt = new GraphTable(tmp);
-
-		// set parent so containment selection for styles work
-		gt.setParentElement(theGraphElement);
-
-		// For all rows in the template, create a GraphRow
-		for(LabelRow r : templateTable.getRows()) {
-			cancel.assertContinue();
-
-			tmp = r.getStyleClasses(theGraphElement);
-			GraphRow gr = r.isSeparator()
-					? new GraphRow.SeparatorRow()
-					: new GraphRow(tmp);
-			gt.addRow(gr);
-			// for all cells in the template, create a GraphCell
-			for(LabelCell c : r.getCells()) {
-				tmp = c.getStyleClass(theGraphElement);
-				String val = c.getValue(theGraphElement);
-				val = (val == null)
-						? ""
-						: val;
-
-				GraphCell gc = c.isSeparator()
-						? new GraphCell.SeparatorCell()
-						: new GraphCell(val, tmp);
-
-				// TODO: MUST BE ABLE TO PICK UP INSTANCE STYLES FOR LABEL CELL
-
-				// If the labelCell has instance styles, make sure they are included
-				StyleSet instanceSet = c.getStyles();
-				StyleSet styleMap = new StyleSet();
-				styleMap.add(instanceSet);
-
-				// If the label cell has a span that is not 1x1, set that as instance style
-				// of the rendered IGraphCell.
-				Span span = c.getSpan();
-				if(span != null && span != Span.SPAN_1x1) {
-					if(span.getRowspan() != 1)
-						styleMap.put(new StyleFactory.RowSpan(span.getRowspan()));
-					if(span.getColspan() != 1)
-						styleMap.put(new StyleFactory.ColSpan(span.getColspan()));
-				}
-				// If there were any instance styles - apply them
-				if(styleMap.getStyles().size() > 0)
-					gc.setStyles(styleMap);
-				gr.addCell(gc);
-			}
-		}
 		// Now armed with the label graph - we need to visit those nodes, get the styling of them, and provide
 		// output!
 		//
-		return printGraphTable(out, theGraphElement, printComma, sepChar, gt, gcss, cancel);
+		String[] p = parseGraphTableAttributes(theGraphElement, gt, gcss, cancel);
+		// if "rendered" == false, do not output anything
+		if(p[2].toLowerCase().equals("false"))
+			return false;
+
+		out.printf("%slabel=", printComma
+				? sepChar + " "
+				: "");
+
+		out.print("<");
+		boolean result = printGraphTable(out, theGraphElement, gt, gcss, cancel);
+		out.print(">");
+		return result;
 	}
 
 }
