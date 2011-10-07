@@ -30,6 +30,33 @@ import com.google.common.collect.Sets;
  */
 public class Select {
 
+	public static class Not extends Selector {
+		private Selector selector;
+
+		public Not(Selector selector) {
+			this.selector = selector;
+		}
+
+		@Override
+		public boolean equalMatch(Selector selector) {
+			if(!(selector instanceof Not))
+				return false;
+			Not notSelector = (Not) selector;
+			return this.selector.equalMatch(notSelector.selector);
+		}
+
+		@Override
+		public int getSpecificity() {
+			return this.selector.getSpecificity() + 1;
+		}
+
+		@Override
+		public boolean matches(IGraphElement element) {
+			return !this.selector.matches(element);
+		}
+
+	}
+
 	/**
 	 * A compound rule, where all rules must be satisfied.
 	 * 
@@ -425,6 +452,10 @@ public class Select {
 
 	public static Select.And and(Select.Selector... selectors) {
 		return new Select.And(selectors);
+	}
+
+	public static Select.Not not(Select.Selector selector) {
+		return new Select.Not(selector);
 	}
 
 	public static Select.Element any() {
