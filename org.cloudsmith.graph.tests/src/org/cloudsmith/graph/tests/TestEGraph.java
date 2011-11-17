@@ -14,8 +14,8 @@ package org.cloudsmith.graph.tests;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import org.cloudsmith.geppetto.pp.AssignmentExpression;
 import org.cloudsmith.geppetto.pp.Expression;
@@ -69,7 +69,7 @@ public class TestEGraph extends AbstractGraphTests {
 	}
 
 	@Test
-	public void test_smokeTest() throws FileNotFoundException {
+	public void test_smokeTest() throws IOException {
 		// Need a model
 		// $x = "Hello Graph World"
 		final PPFactory pf = PPFactory.eINSTANCE;
@@ -95,10 +95,11 @@ public class TestEGraph extends AbstractGraphTests {
 		// IStyleFactory styles = get(IStyleFactory.class);
 		// themeSheet.addRule(Select.graph("RootGraph").withStyle(styles.backgroundColor("#cccccc")));
 
-		FileOutputStream tmp = new FileOutputStream(new File("./output/e_smokeTest.png"));
+		File output = getTestOutputFolder("output", true);
+		FileOutputStream tmp = new FileOutputStream(new File(output, "e_smokeTest.png"));
 
 		// Render without the default styles. Use styles from SimpleGraph1
-		FileOutputStream dot = new FileOutputStream(new File("./output/e_smokeTest.dot"));
+		FileOutputStream dot = new FileOutputStream(new File(output, "e_smokeTest.dot"));
 		DotRenderer dotRenderer = get(DotRenderer.class);
 		dotRenderer.write(ICancel.NullIndicator, dot, testGraph, theme.getDefaultRules(), themeSheet);
 
@@ -109,7 +110,7 @@ public class TestEGraph extends AbstractGraphTests {
 	}
 
 	@Test
-	public void test_verticalIndex() throws FileNotFoundException {
+	public void test_verticalIndex() throws IOException {
 		// Need a model
 		// $x = "Hello Graph World"
 		final PPFactory pf = PPFactory.eINSTANCE;
@@ -135,10 +136,11 @@ public class TestEGraph extends AbstractGraphTests {
 		// IStyleFactory styles = get(IStyleFactory.class);
 		// themeSheet.addRule(Select.graph("RootGraph").withStyle(styles.backgroundColor("#cccccc")));
 
-		FileOutputStream tmp = new FileOutputStream(new File("./output/e_horizontalArrayIndex.png"));
+		File output = getTestOutputFolder("output", true);
+		FileOutputStream tmp = new FileOutputStream(new File(output, "e_horizontalArrayIndex.png"));
 
 		// Render without the default styles. Use styles from SimpleGraph1
-		FileOutputStream dot = new FileOutputStream(new File("./output/e_horizontalArrayIndex.png.dot"));
+		FileOutputStream dot = new FileOutputStream(new File(output, "e_horizontalArrayIndex.png.dot"));
 		DotRenderer dotRenderer = get(DotRenderer.class);
 		dotRenderer.write(ICancel.NullIndicator, dot, testGraph, theme.getDefaultRules(), themeSheet);
 

@@ -14,8 +14,8 @@ package org.cloudsmith.graph.tests;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 import org.cloudsmith.graph.ICancel;
 import org.cloudsmith.graph.IGraphProvider;
@@ -39,7 +39,7 @@ import org.junit.Test;
 public class TestRenderingToPng extends AbstractGraphTests {
 
 	@Test
-	public void testPNG_abc_abc_vertical_default() throws FileNotFoundException {
+	public void testPNG_abc_abc_vertical_default() throws IOException {
 		IGraphviz graphviz = get(IGraphviz.class);
 		GraphCSS themeSheet = get(GraphCSS.class);
 
@@ -54,10 +54,11 @@ public class TestRenderingToPng extends AbstractGraphTests {
 		// IStyleFactory styles = get(IStyleFactory.class);
 		// themeSheet.addRule(Select.graph("RootGraph").withStyle(styles.backgroundColor("#cccccc")));
 
-		FileOutputStream tmp = new FileOutputStream(new File("./output/abc_abc_vertical_default.png"));
+		File output = getTestOutputFolder("output", true);
+		FileOutputStream tmp = new FileOutputStream(new File(output, "abc_abc_vertical_default.png"));
 
 		// Render without the default styles. Use styles from SimpleGraph1
-		FileOutputStream dot = new FileOutputStream(new File("./output/abc_abc_vertical_default.dot"));
+		FileOutputStream dot = new FileOutputStream(new File(output, "abc_abc_vertical_default.dot"));
 		DotRenderer dotRenderer = get(DotRenderer.class);
 		dotRenderer.write(ICancel.NullIndicator, dot, testGraph, theme.getDefaultRules(), themeSheet);
 
@@ -68,7 +69,7 @@ public class TestRenderingToPng extends AbstractGraphTests {
 	}
 
 	@Test
-	public void testPNG_abc_horizontal_default() throws FileNotFoundException {
+	public void testPNG_abc_horizontal_default() throws IOException {
 		IGraphviz graphviz = get(IGraphviz.class);
 		GraphCSS themeSheet = get(GraphCSS.class);
 
@@ -82,10 +83,11 @@ public class TestRenderingToPng extends AbstractGraphTests {
 		themeSheet.addAll(graphProvider.getRules());
 		themeSheet.addRule(Select.graph().withStyle(styles.rankDirectionStyle(RankDirection.LR)));
 
-		FileOutputStream png = new FileOutputStream(new File("./output/abc_horizontal_default.png"));
+		File output = getTestOutputFolder("output", true);
+		FileOutputStream png = new FileOutputStream(new File(output, "abc_horizontal_default.png"));
 
 		// Render without the default styles. Use styles from SimpleGraph1
-		FileOutputStream dot = new FileOutputStream(new File("./output/abc_horizontal_default.dot"));
+		FileOutputStream dot = new FileOutputStream(new File(output, "abc_horizontal_default.dot"));
 		DotRenderer dotRenderer = get(DotRenderer.class);
 		dotRenderer.write(ICancel.NullIndicator, dot, testGraph, theme.getDefaultRules(), themeSheet);
 
@@ -96,7 +98,7 @@ public class TestRenderingToPng extends AbstractGraphTests {
 	}
 
 	@Test
-	public void testPNG_abc_vertical_default() throws FileNotFoundException {
+	public void testPNG_abc_vertical_default() throws IOException {
 		IGraphviz graphviz = get(IGraphviz.class);
 		GraphCSS themeSheet = get(GraphCSS.class);
 
@@ -108,10 +110,11 @@ public class TestRenderingToPng extends AbstractGraphTests {
 		themeSheet.addAll(theme.getInstanceRules());
 		themeSheet.addAll(graphProvider.getRules());
 
-		FileOutputStream tmp = new FileOutputStream(new File("./output/abc_vertical_default.png"));
+		File output = getTestOutputFolder("output", true);
+		FileOutputStream tmp = new FileOutputStream(new File(output, "abc_vertical_default.png"));
 
 		// Render without the default styles. Use styles from SimpleGraph1
-		FileOutputStream dot = new FileOutputStream(new File("./output/abc_vertical_default.dot"));
+		FileOutputStream dot = new FileOutputStream(new File(output, "abc_vertical_default.dot"));
 		DotRenderer dotRenderer = get(DotRenderer.class);
 		dotRenderer.write(ICancel.NullIndicator, dot, testGraph, theme.getDefaultRules(), themeSheet);
 
@@ -121,7 +124,7 @@ public class TestRenderingToPng extends AbstractGraphTests {
 	}
 
 	@Test
-	public void testPNG_abc_vertical_unstyled() throws FileNotFoundException {
+	public void testPNG_abc_vertical_unstyled() throws IOException {
 		IGraphviz graphviz = get(IGraphviz.class);
 		GraphCSS themeSheet = get(GraphCSS.class);
 
@@ -129,7 +132,8 @@ public class TestRenderingToPng extends AbstractGraphTests {
 		IRootGraph testGraph = graphProvider.computeGraph();
 		themeSheet.addAll(graphProvider.getRules());
 
-		FileOutputStream tmp = new FileOutputStream(new File("./output/abc_vertical_unstyled.png"));
+		File output = getTestOutputFolder("output", true);
+		FileOutputStream tmp = new FileOutputStream(new File(output, "abc_vertical_unstyled.png"));
 
 		// Render without the default styles. Use styles from SimpleGraph1
 		assertTrue("Writing PNG", graphviz.writePNG(
