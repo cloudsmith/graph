@@ -11,18 +11,19 @@
  */
 package org.cloudsmith.graph.tests;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 
 import org.cloudsmith.graph.utils.Base64;
+import org.junit.Test;
 
 /**
  * Test base64 conversion.
  * 
  */
-public class TestBase64 extends TestCase {
+public class TestBase64 {
 
+	@Test
 	public void testBase64() {
-		StringBuilder b = new StringBuilder();
 		byte buf[] = new byte[0xff + 1];
 		for(int i = 0; i < 0xff; i++)
 			buf[i] = (byte) i;

@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.graph.tests;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.ByteArrayOutputStream;
 
 import org.cloudsmith.graph.ICancel;
@@ -18,10 +20,10 @@ import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.IGraphProvider;
 import org.cloudsmith.graph.dot.DotRenderer;
 import org.cloudsmith.graph.graphcss.GraphCSS;
-import org.cloudsmith.graph.graphviz.IGraphviz;
 import org.cloudsmith.graph.style.themes.IStyleTheme;
 import org.cloudsmith.graph.testgraphs.SimpleGraph1;
 import org.cloudsmith.graph.testgraphs.TestGraph;
+import org.junit.Test;
 
 /**
  * 
@@ -44,6 +46,7 @@ public class TestMockGraph extends AbstractGraphTests {
 			"label=\"a graph\";\n" + //
 			"}\n";
 
+	@Test
 	public void testSimpleGraph1_dotOutput() {
 		GraphCSS themeSheet = get(GraphCSS.class);
 
@@ -59,8 +62,9 @@ public class TestMockGraph extends AbstractGraphTests {
 		assertEquals("Expected result differs", testSimpleGraph1_dotOutput_text, tmp.toString());
 	}
 
+	@Test
 	public void testSmokeTest() {
-		IGraphviz graphviz = get(IGraphviz.class);
+		// IGraphviz graphviz = get(IGraphviz.class);
 
 		IStyleTheme theme = get(IStyleTheme.class);
 		GraphCSS themeSheet = get(GraphCSS.class);

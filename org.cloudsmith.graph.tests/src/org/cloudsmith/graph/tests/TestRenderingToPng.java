@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.graph.tests;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -28,6 +30,7 @@ import org.cloudsmith.graph.style.RankDirection;
 import org.cloudsmith.graph.style.themes.IStyleTheme;
 import org.cloudsmith.graph.testgraphs.SimpleGraph1;
 import org.cloudsmith.graph.testgraphs.SimpleGraph2;
+import org.junit.Test;
 
 /**
  * Tests rendering to PNG. Manual inspection of result is required.
@@ -35,6 +38,7 @@ import org.cloudsmith.graph.testgraphs.SimpleGraph2;
  */
 public class TestRenderingToPng extends AbstractGraphTests {
 
+	@Test
 	public void testPNG_abc_abc_vertical_default() throws FileNotFoundException {
 		IGraphviz graphviz = get(IGraphviz.class);
 		GraphCSS themeSheet = get(GraphCSS.class);
@@ -63,6 +67,7 @@ public class TestRenderingToPng extends AbstractGraphTests {
 
 	}
 
+	@Test
 	public void testPNG_abc_horizontal_default() throws FileNotFoundException {
 		IGraphviz graphviz = get(IGraphviz.class);
 		GraphCSS themeSheet = get(GraphCSS.class);
@@ -90,6 +95,7 @@ public class TestRenderingToPng extends AbstractGraphTests {
 
 	}
 
+	@Test
 	public void testPNG_abc_vertical_default() throws FileNotFoundException {
 		IGraphviz graphviz = get(IGraphviz.class);
 		GraphCSS themeSheet = get(GraphCSS.class);
@@ -114,6 +120,7 @@ public class TestRenderingToPng extends AbstractGraphTests {
 			ICancel.NullIndicator, tmp, GraphvizLayout.dot, testGraph, theme.getDefaultRules(), themeSheet));
 	}
 
+	@Test
 	public void testPNG_abc_vertical_unstyled() throws FileNotFoundException {
 		IGraphviz graphviz = get(IGraphviz.class);
 		GraphCSS themeSheet = get(GraphCSS.class);

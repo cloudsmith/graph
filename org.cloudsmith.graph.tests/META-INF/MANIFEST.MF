@@ -14,3 +14,4 @@ Require-Bundle: org.cloudsmith.graph,
  org.cloudsmith.graph.emf
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.cloudsmith.graph.tests

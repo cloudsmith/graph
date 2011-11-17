@@ -11,6 +11,9 @@
  */
 package org.cloudsmith.graph.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.ByteArrayOutputStream;
 
 import org.cloudsmith.graph.ICancel;
@@ -29,6 +32,7 @@ import org.cloudsmith.graph.graphviz.GraphvizRenderer;
 import org.cloudsmith.graph.graphviz.IGraphviz;
 import org.cloudsmith.graph.style.IStyleFactory;
 import org.cloudsmith.graph.testgraphs.AbstractTestGraph;
+import org.junit.Test;
 
 import com.google.inject.Inject;
 
@@ -126,6 +130,7 @@ public class TestBasicFeatures extends AbstractGraphTests {
 	 * Test that output is correct when there are no styles and identities have not
 	 * been set.
 	 */
+	@Test
 	public void testGraph_identities() {
 		GraphCSS themeSheet = get(GraphCSS.class);
 
@@ -145,6 +150,7 @@ public class TestBasicFeatures extends AbstractGraphTests {
 	 * Test that output is correct when there are no styles and identities have not
 	 * been set.
 	 */
+	@Test
 	public void testGraph_noIdentities() {
 		GraphCSS themeSheet = get(GraphCSS.class);
 
@@ -166,6 +172,7 @@ public class TestBasicFeatures extends AbstractGraphTests {
 	 * (to ensure there is some drawing information, and not just empty svg), and that the end tag is present
 	 * (i.e. that output is not truncated).
 	 */
+	@Test
 	public void testGraph_runGraphviz_svg() {
 		IGraphviz graphviz = get(IGraphviz.class);
 		GraphCSS themeSheet = get(GraphCSS.class);
@@ -189,6 +196,7 @@ public class TestBasicFeatures extends AbstractGraphTests {
 	 * Tests running graphviz to produce output. The test is performed by producing output in xdot format
 	 * (as this format is textual) and checks that text contains calls to "_draw_".
 	 */
+	@Test
 	public void testGraph_runGraphviz_xdot() {
 		IGraphviz graphviz = get(IGraphviz.class);
 		GraphCSS themeSheet = get(GraphCSS.class);

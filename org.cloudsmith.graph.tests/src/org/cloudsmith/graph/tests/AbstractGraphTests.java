@@ -11,9 +11,8 @@
  */
 package org.cloudsmith.graph.tests;
 
-import junit.framework.TestCase;
-
 import org.cloudsmith.graph.DefaultGraphModule;
+import org.junit.Before;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -22,7 +21,7 @@ import com.google.inject.Module;
 /**
  *
  */
-public class AbstractGraphTests extends TestCase {
+public class AbstractGraphTests {
 	private Injector injector;
 
 	protected <T> T get(Class<T> clazz) {
@@ -42,14 +41,8 @@ public class AbstractGraphTests extends TestCase {
 		return new DefaultGraphModule();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see junit.framework.TestCase#setUp()
-	 */
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
+	@Before
+	public void setUp() throws Exception {
 		injector = Guice.createInjector(getModule());
 	}
 }

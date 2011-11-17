@@ -11,6 +11,8 @@
  */
 package org.cloudsmith.graph.tests;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -32,6 +34,7 @@ import org.cloudsmith.graph.graphviz.GraphvizLayout;
 import org.cloudsmith.graph.graphviz.IGraphviz;
 import org.cloudsmith.graph.style.themes.IStyleTheme;
 import org.eclipse.emf.common.util.EList;
+import org.junit.Test;
 
 import com.google.inject.Module;
 
@@ -65,6 +68,7 @@ public class TestEGraph extends AbstractGraphTests {
 		return new DefaultEGraphModule();
 	}
 
+	@Test
 	public void test_smokeTest() throws FileNotFoundException {
 		// Need a model
 		// $x = "Hello Graph World"
@@ -104,6 +108,7 @@ public class TestEGraph extends AbstractGraphTests {
 
 	}
 
+	@Test
 	public void test_verticalIndex() throws FileNotFoundException {
 		// Need a model
 		// $x = "Hello Graph World"

@@ -11,19 +11,23 @@
  */
 package org.cloudsmith.graph.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.io.ByteArrayOutputStream;
 import java.util.NoSuchElementException;
 
-import junit.framework.TestCase;
-
 import org.cloudsmith.graph.utils.CircularByteQueue;
+import org.junit.Test;
 
 /**
  * tests the CircularByteBuffer
  * 
  */
-public class TestCircularByteBuffer extends TestCase {
+public class TestCircularByteBuffer {
 
+	@Test
 	public void test_growWithTailGtHead() throws Exception {
 		CircularByteQueue buf = new CircularByteQueue();
 		buf.add('a');
@@ -33,6 +37,7 @@ public class TestCircularByteBuffer extends TestCase {
 		assertEquals("Should start with 'a123'", "a123", new String(buf.peek(4)));
 	}
 
+	@Test
 	public void test_peek() throws Exception {
 		CircularByteQueue buf = new CircularByteQueue();
 		boolean caught = false;
@@ -63,6 +68,7 @@ public class TestCircularByteBuffer extends TestCase {
 
 	}
 
+	@Test
 	public void test_remove() throws Exception {
 		CircularByteQueue buf = new CircularByteQueue();
 
@@ -103,6 +109,7 @@ public class TestCircularByteBuffer extends TestCase {
 
 	}
 
+	@Test
 	public void test_size() throws Exception {
 		CircularByteQueue buf = new CircularByteQueue();
 		assertEquals("Should have zero size", 0, buf.size());
@@ -129,6 +136,7 @@ public class TestCircularByteBuffer extends TestCase {
 		assertEquals("Should have 30 size", 30, buf.size());
 	}
 
+	@Test
 	public void test_startsWith() throws Exception {
 		CircularByteQueue buf = new CircularByteQueue();
 		buf.add("abc".getBytes());
@@ -146,6 +154,7 @@ public class TestCircularByteBuffer extends TestCase {
 		assertTrue("Should have thrown NoSuchElementException", caught);
 	}
 
+	@Test
 	public void test_write() throws Exception {
 		CircularByteQueue buf = new CircularByteQueue(16);
 		buf.add("1234567890".getBytes());
@@ -168,6 +177,7 @@ public class TestCircularByteBuffer extends TestCase {
 
 	}
 
+	@Test
 	public void test_writeFlush() throws Exception {
 		CircularByteQueue buf = new CircularByteQueue(16);
 		buf.add("1234567890".getBytes());

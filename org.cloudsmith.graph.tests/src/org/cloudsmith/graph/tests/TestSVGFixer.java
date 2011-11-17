@@ -11,19 +11,21 @@
  */
 package org.cloudsmith.graph.tests;
 
-import java.io.ByteArrayOutputStream;
+import static org.junit.Assert.assertEquals;
 
-import junit.framework.TestCase;
+import java.io.ByteArrayOutputStream;
 
 import org.cloudsmith.graph.graphviz.SVGFixerOutputStream;
 import org.cloudsmith.graph.utils.Base64;
+import org.junit.Test;
 
 /**
  * Tests the SVGFixerOutputStream
  * 
  */
-public class TestSVGFixer extends TestCase {
+public class TestSVGFixer {
 
+	@Test
 	public void test_keepClassIfNotBase64Id() throws Exception {
 		ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
 		SVGFixerOutputStream out = new SVGFixerOutputStream(dataStream);
@@ -35,6 +37,7 @@ public class TestSVGFixer extends TestCase {
 		assertEquals("should have kept the id and class", "xid=\"theid\" class=\"keep\"y", dataStream.toString("UTF8"));
 	}
 
+	@Test
 	public void test_replaceEmptyLabel() throws Exception {
 		ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
 		SVGFixerOutputStream out = new SVGFixerOutputStream(dataStream);
@@ -46,6 +49,7 @@ public class TestSVGFixer extends TestCase {
 		assertEquals("should have replaced \"\\L\" with \"\"", "x\"\"y", dataStream.toString("UTF8"));
 	}
 
+	@Test
 	public void test_replaceIdAndClass() throws Exception {
 		ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
 		SVGFixerOutputStream out = new SVGFixerOutputStream(dataStream);
@@ -62,6 +66,7 @@ public class TestSVGFixer extends TestCase {
 			"should have replaced the id and class", "xid=\"new\" class=\"newclass\"y", dataStream.toString("UTF8"));
 	}
 
+	@Test
 	public void test_titleFilter() throws Exception {
 		ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
 		SVGFixerOutputStream out = new SVGFixerOutputStream(dataStream);

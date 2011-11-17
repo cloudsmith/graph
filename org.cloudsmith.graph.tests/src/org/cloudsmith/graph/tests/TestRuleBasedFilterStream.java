@@ -11,20 +11,24 @@
  */
 package org.cloudsmith.graph.tests;
 
-import java.io.ByteArrayOutputStream;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import junit.framework.TestCase;
+import java.io.ByteArrayOutputStream;
 
 import org.cloudsmith.graph.graphviz.SVGFixerOutputStream;
 import org.cloudsmith.graph.utils.RuleFilteredOutputStream;
 import org.cloudsmith.graph.utils.RuleFilteredOutputStream.ReplaceRule;
+import org.junit.Test;
 
 /**
  * tests the RuleFilteredOutputStream
  * 
  */
-public class TestRuleBasedFilterStream extends TestCase {
+public class TestRuleBasedFilterStream {
 
+	@Test
 	public void test_replace() throws Exception {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		RuleFilteredOutputStream out = new RuleFilteredOutputStream(stream);
@@ -37,6 +41,7 @@ public class TestRuleBasedFilterStream extends TestCase {
 
 	}
 
+	@Test
 	public void test_svgFixerStream() throws Exception {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		SVGFixerOutputStream out = new SVGFixerOutputStream(stream);
@@ -55,6 +60,7 @@ public class TestRuleBasedFilterStream extends TestCase {
 
 	}
 
+	@Test
 	public void test_transparent() throws Exception {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 		RuleFilteredOutputStream out = new RuleFilteredOutputStream(stream);
