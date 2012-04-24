@@ -8,7 +8,7 @@ Bundle-Vendor: Cloudsmith Inc.
 Require-Bundle: org.eclipse.core.runtime,
  org.cloudsmith.graph,
  com.google.inject,
- com.google.collect,
+ com.google.guava,
  org.eclipse.emf.ecore
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

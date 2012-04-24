@@ -7,7 +7,7 @@ Bundle-Activator: org.cloudsmith.graph.tests.Activator
 Require-Bundle: org.cloudsmith.graph,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
- com.google.collect,
+ com.google.guava,
  com.google.inject,
  org.junit,
  org.cloudsmith.geppetto.pp,
