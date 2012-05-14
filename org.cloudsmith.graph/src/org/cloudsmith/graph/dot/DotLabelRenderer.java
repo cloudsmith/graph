@@ -157,10 +157,10 @@ public class DotLabelRenderer {
 	 * @return
 	 */
 	private String escapeUnsafe(String s) {
-		s = s.replace("\n", "<BR/>");
 		s = s.replace("&", "&amp;");
 		s = s.replace("<", "&lt;");
 		s = s.replace(">", "&gt;");
+		s = s.replace("\n", "<BR/>");
 		return s;
 	}
 
