@@ -150,8 +150,18 @@ public class DotLabelRenderer {
 		return x;
 	}
 
-	private String escapeNewLine(String s) {
-		return s.replace("\n", "<BR/>");
+	/**
+	 * Escapes characters that are unsafe in a dot table label.
+	 * 
+	 * @param s
+	 * @return
+	 */
+	private String escapeUnsafe(String s) {
+		s = s.replace("\n", "<BR/>");
+		s = s.replace("&", "&amp;");
+		s = s.replace("<", "&lt;");
+		s = s.replace(">", "&gt;");
+		return s;
 	}
 
 	/**
@@ -387,7 +397,7 @@ public class DotLabelRenderer {
 		if(gt != null)
 			printGraphTable(out, ge, gt, gcss, cancel);
 		else
-			out.print(escapeNewLine(cellText));
+			out.print(escapeUnsafe(cellText));
 		if(withFontData)
 			out.print("</FONT>");
 		out.print("</TD>");
