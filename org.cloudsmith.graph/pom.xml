@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.cloudsmith.graph</groupId>
 		<artifactId>parent</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>org.cloudsmith.graph</artifactId>
 
