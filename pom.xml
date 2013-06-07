@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.cloudsmith.graph</groupId>
+	<artifactId>parent</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>Graph Site Project</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<guice.groupId>org.sonatype.sisu</guice.groupId>
+		<guice.artifactId>sisu-guice</guice.artifactId>
+	</properties>
+
+	<organization>
+		<name>Cloudsmith Inc.</name>
+		<url>http://www.cloudsmith.com</url>
+	</organization>
+
+	<url>${parentSiteURL}</url>
+
+	<scm>
+		<connection>scm:git:git://github.com/cloudsmith/grahp.git</connection>
+		<url>https://github.com/cloudsmith/graph</url>
+		<developerConnection>scm:git:git@github.com:cloudsmith/graph.git</developerConnection>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>cloudsmith</id>
+			<name>Cloudsmith Release Repository</name>
+			<url>https://am0.cloudsmith.com/nexus/content/repositories/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>cloudsmith-snapshots</id>
+			<name>Cloudsmith Snapshot Repository</name>
+			<url>https://am0.cloudsmith.com/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<id>cloudsmith-snapshots</id>
+			<name>Cloudsmith Snapshot Repository</name>
+			<url>https://am0.cloudsmith.com/nexus/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>cloudsmith-releases</id>
+			<name>Cloudsmith Releases</name>
+			<url>https://am0.cloudsmith.com/nexus/content/repositories/releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>cloudsmith-snapshots</id>
+			<name>Cloudsmith Snapshot Repository</name>
+			<url>https://am0.cloudsmith.com/nexus/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/cloudsmith/graph/issues</url>
+	</issueManagement>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>13.0.1</version>
+			</dependency>
+			<dependency>
+				<groupId>${guice.groupId}</groupId>
+				<artifactId>${guice.artifactId}</artifactId>
+				<version>[3.1,)</version>
+			</dependency>
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>1.2.15</version>
+				<exclusions>
+					<exclusion>
+						<groupId>com.sun.jdmk</groupId>
+						<artifactId>jmxtools</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>javax.jms</groupId>
+						<artifactId>jms</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>com.sun.jmx</groupId>
+						<artifactId>jmxri</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.5.1</version>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+						<debug>true</debug>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<modules>
+		<module>org.cloudsmith.graph</module>
+	</modules>
+</project>
