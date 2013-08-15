@@ -31,6 +31,7 @@ public class TestRuleBasedFilterStream {
 	@Test
 	public void test_replace() throws Exception {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		@SuppressWarnings("resource")
 		RuleFilteredOutputStream out = new RuleFilteredOutputStream(stream);
 		ReplaceRule r = out.new ReplaceRule("1".getBytes(), "a".getBytes());
 		out.setRules(new RuleFilteredOutputStream.PatternRule[] { r });
@@ -44,6 +45,7 @@ public class TestRuleBasedFilterStream {
 	@Test
 	public void test_svgFixerStream() throws Exception {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		@SuppressWarnings("resource")
 		SVGFixerOutputStream out = new SVGFixerOutputStream(stream);
 
 		out.write(("aaaaa<title>bbbbb</title>aaaaa<xref:xxx=\"\\L\">aaaa<xref:title=\"" +
@@ -63,6 +65,7 @@ public class TestRuleBasedFilterStream {
 	@Test
 	public void test_transparent() throws Exception {
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		@SuppressWarnings("resource")
 		RuleFilteredOutputStream out = new RuleFilteredOutputStream(stream);
 
 		out.write("1234567890".getBytes());

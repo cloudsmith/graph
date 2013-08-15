@@ -18,7 +18,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.cloudsmith.graph.ICancel;
-import org.cloudsmith.graph.IGraph;
 import org.cloudsmith.graph.IGraphElement;
 
 /**

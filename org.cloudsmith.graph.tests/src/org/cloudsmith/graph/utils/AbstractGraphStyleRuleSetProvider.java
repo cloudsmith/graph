@@ -1,14 +1,11 @@
 package org.cloudsmith.graph.utils;
 
-import java.util.Collections;
-
 import org.cloudsmith.graph.ElementType;
 import org.cloudsmith.graph.graphcss.GraphCSS;
 import org.cloudsmith.graph.graphcss.Rule;
 import org.cloudsmith.graph.graphcss.Select;
 import org.cloudsmith.graph.graphcss.StyleSet;
 import org.cloudsmith.graph.graphviz.GraphvizLayout;
-import org.cloudsmith.graph.style.Alignment;
 import org.cloudsmith.graph.style.Arrow;
 import org.cloudsmith.graph.style.Compass;
 import org.cloudsmith.graph.style.EdgeRouting;
@@ -63,32 +60,6 @@ public class AbstractGraphStyleRuleSetProvider implements IGraphStyleRuleSetProv
 
 	public GraphCSS getCGSS() {
 		return CGSS;
-	}
-
-	private GraphCSS getCGSSx() {
-		// the rule set that contains all rules and styling
-		GraphCSS result = new GraphCSS();
-
-		// and so on...
-
-		// Create a label format - a table with 3 rows, and a cell in each. The cells pick up
-		// data called 'name', 'type' and 'version'
-		//
-		StyleSet withDataStyle = new StyleSet();
-		// withDataStyle.put(new StyleFactory.LabelFormat(new LabelTable("DataTable", new LabelRow(
-		// "FirstRow", new LabelCell("TypeCell", "#{element.data['type']}")), new LabelRow(
-		// "SecondRow", new LabelCell("NameCell", "#{element.data['name']}")), new LabelRow(
-		// "ThirdRow", new LabelCell("VersionCell", "#{element.data['version']}")))));
-		result.addRule(new Rule(Select.element(ElementType.vertex, "CSpec"), withDataStyle));
-		// Make the cells in a "DataTable" left aligned
-		StyleSet leftAligned = new StyleSet();
-		leftAligned.put(new StyleFactory.Align(Alignment.left));
-		result.addRule(new Rule(new Select.And(new Select.Element(ElementType.cell), // a cell
-			new Select.Containment( // contained
-				new Select.Element(ElementType.table, Collections.singleton("DataTable"), null))),// in a data table
-			leftAligned)); // left aligned
-
-		return result;
 	}
 
 	/**

@@ -48,7 +48,7 @@ public class ChainedListEGraphProvider extends AbstractEGraphProvider {
 					// set the index key so that it can be displayed in the resulting
 					// label/table.
 					//
-					v2.getData().put(EVertex.DATA_KEY_INDEX, Integer.toString(counter));
+					v2.getUserData().put(EVertex.DATA_KEY_INDEX, Integer.toString(counter));
 
 					// The main edge is an EEdge configured from the reference
 					if(counter == 0) {

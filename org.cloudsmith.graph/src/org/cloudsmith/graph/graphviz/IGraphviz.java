@@ -17,7 +17,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.concurrent.CancellationException;
 
 import org.cloudsmith.graph.ICancel;
 import org.cloudsmith.graph.IRootGraph;
@@ -46,7 +45,8 @@ public interface IGraphviz {
 	 * This method is useful for testing Graph -> Graphviz -> DotRenderer -> dot-text.
 	 * 
 	 * @param cancel
-	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException} thrown on detection
+	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException}
+	 *            thrown on detection
 	 *            of cancellation.
 	 * @param graph
 	 *            The root graph to render.
@@ -64,7 +64,8 @@ public interface IGraphviz {
 	 * the graph.
 	 * 
 	 * @param cancel
-	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException} thrown on detection
+	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException}
+	 *            thrown on detection
 	 *            of cancellation.
 	 * @param layout
 	 *            The graphviz layout algorithm to use.
@@ -85,7 +86,8 @@ public interface IGraphviz {
 	 * artifacts. This at least when using graphviz under windows - the result is quite ugly.
 	 * 
 	 * @param cancel
-	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException} thrown on detection
+	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException}
+	 *            thrown on detection
 	 *            of cancellation.
 	 * @param layout
 	 *            The graphviz layout algorithm to use.
@@ -105,7 +107,8 @@ public interface IGraphviz {
 	 * Returns output as a PNG image.
 	 * 
 	 * @param cancel
-	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException} thrown on detection
+	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException}
+	 *            thrown on detection
 	 *            of cancellation.
 	 * @param layout
 	 *            The graphviz layout algorithm to use.
@@ -129,7 +132,8 @@ public interface IGraphviz {
 	 * For the person that is interested, it would be quite simple to filter the returned text.
 	 * 
 	 * @param cancel
-	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException} thrown on detection
+	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException}
+	 *            thrown on detection
 	 *            of cancellation.
 	 * @param layout
 	 *            The graphviz layout algorithm to use.
@@ -153,7 +157,8 @@ public interface IGraphviz {
 	 * is closed. This routine handles the needed multi-threading to handle these cases.
 	 * 
 	 * @param cancel
-	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException} thrown on detection
+	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException}
+	 *            thrown on detection
 	 *            of cancellation.
 	 * @param format
 	 *            the wanted output format (PNG, JPG, SVG, etc.)
@@ -180,7 +185,8 @@ public interface IGraphviz {
 	 * is closed. This routine handles the needed multithreading to handle these cases.
 	 * 
 	 * @param cancel
-	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException} thrown on detection
+	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException}
+	 *            thrown on detection
 	 *            of cancellation.
 	 * @param format
 	 *            the wanted output format (PNG, JPG, SVG, etc.)
@@ -205,7 +211,8 @@ public interface IGraphviz {
 	 * Writes output as PNG to given stream.
 	 * 
 	 * @param cancel
-	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException} thrown on detection
+	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException}
+	 *            thrown on detection
 	 *            of cancellation.
 	 * @param output
 	 *            the output stream where the PNG output should be written
@@ -227,7 +234,8 @@ public interface IGraphviz {
 	 * Writes output as SVG text to given stream.
 	 * 
 	 * @param cancel
-	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException} thrown on detection
+	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException}
+	 *            thrown on detection
 	 *            of cancellation.
 	 * @param output
 	 *            the output stream where the GZIP output should be written
@@ -254,7 +262,8 @@ public interface IGraphviz {
 	 * deflated. Instead, get the regular SVG output and ensure it is in UTF-8 before deflating.
 	 * 
 	 * @param cancel
-	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException} thrown on detection
+	 *            An indicator of cancellation requested by user. Should be periodically checked and {@link CancellationException}
+	 *            thrown on detection
 	 *            of cancellation.
 	 * @param output
 	 *            the output stream where the GZIP output should be written

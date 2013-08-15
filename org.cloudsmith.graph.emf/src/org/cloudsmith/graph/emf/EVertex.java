@@ -71,25 +71,25 @@ public class EVertex extends Vertex {
 	public EVertex(EObject o, int index) {
 		super(labelFor(o), styleClassFor(o), idFor(o));
 		vertexObj = o;
-		this.getData().put("index", Integer.toString(index));
+		this.getUserData().put("index", Integer.toString(index));
 	}
 
 	public EVertex(EObject o, int index, String label) {
 		super(label, styleClassFor(o), idFor(o));
 		vertexObj = o;
-		this.getData().put("index", Integer.toString(index));
+		this.getUserData().put("index", Integer.toString(index));
 	}
 
 	public EVertex(EObject o, int index, String label, String styleClass) {
 		super(label, styleClass, idFor(o));
 		vertexObj = o;
-		this.getData().put("index", Integer.toString(index));
+		this.getUserData().put("index", Integer.toString(index));
 	}
 
 	public EVertex(EObject o, int index, String label, String styleClass, String id) {
 		super(label, styleClass, id);
 		vertexObj = o;
-		this.getData().put("index", Integer.toString(index));
+		this.getUserData().put("index", Integer.toString(index));
 
 	}
 

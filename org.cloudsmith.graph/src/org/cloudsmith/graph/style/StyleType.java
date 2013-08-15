@@ -11,8 +11,6 @@
  */
 package org.cloudsmith.graph.style;
 
-import org.cloudsmith.graph.style.labels.ILabelTemplate;
-
 public enum StyleType {
 	/** Sets the text color for labels. Value is a {@link String}. */
 	color,
