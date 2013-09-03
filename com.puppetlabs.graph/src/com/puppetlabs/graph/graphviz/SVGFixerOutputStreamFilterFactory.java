@@ -9,11 +9,11 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.graphviz;
+package com.puppetlabs.graph.graphviz;
 
 import java.io.OutputStream;
 
-import org.cloudsmith.graph.utils.IOutputStreamFilterFactory;
+import com.puppetlabs.graph.utils.IOutputStreamFilterFactory;
 
 /**
  * Factory that wraps the given output stream with a SVGFixerOutputStream.
@@ -24,7 +24,7 @@ public class SVGFixerOutputStreamFilterFactory implements IOutputStreamFilterFac
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.utils.IOutputStreamFilterProvider#configureFilterFor(java.io.OutputStream)
+	 * @see com.puppetlabs.graph.utils.IOutputStreamFilterProvider#configureFilterFor(java.io.OutputStream)
 	 */
 	@Override
 	public OutputStream configureFilterFor(OutputStream out) {

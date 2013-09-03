@@ -9,16 +9,16 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.graphcss;
+package com.puppetlabs.graph.graphcss;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 
-import org.cloudsmith.graph.IGraphElement;
-import org.cloudsmith.graph.style.IStyle;
-import org.cloudsmith.graph.style.StyleType;
+import com.puppetlabs.graph.IGraphElement;
+import com.puppetlabs.graph.style.IStyle;
+import com.puppetlabs.graph.style.StyleType;
 
 import com.google.common.collect.ImmutableMap;
 

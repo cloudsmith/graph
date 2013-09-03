@@ -10,8 +10,8 @@
  * 
  */
 /**
- * This package contains an implementation of the {@link org.cloudsmith.graph.IGraph}
- * and {@link org.cloudsmith.graph.IGraphElement} interfaces in the main package.
+ * This package contains an implementation of the {@link com.puppetlabs.graph.IGraph}
+ * and {@link com.puppetlabs.graph.IGraphElement} interfaces in the main package.
  * 
  * The classes may serve as the basis for more specialized implementations. An implementor may
  * also implement the interfaces in the main package directly.
@@ -19,4 +19,4 @@
  * The classes in this package can be injected with 
  * Google Guice, but can also be instantiated manually.
  */
-package org.cloudsmith.graph.elements;
+package com.puppetlabs.graph.elements;

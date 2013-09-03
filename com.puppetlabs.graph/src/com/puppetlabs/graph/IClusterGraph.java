@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph;
+package com.puppetlabs.graph;
 
 /**
  * Marker interface for a graph having a non root role and being clustered.

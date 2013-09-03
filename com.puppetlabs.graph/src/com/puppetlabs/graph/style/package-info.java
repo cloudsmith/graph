@@ -10,12 +10,12 @@
  * 
  */
 /**
- * This package contains an implementation that describes the style of {@link org.cloudsmith.graph.IGraph} graphs.
+ * This package contains an implementation that describes the style of {@link com.puppetlabs.graph.IGraph} graphs.
  * 
- * The main interface is the {@link org.cloudsmith.graph.style.IStyleFactory} which should be used to
- * obtain styles. The {@link org.cloudsmith.graph.style.StyleFactory} is a default implementation of 
+ * The main interface is the {@link com.puppetlabs.graph.style.IStyleFactory} which should be used to
+ * obtain styles. The {@link com.puppetlabs.graph.style.StyleFactory} is a default implementation of 
  * this interface. 
  * 
  * The classes in the package may be injected with Google Guice, but may also be instantiated manually.
  */
-package org.cloudsmith.graph.style;
+package com.puppetlabs.graph.style;

@@ -12,4 +12,4 @@
 /**
  * This package contains styling 'themes'.
  */
-package org.cloudsmith.graph.style.themes;
+package com.puppetlabs.graph.style.themes;

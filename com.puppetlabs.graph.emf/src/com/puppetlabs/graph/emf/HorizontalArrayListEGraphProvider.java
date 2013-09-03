@@ -9,20 +9,20 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.emf;
+package com.puppetlabs.graph.emf;
 
 import java.util.List;
 
-import org.cloudsmith.graph.elements.Edge;
-import org.cloudsmith.graph.elements.RootGraph;
-import org.cloudsmith.graph.elements.Vertex;
-import org.cloudsmith.graph.graphcss.Rule;
-import org.cloudsmith.graph.graphcss.Select;
-import org.cloudsmith.graph.style.Compass;
-import org.cloudsmith.graph.style.IStyleFactory;
-import org.cloudsmith.graph.style.LineType;
-import org.cloudsmith.graph.style.NodeShape;
-import org.cloudsmith.graph.style.labels.LabelMatrix;
+import com.puppetlabs.graph.elements.Edge;
+import com.puppetlabs.graph.elements.RootGraph;
+import com.puppetlabs.graph.elements.Vertex;
+import com.puppetlabs.graph.graphcss.Rule;
+import com.puppetlabs.graph.graphcss.Select;
+import com.puppetlabs.graph.style.Compass;
+import com.puppetlabs.graph.style.IStyleFactory;
+import com.puppetlabs.graph.style.LineType;
+import com.puppetlabs.graph.style.NodeShape;
+import com.puppetlabs.graph.style.labels.LabelMatrix;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
@@ -104,7 +104,7 @@ public class HorizontalArrayListEGraphProvider extends AbstractEGraphProvider {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.emf.AbstractEGraphProvider#getRules()
+	 * @see com.puppetlabs.graph.emf.AbstractEGraphProvider#getRules()
 	 */
 	@Override
 	public Iterable<Rule> getRules() {

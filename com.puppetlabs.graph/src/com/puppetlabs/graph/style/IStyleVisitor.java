@@ -9,10 +9,10 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.style;
+package com.puppetlabs.graph.style;
 
-import org.cloudsmith.graph.IClusterGraph;
-import org.cloudsmith.graph.style.labels.ILabelTemplate;
+import com.puppetlabs.graph.IClusterGraph;
+import com.puppetlabs.graph.style.labels.ILabelTemplate;
 
 /**
  * A visitor for IStyle

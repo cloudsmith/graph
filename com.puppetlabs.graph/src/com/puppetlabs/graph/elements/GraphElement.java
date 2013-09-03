@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.elements;
+package com.puppetlabs.graph.elements;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -17,10 +17,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.IGraphElement;
-import org.cloudsmith.graph.graphcss.StyleSet;
-import org.cloudsmith.graph.style.IStyle;
+import com.puppetlabs.graph.ElementType;
+import com.puppetlabs.graph.IGraphElement;
+import com.puppetlabs.graph.graphcss.StyleSet;
+import com.puppetlabs.graph.style.IStyle;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -150,7 +150,7 @@ public abstract class GraphElement implements IGraphElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.IGraphElement#getContext()
+	 * @see com.puppetlabs.graph.IGraphElement#getContext()
 	 */
 	@Override
 	public Iterator<IGraphElement> getContext() {
@@ -160,7 +160,7 @@ public abstract class GraphElement implements IGraphElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.IGraphElement#getElementType()
+	 * @see com.puppetlabs.graph.IGraphElement#getElementType()
 	 */
 	@Override
 	public abstract ElementType getElementType();

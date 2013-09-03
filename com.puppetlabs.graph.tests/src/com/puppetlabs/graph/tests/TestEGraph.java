@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.tests;
+package com.puppetlabs.graph.tests;
 
 import static org.junit.Assert.assertTrue;
 
@@ -17,22 +17,22 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.pp.AssignmentExpression;
-import org.cloudsmith.geppetto.pp.Expression;
-import org.cloudsmith.geppetto.pp.PPFactory;
-import org.cloudsmith.geppetto.pp.PuppetManifest;
-import org.cloudsmith.geppetto.pp.SingleQuotedString;
-import org.cloudsmith.geppetto.pp.VariableExpression;
-import org.cloudsmith.graph.ICancel;
-import org.cloudsmith.graph.IGraphProvider;
-import org.cloudsmith.graph.IRootGraph;
-import org.cloudsmith.graph.dot.DotRenderer;
-import org.cloudsmith.graph.emf.DefaultEGraphModule;
-import org.cloudsmith.graph.emf.HorizontalArrayListEGraphProvider;
-import org.cloudsmith.graph.graphcss.GraphCSS;
-import org.cloudsmith.graph.graphviz.GraphvizLayout;
-import org.cloudsmith.graph.graphviz.IGraphviz;
-import org.cloudsmith.graph.style.themes.IStyleTheme;
+import com.puppetlabs.geppetto.pp.AssignmentExpression;
+import com.puppetlabs.geppetto.pp.Expression;
+import com.puppetlabs.geppetto.pp.PPFactory;
+import com.puppetlabs.geppetto.pp.PuppetManifest;
+import com.puppetlabs.geppetto.pp.SingleQuotedString;
+import com.puppetlabs.geppetto.pp.VariableExpression;
+import com.puppetlabs.graph.ICancel;
+import com.puppetlabs.graph.IGraphProvider;
+import com.puppetlabs.graph.IRootGraph;
+import com.puppetlabs.graph.dot.DotRenderer;
+import com.puppetlabs.graph.emf.DefaultEGraphModule;
+import com.puppetlabs.graph.emf.HorizontalArrayListEGraphProvider;
+import com.puppetlabs.graph.graphcss.GraphCSS;
+import com.puppetlabs.graph.graphviz.GraphvizLayout;
+import com.puppetlabs.graph.graphviz.IGraphviz;
+import com.puppetlabs.graph.style.themes.IStyleTheme;
 import org.eclipse.emf.common.util.EList;
 import org.junit.Test;
 
@@ -61,7 +61,7 @@ public class TestEGraph extends AbstractGraphTests {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.tests.AbstractGraphTests#getModule()
+	 * @see com.puppetlabs.graph.tests.AbstractGraphTests#getModule()
 	 */
 	@Override
 	protected Module getModule() {

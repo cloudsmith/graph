@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.graphviz;
+package com.puppetlabs.graph.graphviz;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -18,9 +18,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.cloudsmith.graph.ICancel;
-import org.cloudsmith.graph.IRootGraph;
-import org.cloudsmith.graph.graphcss.GraphCSS;
+import com.puppetlabs.graph.ICancel;
+import com.puppetlabs.graph.IRootGraph;
+import com.puppetlabs.graph.graphcss.GraphCSS;
 
 import com.google.inject.BindingAnnotation;
 

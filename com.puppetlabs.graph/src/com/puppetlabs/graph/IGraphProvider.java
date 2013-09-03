@@ -9,9 +9,9 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph;
+package com.puppetlabs.graph;
 
-import org.cloudsmith.graph.graphcss.Rule;
+import com.puppetlabs.graph.graphcss.Rule;
 
 /**
  * Interface for a provider of a an optionally styled graph.

@@ -1,16 +1,16 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.cloudsmith.graph.emf
-Bundle-SymbolicName: org.cloudsmith.graph.emf
+Bundle-Name: com.puppetlabs.graph.emf
+Bundle-SymbolicName: com.puppetlabs.graph.emf
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: org.cloudsmith.graph.emf.Activator
+Bundle-Activator: com.puppetlabs.graph.emf.Activator
 Bundle-Vendor: Cloudsmith Inc.
 Require-Bundle: org.eclipse.core.runtime,
- org.cloudsmith.graph,
+ com.puppetlabs.graph,
  com.google.inject,
  com.google.guava,
  org.eclipse.emf.ecore
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6,
  J2SE-1.5
 Bundle-ActivationPolicy: lazy
-Export-Package: org.cloudsmith.graph.emf
+Export-Package: com.puppetlabs.graph.emf

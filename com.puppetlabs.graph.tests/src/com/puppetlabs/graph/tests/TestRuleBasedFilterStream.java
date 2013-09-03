@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.tests;
+package com.puppetlabs.graph.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -17,9 +17,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 
-import org.cloudsmith.graph.graphviz.SVGFixerOutputStream;
-import org.cloudsmith.graph.utils.RuleFilteredOutputStream;
-import org.cloudsmith.graph.utils.RuleFilteredOutputStream.ReplaceRule;
+import com.puppetlabs.graph.graphviz.SVGFixerOutputStream;
+import com.puppetlabs.graph.utils.RuleFilteredOutputStream;
+import com.puppetlabs.graph.utils.RuleFilteredOutputStream.ReplaceRule;
 import org.junit.Test;
 
 /**

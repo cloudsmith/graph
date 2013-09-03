@@ -9,12 +9,12 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.elements;
+package com.puppetlabs.graph.elements;
 
-import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.IClusterGraph;
-import org.cloudsmith.graph.ILabeledGraphElement;
-import org.cloudsmith.graph.IRootGraph;
+import com.puppetlabs.graph.ElementType;
+import com.puppetlabs.graph.IClusterGraph;
+import com.puppetlabs.graph.ILabeledGraphElement;
+import com.puppetlabs.graph.IRootGraph;
 
 /**
  * A concrete implementation of ISubGraph. A SubGraph acts as a container with no visual bounds or appearance of
@@ -46,7 +46,7 @@ public class ClusterGraph extends LabeledGraph implements IClusterGraph, ILabele
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.ISubGraph#asClusterGraph(java.lang.String)
+	 * @see com.puppetlabs.graph.ISubGraph#asClusterGraph(java.lang.String)
 	 */
 	@Override
 	public IClusterGraph asClusterGraph(String label) {
@@ -61,7 +61,7 @@ public class ClusterGraph extends LabeledGraph implements IClusterGraph, ILabele
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.ISubGraph#asRootGraph(java.lang.String)
+	 * @see com.puppetlabs.graph.ISubGraph#asRootGraph(java.lang.String)
 	 */
 	@Override
 	public IRootGraph asRootGraph(String label) {

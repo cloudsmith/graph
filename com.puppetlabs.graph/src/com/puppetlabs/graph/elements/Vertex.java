@@ -9,12 +9,12 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.elements;
+package com.puppetlabs.graph.elements;
 
 import java.util.Collection;
 
-import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.IVertex;
+import com.puppetlabs.graph.ElementType;
+import com.puppetlabs.graph.IVertex;
 
 /**
  * An implementation of IVertex.
@@ -40,7 +40,7 @@ public class Vertex extends LabeledGraphElement implements IVertex {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.impl.GraphElement#getElementType()
+	 * @see com.puppetlabs.graph.impl.GraphElement#getElementType()
 	 */
 	@Override
 	public ElementType getElementType() {

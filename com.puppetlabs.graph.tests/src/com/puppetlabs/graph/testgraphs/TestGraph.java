@@ -6,30 +6,30 @@
  * prior written consent or license from Cloudsmith Inc.
  ******************************************************************/
 
-package org.cloudsmith.graph.testgraphs;
+package com.puppetlabs.graph.testgraphs;
 
 import java.util.Collection;
 import java.util.List;
 
-import org.cloudsmith.graph.IGraphProvider;
-import org.cloudsmith.graph.IRootGraph;
-import org.cloudsmith.graph.elements.ClusterGraph;
-import org.cloudsmith.graph.elements.Edge;
-import org.cloudsmith.graph.elements.RootGraph;
-import org.cloudsmith.graph.elements.Vertex;
-import org.cloudsmith.graph.graphcss.IFunctionFactory;
-import org.cloudsmith.graph.graphcss.Rule;
-import org.cloudsmith.graph.graphcss.Select;
-import org.cloudsmith.graph.graphcss.StyleSet;
-import org.cloudsmith.graph.style.Alignment;
-import org.cloudsmith.graph.style.Arrow;
-import org.cloudsmith.graph.style.Compass;
-import org.cloudsmith.graph.style.EdgeRouting;
-import org.cloudsmith.graph.style.IStyleFactory;
-import org.cloudsmith.graph.style.LineType;
-import org.cloudsmith.graph.style.NodeShape;
-import org.cloudsmith.graph.style.labels.LabelTable;
-import org.cloudsmith.graph.style.labels.LabelTableBuilder;
+import com.puppetlabs.graph.IGraphProvider;
+import com.puppetlabs.graph.IRootGraph;
+import com.puppetlabs.graph.elements.ClusterGraph;
+import com.puppetlabs.graph.elements.Edge;
+import com.puppetlabs.graph.elements.RootGraph;
+import com.puppetlabs.graph.elements.Vertex;
+import com.puppetlabs.graph.graphcss.IFunctionFactory;
+import com.puppetlabs.graph.graphcss.Rule;
+import com.puppetlabs.graph.graphcss.Select;
+import com.puppetlabs.graph.graphcss.StyleSet;
+import com.puppetlabs.graph.style.Alignment;
+import com.puppetlabs.graph.style.Arrow;
+import com.puppetlabs.graph.style.Compass;
+import com.puppetlabs.graph.style.EdgeRouting;
+import com.puppetlabs.graph.style.IStyleFactory;
+import com.puppetlabs.graph.style.LineType;
+import com.puppetlabs.graph.style.NodeShape;
+import com.puppetlabs.graph.style.labels.LabelTable;
+import com.puppetlabs.graph.style.labels.LabelTableBuilder;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
@@ -90,7 +90,7 @@ public class TestGraph implements IGraphProvider {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.IGraphProvider#computeGraph()
+	 * @see com.puppetlabs.graph.IGraphProvider#computeGraph()
 	 */
 	@Override
 	public IRootGraph computeGraph(Object modelObj) {

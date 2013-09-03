@@ -10,9 +10,9 @@
  * 
  */
 /**
- * This package contains classes that translates an {@link org.cloudsmith.graph.IGraph} into Graphviz dot 
+ * This package contains classes that translates an {@link com.puppetlabs.graph.IGraph} into Graphviz dot 
  * notation under control
- * of a {@link org.cloudsmith.graph.graphcss.GraphCSS}. The classes in this package can be injected with 
+ * of a {@link com.puppetlabs.graph.graphcss.GraphCSS}. The classes in this package can be injected with 
  * Google Guice, but can also be instantiated manually.
  */
-package org.cloudsmith.graph.dot;
+package com.puppetlabs.graph.dot;

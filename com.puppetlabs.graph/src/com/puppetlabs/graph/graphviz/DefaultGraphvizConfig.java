@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.graphviz;
+package com.puppetlabs.graph.graphviz;
 
 import com.google.inject.Singleton;
 
@@ -24,7 +24,7 @@ public class DefaultGraphvizConfig implements IGraphvizConfig {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.impl.dot.IGraphvizConfig#getRenderer()
+	 * @see com.puppetlabs.graph.impl.dot.IGraphvizConfig#getRenderer()
 	 */
 	@Override
 	public GraphvizRenderer getRenderer() {

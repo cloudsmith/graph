@@ -9,37 +9,37 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.style;
+package com.puppetlabs.graph.style;
 
-import static org.cloudsmith.graph.ElementType.ANY;
-import static org.cloudsmith.graph.ElementType.CELL;
-import static org.cloudsmith.graph.ElementType.CELL_AND_TABLE_AND_VERTEX;
-import static org.cloudsmith.graph.ElementType.CLUSTER_AND_GRAPH_AND_CELL_AND_TABLE;
-import static org.cloudsmith.graph.ElementType.CLUSTER_AND_GRAPH_AND_CELL_AND_TABLE_AND_VERTEX;
-import static org.cloudsmith.graph.ElementType.CLUSTER_AND_VERTEX;
-import static org.cloudsmith.graph.ElementType.EDGE;
-import static org.cloudsmith.graph.ElementType.EDGE_AND_GRAPH_AND_VERTEX;
-import static org.cloudsmith.graph.ElementType.GRAPH;
-import static org.cloudsmith.graph.ElementType.GRAPH_AND_VERTEX;
-import static org.cloudsmith.graph.ElementType.NOT_GRAPH;
-import static org.cloudsmith.graph.ElementType.NOT_SUBGRAPH;
-import static org.cloudsmith.graph.ElementType.TABLE;
-import static org.cloudsmith.graph.ElementType.TABLE_AND_CELL;
-import static org.cloudsmith.graph.ElementType.VERTEX;
+import static com.puppetlabs.graph.ElementType.ANY;
+import static com.puppetlabs.graph.ElementType.CELL;
+import static com.puppetlabs.graph.ElementType.CELL_AND_TABLE_AND_VERTEX;
+import static com.puppetlabs.graph.ElementType.CLUSTER_AND_GRAPH_AND_CELL_AND_TABLE;
+import static com.puppetlabs.graph.ElementType.CLUSTER_AND_GRAPH_AND_CELL_AND_TABLE_AND_VERTEX;
+import static com.puppetlabs.graph.ElementType.CLUSTER_AND_VERTEX;
+import static com.puppetlabs.graph.ElementType.EDGE;
+import static com.puppetlabs.graph.ElementType.EDGE_AND_GRAPH_AND_VERTEX;
+import static com.puppetlabs.graph.ElementType.GRAPH;
+import static com.puppetlabs.graph.ElementType.GRAPH_AND_VERTEX;
+import static com.puppetlabs.graph.ElementType.NOT_GRAPH;
+import static com.puppetlabs.graph.ElementType.NOT_SUBGRAPH;
+import static com.puppetlabs.graph.ElementType.TABLE;
+import static com.puppetlabs.graph.ElementType.TABLE_AND_CELL;
+import static com.puppetlabs.graph.ElementType.VERTEX;
 
 import java.util.Collection;
 import java.util.Set;
 
-import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.IClusterGraph;
-import org.cloudsmith.graph.IGraphElement;
-import org.cloudsmith.graph.graphcss.IFunctionFactory;
-import org.cloudsmith.graph.style.labels.DynamicLabelTemplate;
-import org.cloudsmith.graph.style.labels.ILabelTemplate;
-import org.cloudsmith.graph.style.labels.LabelCell;
-import org.cloudsmith.graph.style.labels.LabelRow;
-import org.cloudsmith.graph.style.labels.LabelStringTemplate;
-import org.cloudsmith.graph.style.labels.LabelTable;
+import com.puppetlabs.graph.ElementType;
+import com.puppetlabs.graph.IClusterGraph;
+import com.puppetlabs.graph.IGraphElement;
+import com.puppetlabs.graph.graphcss.IFunctionFactory;
+import com.puppetlabs.graph.style.labels.DynamicLabelTemplate;
+import com.puppetlabs.graph.style.labels.ILabelTemplate;
+import com.puppetlabs.graph.style.labels.LabelCell;
+import com.puppetlabs.graph.style.labels.LabelRow;
+import com.puppetlabs.graph.style.labels.LabelStringTemplate;
+import com.puppetlabs.graph.style.labels.LabelTable;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;

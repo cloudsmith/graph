@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.tests;
+package com.puppetlabs.graph.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.ByteArrayOutputStream;
 import java.util.NoSuchElementException;
 
-import org.cloudsmith.graph.utils.CircularByteQueue;
+import com.puppetlabs.graph.utils.CircularByteQueue;
 import org.junit.Test;
 
 /**

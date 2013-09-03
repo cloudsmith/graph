@@ -9,13 +9,13 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph;
+package com.puppetlabs.graph;
 
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.cloudsmith.graph.graphcss.StyleSet;
+import com.puppetlabs.graph.graphcss.StyleSet;
 
 /**
  * The base interface for graph elements (graph, vertex, and edge).

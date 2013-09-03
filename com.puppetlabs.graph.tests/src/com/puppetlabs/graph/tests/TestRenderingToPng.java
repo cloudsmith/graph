@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.tests;
+package com.puppetlabs.graph.tests;
 
 import static org.junit.Assert.assertTrue;
 
@@ -17,19 +17,19 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.cloudsmith.graph.ICancel;
-import org.cloudsmith.graph.IGraphProvider;
-import org.cloudsmith.graph.IRootGraph;
-import org.cloudsmith.graph.dot.DotRenderer;
-import org.cloudsmith.graph.graphcss.GraphCSS;
-import org.cloudsmith.graph.graphcss.Select;
-import org.cloudsmith.graph.graphviz.GraphvizLayout;
-import org.cloudsmith.graph.graphviz.IGraphviz;
-import org.cloudsmith.graph.style.IStyleFactory;
-import org.cloudsmith.graph.style.RankDirection;
-import org.cloudsmith.graph.style.themes.IStyleTheme;
-import org.cloudsmith.graph.testgraphs.SimpleGraph1;
-import org.cloudsmith.graph.testgraphs.SimpleGraph2;
+import com.puppetlabs.graph.ICancel;
+import com.puppetlabs.graph.IGraphProvider;
+import com.puppetlabs.graph.IRootGraph;
+import com.puppetlabs.graph.dot.DotRenderer;
+import com.puppetlabs.graph.graphcss.GraphCSS;
+import com.puppetlabs.graph.graphcss.Select;
+import com.puppetlabs.graph.graphviz.GraphvizLayout;
+import com.puppetlabs.graph.graphviz.IGraphviz;
+import com.puppetlabs.graph.style.IStyleFactory;
+import com.puppetlabs.graph.style.RankDirection;
+import com.puppetlabs.graph.style.themes.IStyleTheme;
+import com.puppetlabs.graph.testgraphs.SimpleGraph1;
+import com.puppetlabs.graph.testgraphs.SimpleGraph2;
 import org.junit.Test;
 
 /**

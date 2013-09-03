@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.utils;
+package com.puppetlabs.graph.utils;
 
 /**
  * Simple Base64 encoder/decoder as specified by RFC2045 - using standard base64 encoding (letters, digits

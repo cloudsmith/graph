@@ -14,4 +14,4 @@
  * the graphviz layout tool as a separate process. The classes in this package may be injected with
  * Google Guice but can also be instantiated manually.
  */
-package org.cloudsmith.graph.graphviz;
+package com.puppetlabs.graph.graphviz;

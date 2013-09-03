@@ -9,16 +9,16 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.emf;
+package com.puppetlabs.graph.emf;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.cloudsmith.graph.IGraphProvider;
-import org.cloudsmith.graph.IRootGraph;
-import org.cloudsmith.graph.elements.RootGraph;
-import org.cloudsmith.graph.graphcss.Rule;
+import com.puppetlabs.graph.IGraphProvider;
+import com.puppetlabs.graph.IRootGraph;
+import com.puppetlabs.graph.elements.RootGraph;
+import com.puppetlabs.graph.graphcss.Rule;
 import org.eclipse.emf.ecore.EObject;
 
 import com.google.inject.Inject;
@@ -37,7 +37,7 @@ public abstract class AbstractEGraphProvider implements IGraphProvider {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.IGraphProvider#computeGraph()
+	 * @see com.puppetlabs.graph.IGraphProvider#computeGraph()
 	 */
 	@Override
 	public IRootGraph computeGraph() {
@@ -47,7 +47,7 @@ public abstract class AbstractEGraphProvider implements IGraphProvider {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.IGraphProvider#computeGraph(java.lang.Object)
+	 * @see com.puppetlabs.graph.IGraphProvider#computeGraph(java.lang.Object)
 	 */
 	@Override
 	public IRootGraph computeGraph(Object model) {
@@ -57,7 +57,7 @@ public abstract class AbstractEGraphProvider implements IGraphProvider {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.emf.IEGraphProvider#computeGraph(org.eclipse.emf.ecore.EObject, java.lang.String, java.lang.String)
+	 * @see com.puppetlabs.graph.emf.IEGraphProvider#computeGraph(org.eclipse.emf.ecore.EObject, java.lang.String, java.lang.String)
 	 */
 	@Override
 	public IRootGraph computeGraph(Object modelObj, String label, String id) {

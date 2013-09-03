@@ -7,7 +7,7 @@
  * Contributors:
  * - Cloudsmith Inc - initial API and implementation.
  */
-package org.cloudsmith.graph.emf;
+package com.puppetlabs.graph.emf;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;

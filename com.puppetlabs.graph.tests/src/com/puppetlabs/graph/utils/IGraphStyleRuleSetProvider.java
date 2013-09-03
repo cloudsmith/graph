@@ -1,4 +1,4 @@
-package org.cloudsmith.graph.utils;
+package com.puppetlabs.graph.utils;
 
 public interface IGraphStyleRuleSetProvider {
 

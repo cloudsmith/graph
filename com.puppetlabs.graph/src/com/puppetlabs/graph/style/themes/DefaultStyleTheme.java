@@ -9,25 +9,25 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.style.themes;
+package com.puppetlabs.graph.style.themes;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.graphcss.GraphCSS;
-import org.cloudsmith.graph.graphcss.IFunctionFactory;
-import org.cloudsmith.graph.graphcss.Rule;
-import org.cloudsmith.graph.graphcss.Select;
-import org.cloudsmith.graph.graphcss.StyleSet;
-import org.cloudsmith.graph.style.Alignment;
-import org.cloudsmith.graph.style.Arrow;
-import org.cloudsmith.graph.style.EdgeDirection;
-import org.cloudsmith.graph.style.IStyleFactory;
-import org.cloudsmith.graph.style.LineType;
-import org.cloudsmith.graph.style.NodeShape;
-import org.cloudsmith.graph.style.VerticalAlignment;
+import com.puppetlabs.graph.ElementType;
+import com.puppetlabs.graph.graphcss.GraphCSS;
+import com.puppetlabs.graph.graphcss.IFunctionFactory;
+import com.puppetlabs.graph.graphcss.Rule;
+import com.puppetlabs.graph.graphcss.Select;
+import com.puppetlabs.graph.graphcss.StyleSet;
+import com.puppetlabs.graph.style.Alignment;
+import com.puppetlabs.graph.style.Arrow;
+import com.puppetlabs.graph.style.EdgeDirection;
+import com.puppetlabs.graph.style.IStyleFactory;
+import com.puppetlabs.graph.style.LineType;
+import com.puppetlabs.graph.style.NodeShape;
+import com.puppetlabs.graph.style.VerticalAlignment;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
@@ -72,7 +72,7 @@ public class DefaultStyleTheme implements IStyleTheme {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.style.themes.IStyleTheme#defaultFontFamily()
+	 * @see com.puppetlabs.graph.style.themes.IStyleTheme#defaultFontFamily()
 	 */
 	@Override
 	public String defaultFontFamily() {
@@ -82,7 +82,7 @@ public class DefaultStyleTheme implements IStyleTheme {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.style.themes.IStyleTheme#defaultPointSize()
+	 * @see com.puppetlabs.graph.style.themes.IStyleTheme#defaultPointSize()
 	 */
 	@Override
 	public int defaultPointSize() {
@@ -92,7 +92,7 @@ public class DefaultStyleTheme implements IStyleTheme {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.style.themes.IStyleTheme#getDefaultRules()
+	 * @see com.puppetlabs.graph.style.themes.IStyleTheme#getDefaultRules()
 	 */
 	@Override
 	public GraphCSS getDefaultRules() {
@@ -153,7 +153,7 @@ public class DefaultStyleTheme implements IStyleTheme {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.style.themes.IStyleTheme#getInstanceRules()
+	 * @see com.puppetlabs.graph.style.themes.IStyleTheme#getInstanceRules()
 	 */
 	@Override
 	public Collection<Rule> getInstanceRules() {

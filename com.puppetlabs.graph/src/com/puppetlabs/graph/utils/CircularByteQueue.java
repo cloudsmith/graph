@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.utils;
+package com.puppetlabs.graph.utils;
 
 /**
  * @author henrik

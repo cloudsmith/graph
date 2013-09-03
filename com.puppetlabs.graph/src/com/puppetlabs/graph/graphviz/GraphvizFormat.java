@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.graphviz;
+package com.puppetlabs.graph.graphviz;
 
 public enum GraphvizFormat {
 	/**

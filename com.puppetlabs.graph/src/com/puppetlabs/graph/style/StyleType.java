@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.style;
+package com.puppetlabs.graph.style;
 
 public enum StyleType {
 	/** Sets the text color for labels. Value is a {@link String}. */

@@ -9,14 +9,14 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.style.labels;
+package com.puppetlabs.graph.style.labels;
 
 import java.util.Collection;
 import java.util.Set;
 
-import org.cloudsmith.graph.IGraphElement;
-import org.cloudsmith.graph.graphcss.IFunctionFactory;
-import org.cloudsmith.graph.style.IStyleFactory;
+import com.puppetlabs.graph.IGraphElement;
+import com.puppetlabs.graph.graphcss.IFunctionFactory;
+import com.puppetlabs.graph.style.IStyleFactory;
 
 import com.google.common.base.Function;
 
@@ -72,7 +72,7 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#emptyLabel()
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#emptyLabel()
 	 */
 	@Override
 	public Function<IGraphElement, Boolean> emptyLabel() {
@@ -82,7 +82,7 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#emptyLabelData(java.lang.Object)
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#emptyLabelData(java.lang.Object)
 	 */
 	@Override
 	public Function<IGraphElement, Boolean> emptyLabelData(Object key) {
@@ -93,7 +93,7 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#idClassReplacer()
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#idClassReplacer()
 	 */
 	@Override
 	public Function<IGraphElement, String> idClassReplacer() {
@@ -104,7 +104,7 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#label()
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#label()
 	 */
 	@Override
 	public Function<IGraphElement, ILabelTemplate> label() {
@@ -115,7 +115,7 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#labelData(java.lang.Object)
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#labelData(java.lang.Object)
 	 */
 	@Override
 	public Function<IGraphElement, String> labelData(Object key) {
@@ -125,7 +125,7 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#labelTemplate(com.google.common.base.Function)
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#labelTemplate(com.google.common.base.Function)
 	 */
 	@Override
 	public Function<IGraphElement, ILabelTemplate> labelTemplate(Function<IGraphElement, String> stringFunc) {
@@ -145,7 +145,7 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#literalString(java.lang.String)
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#literalString(java.lang.String)
 	 */
 	@Override
 	public Function<IGraphElement, String> literalString(String s) {
@@ -165,7 +165,7 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#notEmptyLabel()
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#notEmptyLabel()
 	 */
 	@Override
 	public Function<IGraphElement, Boolean> notEmptyLabel() {
@@ -175,7 +175,7 @@ public abstract class LabelTableBuilder implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#notEmptyLabelData(java.lang.Object)
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#notEmptyLabelData(java.lang.Object)
 	 */
 	@Override
 	public Function<IGraphElement, Boolean> notEmptyLabelData(Object key) {

@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph;
+package com.puppetlabs.graph;
 
 /**
  * An interface for a Vertex (i.e. Node/Bubble) in a graph.

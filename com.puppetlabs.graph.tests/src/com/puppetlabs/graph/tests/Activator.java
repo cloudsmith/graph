@@ -1,4 +1,4 @@
-package org.cloudsmith.graph.tests;
+package com.puppetlabs.graph.tests;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

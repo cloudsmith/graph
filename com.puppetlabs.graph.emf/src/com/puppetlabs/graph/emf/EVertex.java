@@ -9,9 +9,9 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.emf;
+package com.puppetlabs.graph.emf;
 
-import org.cloudsmith.graph.elements.Vertex;
+import com.puppetlabs.graph.elements.Vertex;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 

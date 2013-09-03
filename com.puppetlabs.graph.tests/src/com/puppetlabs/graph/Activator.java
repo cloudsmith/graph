@@ -1,4 +1,4 @@
-package org.cloudsmith.graph;
+package com.puppetlabs.graph;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

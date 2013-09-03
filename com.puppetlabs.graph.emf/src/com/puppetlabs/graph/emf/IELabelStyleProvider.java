@@ -9,11 +9,11 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.emf;
+package com.puppetlabs.graph.emf;
 
 import java.util.Collection;
 
-import org.cloudsmith.graph.graphcss.Rule;
+import com.puppetlabs.graph.graphcss.Rule;
 import org.eclipse.emf.ecore.EObject;
 
 /**

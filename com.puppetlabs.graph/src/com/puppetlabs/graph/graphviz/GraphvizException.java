@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.graphviz;
+package com.puppetlabs.graph.graphviz;
 
 /**
  * An exception indicating that the external (graphviz) executable reported problems indicating

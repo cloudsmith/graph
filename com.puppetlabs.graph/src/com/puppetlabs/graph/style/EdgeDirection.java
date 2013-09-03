@@ -10,7 +10,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.style;
+package com.puppetlabs.graph.style;
 
 /**
  * Describes the direction of a edge.

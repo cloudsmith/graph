@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.tests;
+package com.puppetlabs.graph.tests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

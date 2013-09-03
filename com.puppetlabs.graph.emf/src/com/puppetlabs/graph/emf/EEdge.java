@@ -9,11 +9,11 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.emf;
+package com.puppetlabs.graph.emf;
 
-import org.cloudsmith.graph.IVertex;
-import org.cloudsmith.graph.elements.Edge;
-import org.cloudsmith.graph.style.themes.DefaultStyleTheme;
+import com.puppetlabs.graph.IVertex;
+import com.puppetlabs.graph.elements.Edge;
+import com.puppetlabs.graph.style.themes.DefaultStyleTheme;
 import org.eclipse.emf.ecore.EReference;
 
 /**

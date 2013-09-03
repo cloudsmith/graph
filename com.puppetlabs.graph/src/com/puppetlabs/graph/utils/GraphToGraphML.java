@@ -9,15 +9,15 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.utils;
+package com.puppetlabs.graph.utils;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-import org.cloudsmith.graph.IEdge;
-import org.cloudsmith.graph.IGraph;
-import org.cloudsmith.graph.IVertex;
-import org.cloudsmith.graph.style.StyleType;
+import com.puppetlabs.graph.IEdge;
+import com.puppetlabs.graph.IGraph;
+import com.puppetlabs.graph.IVertex;
+import com.puppetlabs.graph.style.StyleType;
 
 /**
  * Produces GraphML output from a Graph instance.

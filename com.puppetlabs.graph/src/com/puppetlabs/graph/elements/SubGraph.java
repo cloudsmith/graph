@@ -9,12 +9,12 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.elements;
+package com.puppetlabs.graph.elements;
 
-import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.IClusterGraph;
-import org.cloudsmith.graph.IRootGraph;
-import org.cloudsmith.graph.ISubGraph;
+import com.puppetlabs.graph.ElementType;
+import com.puppetlabs.graph.IClusterGraph;
+import com.puppetlabs.graph.IRootGraph;
+import com.puppetlabs.graph.ISubGraph;
 
 /**
  * A concrete implementation of ISubGraph. A SubGraph acts as a container with no visual bounds or appearance of

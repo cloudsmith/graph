@@ -9,12 +9,12 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.emf;
+package com.puppetlabs.graph.emf;
 
 import java.util.List;
 
-import org.cloudsmith.graph.elements.Edge;
-import org.cloudsmith.graph.elements.RootGraph;
+import com.puppetlabs.graph.elements.Edge;
+import com.puppetlabs.graph.elements.RootGraph;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 

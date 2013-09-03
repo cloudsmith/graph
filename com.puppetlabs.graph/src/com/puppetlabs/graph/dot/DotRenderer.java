@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.dot;
+package com.puppetlabs.graph.dot;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
@@ -19,20 +19,20 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.cloudsmith.graph.ICancel;
-import org.cloudsmith.graph.IClusterGraph;
-import org.cloudsmith.graph.IEdge;
-import org.cloudsmith.graph.IGraph;
-import org.cloudsmith.graph.IGraphElement;
-import org.cloudsmith.graph.IRootGraph;
-import org.cloudsmith.graph.IVertex;
-import org.cloudsmith.graph.elements.Edge;
-import org.cloudsmith.graph.elements.RootGraph;
-import org.cloudsmith.graph.elements.Vertex;
-import org.cloudsmith.graph.graphcss.GraphCSS;
-import org.cloudsmith.graph.graphcss.StyleSet;
-import org.cloudsmith.graph.style.StyleFactory;
-import org.cloudsmith.graph.style.StyleType;
+import com.puppetlabs.graph.ICancel;
+import com.puppetlabs.graph.IClusterGraph;
+import com.puppetlabs.graph.IEdge;
+import com.puppetlabs.graph.IGraph;
+import com.puppetlabs.graph.IGraphElement;
+import com.puppetlabs.graph.IRootGraph;
+import com.puppetlabs.graph.IVertex;
+import com.puppetlabs.graph.elements.Edge;
+import com.puppetlabs.graph.elements.RootGraph;
+import com.puppetlabs.graph.elements.Vertex;
+import com.puppetlabs.graph.graphcss.GraphCSS;
+import com.puppetlabs.graph.graphcss.StyleSet;
+import com.puppetlabs.graph.style.StyleFactory;
+import com.puppetlabs.graph.style.StyleType;
 
 import com.google.common.collect.Iterators;
 import com.google.inject.BindingAnnotation;

@@ -9,14 +9,14 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.elements;
+package com.puppetlabs.graph.elements;
 
 import java.util.Collection;
 import java.util.Collections;
 
-import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.IEdge;
-import org.cloudsmith.graph.IVertex;
+import com.puppetlabs.graph.ElementType;
+import com.puppetlabs.graph.IEdge;
+import com.puppetlabs.graph.IVertex;
 
 /**
  * Edges can go between any two vertices including those nested in subgraphs (as well as subgraphs).
@@ -72,7 +72,7 @@ public class Edge extends LabeledGraphElement implements IEdge {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.impl.GraphElement#getElementType()
+	 * @see com.puppetlabs.graph.impl.GraphElement#getElementType()
 	 */
 	@Override
 	public ElementType getElementType() {
@@ -82,7 +82,7 @@ public class Edge extends LabeledGraphElement implements IEdge {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.impl.GraphElement#getFrom()
+	 * @see com.puppetlabs.graph.impl.GraphElement#getFrom()
 	 */
 	@Override
 	public IVertex getFrom() {
@@ -92,7 +92,7 @@ public class Edge extends LabeledGraphElement implements IEdge {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.impl.GraphElement#getTo()
+	 * @see com.puppetlabs.graph.impl.GraphElement#getTo()
 	 */
 	@Override
 	public IVertex getTo() {

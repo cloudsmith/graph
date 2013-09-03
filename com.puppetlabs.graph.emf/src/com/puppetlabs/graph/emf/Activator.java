@@ -1,4 +1,4 @@
-package org.cloudsmith.graph.emf;
+package com.puppetlabs.graph.emf;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

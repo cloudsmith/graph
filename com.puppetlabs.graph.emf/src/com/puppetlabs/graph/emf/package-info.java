@@ -12,7 +12,7 @@
 /**
  * This package contains classes that translates an EMF ecore model instance into Graphviz dot 
  * notation under control
- * of a {@link org.cloudsmith.graph.graphcss.GraphCSS}. The classes in this package can be injected with 
+ * of a {@link com.puppetlabs.graph.graphcss.GraphCSS}. The classes in this package can be injected with 
  * Google Guice, but can also be instantiated manually.
  */
-package org.cloudsmith.graph.emf;
+package com.puppetlabs.graph.emf;

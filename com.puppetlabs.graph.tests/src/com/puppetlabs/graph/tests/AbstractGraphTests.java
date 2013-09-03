@@ -9,14 +9,14 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.tests;
+package com.puppetlabs.graph.tests;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import org.cloudsmith.geppetto.common.os.FileUtils;
-import org.cloudsmith.graph.DefaultGraphModule;
+import com.puppetlabs.geppetto.common.os.FileUtils;
+import com.puppetlabs.graph.DefaultGraphModule;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;

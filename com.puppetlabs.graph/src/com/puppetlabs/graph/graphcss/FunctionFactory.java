@@ -9,19 +9,19 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.graphcss;
+package com.puppetlabs.graph.graphcss;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
-import org.cloudsmith.graph.IGraphElement;
-import org.cloudsmith.graph.ILabeledGraphElement;
-import org.cloudsmith.graph.style.labels.ILabelTemplate;
-import org.cloudsmith.graph.style.labels.LabelStringTemplate;
-import org.cloudsmith.graph.style.labels.LabelTable;
-import org.cloudsmith.graph.utils.Base64;
+import com.puppetlabs.graph.IGraphElement;
+import com.puppetlabs.graph.ILabeledGraphElement;
+import com.puppetlabs.graph.style.labels.ILabelTemplate;
+import com.puppetlabs.graph.style.labels.LabelStringTemplate;
+import com.puppetlabs.graph.style.labels.LabelTable;
+import com.puppetlabs.graph.utils.Base64;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Iterators;
@@ -256,7 +256,7 @@ public class FunctionFactory implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#emptyLabel()
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#emptyLabel()
 	 */
 	@Override
 	public Function<IGraphElement, Boolean> emptyLabel() {
@@ -266,7 +266,7 @@ public class FunctionFactory implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#emptyLabelData(java.lang.Object)
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#emptyLabelData(java.lang.Object)
 	 */
 	@Override
 	public Function<IGraphElement, Boolean> emptyLabelData(Object key) {
@@ -281,7 +281,7 @@ public class FunctionFactory implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#label()
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#label()
 	 */
 	@Override
 	public Function<IGraphElement, ILabelTemplate> label() {
@@ -291,7 +291,7 @@ public class FunctionFactory implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#labelData(java.lang.Object)
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#labelData(java.lang.Object)
 	 */
 	@Override
 	public Function<IGraphElement, String> labelData(Object key) {
@@ -301,7 +301,7 @@ public class FunctionFactory implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#literalString(java.lang.String)
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#literalString(java.lang.String)
 	 */
 	@Override
 	public Function<IGraphElement, String> literalString(String s) {
@@ -311,7 +311,7 @@ public class FunctionFactory implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#notEmptyLabel()
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#notEmptyLabel()
 	 */
 	@Override
 	public Function<IGraphElement, Boolean> notEmptyLabel() {
@@ -321,7 +321,7 @@ public class FunctionFactory implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#notEmptyLabelData(java.lang.Object)
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#notEmptyLabelData(java.lang.Object)
 	 */
 	@Override
 	public Function<IGraphElement, Boolean> notEmptyLabelData(Object key) {
@@ -331,7 +331,7 @@ public class FunctionFactory implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#literalStringSet(java.lang.String)
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#literalStringSet(java.lang.String)
 	 */
 	@Override
 	public Function<IGraphElement, Set<String>> literalStringSet(String s) {
@@ -341,7 +341,7 @@ public class FunctionFactory implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#literalStringSet(java.util.Collection)
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#literalStringSet(java.util.Collection)
 	 */
 	@Override
 	public Function<IGraphElement, Set<String>> literalStringSet(Collection<String> s) {
@@ -351,7 +351,7 @@ public class FunctionFactory implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#literalStringTemplate(java.lang.String)
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#literalStringTemplate(java.lang.String)
 	 */
 	@Override
 	public Function<IGraphElement, ILabelTemplate> literalLabelTemplate(String s) {
@@ -361,7 +361,7 @@ public class FunctionFactory implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#tableStringTemplate(org.cloudsmith.graph.style.labels.LabelTable)
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#tableStringTemplate(com.puppetlabs.graph.style.labels.LabelTable)
 	 */
 	@Override
 	public Function<IGraphElement, ILabelTemplate> literalLabelTemplate(LabelTable t) {
@@ -371,7 +371,7 @@ public class FunctionFactory implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphcss.IFunctionFactory#labelTemplate(com.google.common.base.Function)
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#labelTemplate(com.google.common.base.Function)
 	 */
 	@Override
 	public Function<IGraphElement, ILabelTemplate> labelTemplate(final Function<IGraphElement, String> stringFunc) {

@@ -1,18 +1,18 @@
-package org.cloudsmith.graph.utils;
+package com.puppetlabs.graph.utils;
 
-import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.graphcss.GraphCSS;
-import org.cloudsmith.graph.graphcss.Rule;
-import org.cloudsmith.graph.graphcss.Select;
-import org.cloudsmith.graph.graphcss.StyleSet;
-import org.cloudsmith.graph.graphviz.GraphvizLayout;
-import org.cloudsmith.graph.style.Arrow;
-import org.cloudsmith.graph.style.Compass;
-import org.cloudsmith.graph.style.EdgeRouting;
-import org.cloudsmith.graph.style.LineType;
-import org.cloudsmith.graph.style.NodeShape;
-import org.cloudsmith.graph.style.RankDirection;
-import org.cloudsmith.graph.style.StyleFactory;
+import com.puppetlabs.graph.ElementType;
+import com.puppetlabs.graph.graphcss.GraphCSS;
+import com.puppetlabs.graph.graphcss.Rule;
+import com.puppetlabs.graph.graphcss.Select;
+import com.puppetlabs.graph.graphcss.StyleSet;
+import com.puppetlabs.graph.graphviz.GraphvizLayout;
+import com.puppetlabs.graph.style.Arrow;
+import com.puppetlabs.graph.style.Compass;
+import com.puppetlabs.graph.style.EdgeRouting;
+import com.puppetlabs.graph.style.LineType;
+import com.puppetlabs.graph.style.NodeShape;
+import com.puppetlabs.graph.style.RankDirection;
+import com.puppetlabs.graph.style.StyleFactory;
 
 /**
  * TODO: UNFINISHED, USES OLD STYLE FIELD NAMES m_
@@ -22,7 +22,7 @@ import org.cloudsmith.graph.style.StyleFactory;
  */
 public class AbstractGraphStyleRuleSetProvider implements IGraphStyleRuleSetProvider {
 
-	protected GraphvizLayout m_layout = org.cloudsmith.graph.graphviz.GraphvizLayout.dot;
+	protected GraphvizLayout m_layout = com.puppetlabs.graph.graphviz.GraphvizLayout.dot;
 
 	protected Arrow m_headArrow = Arrow.vee;
 

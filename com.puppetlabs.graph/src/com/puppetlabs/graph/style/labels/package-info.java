@@ -12,4 +12,4 @@
 /**
  * This package contains an implementation of label templates.
  */
-package org.cloudsmith.graph.style.labels;
+package com.puppetlabs.graph.style.labels;

@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.style.labels;
+package com.puppetlabs.graph.style.labels;
 
 /**
  * Marker interface for things that can act as labels.

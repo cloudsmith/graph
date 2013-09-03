@@ -9,21 +9,21 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph;
+package com.puppetlabs.graph;
 
-import org.cloudsmith.graph.dot.DotRenderer;
-import org.cloudsmith.graph.graphcss.FunctionFactory;
-import org.cloudsmith.graph.graphcss.IFunctionFactory;
-import org.cloudsmith.graph.graphviz.DefaultGraphvizConfig;
-import org.cloudsmith.graph.graphviz.Graphviz;
-import org.cloudsmith.graph.graphviz.IGraphviz;
-import org.cloudsmith.graph.graphviz.IGraphvizConfig;
-import org.cloudsmith.graph.style.IStyleFactory;
-import org.cloudsmith.graph.style.StyleFactory;
-import org.cloudsmith.graph.style.themes.DefaultStyleTheme;
-import org.cloudsmith.graph.style.themes.IStyleTheme;
-import org.cloudsmith.graph.utils.IOutputStreamFilterFactory;
-import org.cloudsmith.graph.utils.TransparentOutputStreamFilterFactory;
+import com.puppetlabs.graph.dot.DotRenderer;
+import com.puppetlabs.graph.graphcss.FunctionFactory;
+import com.puppetlabs.graph.graphcss.IFunctionFactory;
+import com.puppetlabs.graph.graphviz.DefaultGraphvizConfig;
+import com.puppetlabs.graph.graphviz.Graphviz;
+import com.puppetlabs.graph.graphviz.IGraphviz;
+import com.puppetlabs.graph.graphviz.IGraphvizConfig;
+import com.puppetlabs.graph.style.IStyleFactory;
+import com.puppetlabs.graph.style.StyleFactory;
+import com.puppetlabs.graph.style.themes.DefaultStyleTheme;
+import com.puppetlabs.graph.style.themes.IStyleTheme;
+import com.puppetlabs.graph.utils.IOutputStreamFilterFactory;
+import com.puppetlabs.graph.utils.TransparentOutputStreamFilterFactory;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
@@ -46,7 +46,7 @@ public class DefaultGraphModule extends AbstractModule {
 
 	/**
 	 * Binds a normal empty string (i.e. "") for dot output.
-	 * For SVG output, the {@link org.cloudsmith.graph.graphviz.SVGFixerOutputStreamSVGFixerOutputStream#EMPTY_STRING_BUG} can be bound in combination
+	 * For SVG output, the {@link com.puppetlabs.graph.graphviz.SVGFixerOutputStreamSVGFixerOutputStream#EMPTY_STRING_BUG} can be bound in combination
 	 * with overriding {@link #bindSVGOutputFilterProvider()}.
 	 */
 	protected void bindEmptyStringConstant() {

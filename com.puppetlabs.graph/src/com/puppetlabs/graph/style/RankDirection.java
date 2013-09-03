@@ -10,7 +10,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.style;
+package com.puppetlabs.graph.style;
 
 /**
  * Describes if nodes at the same rank should be laid out horizontally (LR) or vertically (TB).

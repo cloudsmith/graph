@@ -11,7 +11,7 @@
  * 
  */
 
-package org.cloudsmith.graph.style;
+package com.puppetlabs.graph.style;
 
 public enum LineType {
 	solid, dotted, dashed;

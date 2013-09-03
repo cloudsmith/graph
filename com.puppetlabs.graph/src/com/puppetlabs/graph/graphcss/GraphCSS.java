@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.graphcss;
+package com.puppetlabs.graph.graphcss;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,8 +17,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.cloudsmith.graph.ICancel;
-import org.cloudsmith.graph.IGraphElement;
+import com.puppetlabs.graph.ICancel;
+import com.puppetlabs.graph.IGraphElement;
 
 /**
  * A Graph CSS consists of a set of {@link Rule} describing the styling of an {@link IGraph}.

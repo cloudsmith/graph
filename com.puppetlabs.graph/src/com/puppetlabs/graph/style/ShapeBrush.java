@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.style;
+package com.puppetlabs.graph.style;
 
 /**
  * Data type describing <i>filled</i> and <i>rounded</i> for figures that have "an area" in addition to what is

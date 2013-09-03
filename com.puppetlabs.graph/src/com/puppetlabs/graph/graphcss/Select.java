@@ -9,17 +9,17 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.graphcss;
+package com.puppetlabs.graph.graphcss;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
-import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.IEdge;
-import org.cloudsmith.graph.IGraphElement;
-import org.cloudsmith.graph.style.IStyle;
+import com.puppetlabs.graph.ElementType;
+import com.puppetlabs.graph.IEdge;
+import com.puppetlabs.graph.IGraphElement;
+import com.puppetlabs.graph.style.IStyle;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Sets;

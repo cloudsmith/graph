@@ -9,17 +9,17 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.style;
+package com.puppetlabs.graph.style;
 
 import java.util.Collection;
 import java.util.Set;
 
-import org.cloudsmith.graph.IClusterGraph;
-import org.cloudsmith.graph.IGraphElement;
-import org.cloudsmith.graph.style.labels.ILabelTemplate;
-import org.cloudsmith.graph.style.labels.LabelCell;
-import org.cloudsmith.graph.style.labels.LabelRow;
-import org.cloudsmith.graph.style.labels.LabelTable;
+import com.puppetlabs.graph.IClusterGraph;
+import com.puppetlabs.graph.IGraphElement;
+import com.puppetlabs.graph.style.labels.ILabelTemplate;
+import com.puppetlabs.graph.style.labels.LabelCell;
+import com.puppetlabs.graph.style.labels.LabelRow;
+import com.puppetlabs.graph.style.labels.LabelTable;
 
 import com.google.common.base.Function;
 

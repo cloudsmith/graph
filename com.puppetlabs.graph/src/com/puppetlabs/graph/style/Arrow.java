@@ -10,7 +10,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.style;
+package com.puppetlabs.graph.style;
 
 /**
  * An Arrow consists of either a single ArrowType (there are 36), or is a sequence of 2-4 ArrowTypes.

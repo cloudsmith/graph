@@ -9,10 +9,10 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.emf;
+package com.puppetlabs.graph.emf;
 
-import org.cloudsmith.graph.DefaultGraphModule;
-import org.cloudsmith.graph.IGraphProvider;
+import com.puppetlabs.graph.DefaultGraphModule;
+import com.puppetlabs.graph.IGraphProvider;
 
 /**
  * A Default guice module for producing graphs for EMF models. Derived classes can override individual

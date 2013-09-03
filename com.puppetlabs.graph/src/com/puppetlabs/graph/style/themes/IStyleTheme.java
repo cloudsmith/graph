@@ -9,12 +9,12 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.style.themes;
+package com.puppetlabs.graph.style.themes;
 
 import java.util.Collection;
 
-import org.cloudsmith.graph.graphcss.GraphCSS;
-import org.cloudsmith.graph.graphcss.Rule;
+import com.puppetlabs.graph.graphcss.GraphCSS;
+import com.puppetlabs.graph.graphcss.Rule;
 
 import com.google.inject.ImplementedBy;
 

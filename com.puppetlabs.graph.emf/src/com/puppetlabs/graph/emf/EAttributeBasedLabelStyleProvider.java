@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.emf;
+package com.puppetlabs.graph.emf;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -17,17 +17,17 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-import org.cloudsmith.graph.IGraphElement;
-import org.cloudsmith.graph.graphcss.IFunctionFactory;
-import org.cloudsmith.graph.graphcss.Rule;
-import org.cloudsmith.graph.graphcss.Select;
-import org.cloudsmith.graph.graphcss.StyleSet;
-import org.cloudsmith.graph.style.Alignment;
-import org.cloudsmith.graph.style.Compass;
-import org.cloudsmith.graph.style.IStyleFactory;
-import org.cloudsmith.graph.style.Span;
-import org.cloudsmith.graph.style.labels.ILabelTemplate;
-import org.cloudsmith.graph.style.labels.LabelStringTemplate;
+import com.puppetlabs.graph.IGraphElement;
+import com.puppetlabs.graph.graphcss.IFunctionFactory;
+import com.puppetlabs.graph.graphcss.Rule;
+import com.puppetlabs.graph.graphcss.Select;
+import com.puppetlabs.graph.graphcss.StyleSet;
+import com.puppetlabs.graph.style.Alignment;
+import com.puppetlabs.graph.style.Compass;
+import com.puppetlabs.graph.style.IStyleFactory;
+import com.puppetlabs.graph.style.Span;
+import com.puppetlabs.graph.style.labels.ILabelTemplate;
+import com.puppetlabs.graph.style.labels.LabelStringTemplate;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -151,7 +151,7 @@ public class EAttributeBasedLabelStyleProvider implements IELabelStyleProvider {
 			}
 		});
 
-		org.cloudsmith.graph.style.labels.LabelRow labelRows[] = new org.cloudsmith.graph.style.labels.LabelRow[attributes.size() + 1];
+		com.puppetlabs.graph.style.labels.LabelRow labelRows[] = new com.puppetlabs.graph.style.labels.LabelRow[attributes.size() + 1];
 
 		// First row contains an index cell that spans all rows
 		// Class-name cell spans two columns.

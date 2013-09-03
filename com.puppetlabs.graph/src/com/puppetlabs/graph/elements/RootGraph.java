@@ -9,15 +9,15 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.elements;
+package com.puppetlabs.graph.elements;
 
 import java.util.Collection;
 
-import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.IClusterGraph;
-import org.cloudsmith.graph.IGraph;
-import org.cloudsmith.graph.IRootGraph;
-import org.cloudsmith.graph.ISubGraph;
+import com.puppetlabs.graph.ElementType;
+import com.puppetlabs.graph.IClusterGraph;
+import com.puppetlabs.graph.IGraph;
+import com.puppetlabs.graph.IRootGraph;
+import com.puppetlabs.graph.ISubGraph;
 
 /**
  * A graph is a container of other graph elements (which include other graphs as subgraphs, vertexes and edges).

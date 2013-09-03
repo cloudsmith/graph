@@ -9,12 +9,12 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.style.labels;
+package com.puppetlabs.graph.style.labels;
 
 import java.util.Collections;
 import java.util.Set;
 
-import org.cloudsmith.graph.IGraphElement;
+import com.puppetlabs.graph.IGraphElement;
 
 import com.google.common.base.Function;
 

@@ -1,19 +1,19 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Tests
-Bundle-SymbolicName: org.cloudsmith.graph.tests
+Bundle-SymbolicName: com.puppetlabs.graph.tests
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: org.cloudsmith.graph.tests.Activator
-Require-Bundle: org.cloudsmith.graph,
+Bundle-Activator: com.puppetlabs.graph.tests.Activator
+Require-Bundle: com.puppetlabs.graph,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  com.google.guava,
  com.google.inject,
  org.junit,
- org.cloudsmith.geppetto.pp,
- org.cloudsmith.geppetto.common,
- org.cloudsmith.graph.emf
+ com.puppetlabs.geppetto.pp,
+ com.puppetlabs.geppetto.common,
+ com.puppetlabs.graph.emf
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6,
  J2SE-1.5
-Export-Package: org.cloudsmith.graph.tests
+Export-Package: com.puppetlabs.graph.tests

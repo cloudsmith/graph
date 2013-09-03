@@ -10,41 +10,41 @@
  * 
  */
 
-package org.cloudsmith.graph.dot;
+package com.puppetlabs.graph.dot;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Set;
 
-import org.cloudsmith.graph.ICancel;
-import org.cloudsmith.graph.IGraphElement;
-import org.cloudsmith.graph.ILabeledGraphElement;
-import org.cloudsmith.graph.ITable;
-import org.cloudsmith.graph.ITableCell;
-import org.cloudsmith.graph.ITableRow;
-import org.cloudsmith.graph.elements.GraphCell;
-import org.cloudsmith.graph.elements.GraphRow;
-import org.cloudsmith.graph.elements.GraphTable;
-import org.cloudsmith.graph.graphcss.GraphCSS;
-import org.cloudsmith.graph.graphcss.StyleSet;
-import org.cloudsmith.graph.style.Alignment;
-import org.cloudsmith.graph.style.IStyle;
-import org.cloudsmith.graph.style.IStyleFactory;
-import org.cloudsmith.graph.style.IStyleVisitor;
-import org.cloudsmith.graph.style.Span;
-import org.cloudsmith.graph.style.StyleFactory;
-import org.cloudsmith.graph.style.StyleType;
-import org.cloudsmith.graph.style.StyleVisitor;
-import org.cloudsmith.graph.style.VerticalAlignment;
-import org.cloudsmith.graph.style.labels.DynamicLabelTemplate;
-import org.cloudsmith.graph.style.labels.ILabelTemplate;
-import org.cloudsmith.graph.style.labels.LabelCell;
-import org.cloudsmith.graph.style.labels.LabelMatrix;
-import org.cloudsmith.graph.style.labels.LabelRow;
-import org.cloudsmith.graph.style.labels.LabelStringTemplate;
-import org.cloudsmith.graph.style.labels.LabelTable;
-import org.cloudsmith.graph.utils.Counter;
+import com.puppetlabs.graph.ICancel;
+import com.puppetlabs.graph.IGraphElement;
+import com.puppetlabs.graph.ILabeledGraphElement;
+import com.puppetlabs.graph.ITable;
+import com.puppetlabs.graph.ITableCell;
+import com.puppetlabs.graph.ITableRow;
+import com.puppetlabs.graph.elements.GraphCell;
+import com.puppetlabs.graph.elements.GraphRow;
+import com.puppetlabs.graph.elements.GraphTable;
+import com.puppetlabs.graph.graphcss.GraphCSS;
+import com.puppetlabs.graph.graphcss.StyleSet;
+import com.puppetlabs.graph.style.Alignment;
+import com.puppetlabs.graph.style.IStyle;
+import com.puppetlabs.graph.style.IStyleFactory;
+import com.puppetlabs.graph.style.IStyleVisitor;
+import com.puppetlabs.graph.style.Span;
+import com.puppetlabs.graph.style.StyleFactory;
+import com.puppetlabs.graph.style.StyleType;
+import com.puppetlabs.graph.style.StyleVisitor;
+import com.puppetlabs.graph.style.VerticalAlignment;
+import com.puppetlabs.graph.style.labels.DynamicLabelTemplate;
+import com.puppetlabs.graph.style.labels.ILabelTemplate;
+import com.puppetlabs.graph.style.labels.LabelCell;
+import com.puppetlabs.graph.style.labels.LabelMatrix;
+import com.puppetlabs.graph.style.labels.LabelRow;
+import com.puppetlabs.graph.style.labels.LabelStringTemplate;
+import com.puppetlabs.graph.style.labels.LabelTable;
+import com.puppetlabs.graph.utils.Counter;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

@@ -9,29 +9,29 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.tests;
+package com.puppetlabs.graph.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 
-import org.cloudsmith.graph.ICancel;
-import org.cloudsmith.graph.IGraph;
-import org.cloudsmith.graph.IGraphProvider;
-import org.cloudsmith.graph.IRootGraph;
-import org.cloudsmith.graph.dot.DotRenderer;
-import org.cloudsmith.graph.elements.Edge;
-import org.cloudsmith.graph.elements.RootGraph;
-import org.cloudsmith.graph.elements.Vertex;
-import org.cloudsmith.graph.graphcss.GraphCSS;
-import org.cloudsmith.graph.graphcss.IFunctionFactory;
-import org.cloudsmith.graph.graphviz.GraphvizFormat;
-import org.cloudsmith.graph.graphviz.GraphvizLayout;
-import org.cloudsmith.graph.graphviz.GraphvizRenderer;
-import org.cloudsmith.graph.graphviz.IGraphviz;
-import org.cloudsmith.graph.style.IStyleFactory;
-import org.cloudsmith.graph.testgraphs.AbstractTestGraph;
+import com.puppetlabs.graph.ICancel;
+import com.puppetlabs.graph.IGraph;
+import com.puppetlabs.graph.IGraphProvider;
+import com.puppetlabs.graph.IRootGraph;
+import com.puppetlabs.graph.dot.DotRenderer;
+import com.puppetlabs.graph.elements.Edge;
+import com.puppetlabs.graph.elements.RootGraph;
+import com.puppetlabs.graph.elements.Vertex;
+import com.puppetlabs.graph.graphcss.GraphCSS;
+import com.puppetlabs.graph.graphcss.IFunctionFactory;
+import com.puppetlabs.graph.graphviz.GraphvizFormat;
+import com.puppetlabs.graph.graphviz.GraphvizLayout;
+import com.puppetlabs.graph.graphviz.GraphvizRenderer;
+import com.puppetlabs.graph.graphviz.IGraphviz;
+import com.puppetlabs.graph.style.IStyleFactory;
+import com.puppetlabs.graph.testgraphs.AbstractTestGraph;
 import org.junit.Test;
 
 import com.google.inject.Inject;

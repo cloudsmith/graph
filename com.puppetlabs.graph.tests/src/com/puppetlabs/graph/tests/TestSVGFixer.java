@@ -9,14 +9,14 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.tests;
+package com.puppetlabs.graph.tests;
 
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 
-import org.cloudsmith.graph.graphviz.SVGFixerOutputStream;
-import org.cloudsmith.graph.utils.Base64;
+import com.puppetlabs.graph.graphviz.SVGFixerOutputStream;
+import com.puppetlabs.graph.utils.Base64;
 import org.junit.Test;
 
 /**

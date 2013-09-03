@@ -9,14 +9,14 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.elements;
+package com.puppetlabs.graph.elements;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
-import org.cloudsmith.graph.IGraph;
-import org.cloudsmith.graph.ILabeledGraphElement;
+import com.puppetlabs.graph.IGraph;
+import com.puppetlabs.graph.ILabeledGraphElement;
 
 /**
  * An IGraph that is also ILabeledGraphElement

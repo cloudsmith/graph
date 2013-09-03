@@ -9,10 +9,10 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.graphcss;
+package com.puppetlabs.graph.graphcss;
 
-import org.cloudsmith.graph.IGraphElement;
-import org.cloudsmith.graph.style.IStyle;
+import com.puppetlabs.graph.IGraphElement;
+import com.puppetlabs.graph.style.IStyle;
 
 /**
  * A graph style rule contains a selector {@link Select.Selector} (which can be compound), and

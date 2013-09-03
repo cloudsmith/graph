@@ -9,17 +9,17 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.elements;
+package com.puppetlabs.graph.elements;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.IEdge;
-import org.cloudsmith.graph.IGraph;
-import org.cloudsmith.graph.ISubGraph;
-import org.cloudsmith.graph.IVertex;
+import com.puppetlabs.graph.ElementType;
+import com.puppetlabs.graph.IEdge;
+import com.puppetlabs.graph.IGraph;
+import com.puppetlabs.graph.ISubGraph;
+import com.puppetlabs.graph.IVertex;
 
 import com.google.common.collect.Iterables;
 
@@ -150,7 +150,7 @@ public class Graph extends GraphElement implements IGraph {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.elements.Vertex#getElementType()
+	 * @see com.puppetlabs.graph.elements.Vertex#getElementType()
 	 */
 	@Override
 	public ElementType getElementType() {

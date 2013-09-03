@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.utils;
+package com.puppetlabs.graph.utils;
 
 import java.io.OutputStream;
 
@@ -23,7 +23,7 @@ public class TransparentOutputStreamFilterFactory implements IOutputStreamFilter
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.utils.IOutputStreamFilterProvider#configureFilterFor(java.io.OutputStream)
+	 * @see com.puppetlabs.graph.utils.IOutputStreamFilterProvider#configureFilterFor(java.io.OutputStream)
 	 */
 	@Override
 	public OutputStream configureFilterFor(OutputStream out) {

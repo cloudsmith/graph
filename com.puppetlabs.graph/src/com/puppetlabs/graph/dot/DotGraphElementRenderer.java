@@ -9,34 +9,34 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.dot;
+package com.puppetlabs.graph.dot;
 
 import java.io.PrintStream;
 import java.util.Collection;
 
-import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.ICancel;
-import org.cloudsmith.graph.IClusterGraph;
-import org.cloudsmith.graph.IEdge;
-import org.cloudsmith.graph.IGraphElement;
-import org.cloudsmith.graph.ILabeledGraphElement;
-import org.cloudsmith.graph.graphcss.GraphCSS;
-import org.cloudsmith.graph.graphcss.StyleSet;
-import org.cloudsmith.graph.style.Alignment;
-import org.cloudsmith.graph.style.Arrow;
-import org.cloudsmith.graph.style.EdgeDirection;
-import org.cloudsmith.graph.style.EdgeRouting;
-import org.cloudsmith.graph.style.IStyle;
-import org.cloudsmith.graph.style.IStyleVisitor;
-import org.cloudsmith.graph.style.LineBrush;
-import org.cloudsmith.graph.style.NodeShape;
-import org.cloudsmith.graph.style.RankDirection;
-import org.cloudsmith.graph.style.ShapeBrush;
-import org.cloudsmith.graph.style.StyleType;
-import org.cloudsmith.graph.style.StyleVisitor;
-import org.cloudsmith.graph.style.VerticalAlignment;
-import org.cloudsmith.graph.style.labels.ILabelTemplate;
-import org.cloudsmith.graph.utils.Counter;
+import com.puppetlabs.graph.ElementType;
+import com.puppetlabs.graph.ICancel;
+import com.puppetlabs.graph.IClusterGraph;
+import com.puppetlabs.graph.IEdge;
+import com.puppetlabs.graph.IGraphElement;
+import com.puppetlabs.graph.ILabeledGraphElement;
+import com.puppetlabs.graph.graphcss.GraphCSS;
+import com.puppetlabs.graph.graphcss.StyleSet;
+import com.puppetlabs.graph.style.Alignment;
+import com.puppetlabs.graph.style.Arrow;
+import com.puppetlabs.graph.style.EdgeDirection;
+import com.puppetlabs.graph.style.EdgeRouting;
+import com.puppetlabs.graph.style.IStyle;
+import com.puppetlabs.graph.style.IStyleVisitor;
+import com.puppetlabs.graph.style.LineBrush;
+import com.puppetlabs.graph.style.NodeShape;
+import com.puppetlabs.graph.style.RankDirection;
+import com.puppetlabs.graph.style.ShapeBrush;
+import com.puppetlabs.graph.style.StyleType;
+import com.puppetlabs.graph.style.StyleVisitor;
+import com.puppetlabs.graph.style.VerticalAlignment;
+import com.puppetlabs.graph.style.labels.ILabelTemplate;
+import com.puppetlabs.graph.utils.Counter;
 
 import com.google.common.collect.Iterators;
 import com.google.inject.Inject;

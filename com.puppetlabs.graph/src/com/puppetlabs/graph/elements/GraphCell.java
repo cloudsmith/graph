@@ -9,12 +9,12 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.elements;
+package com.puppetlabs.graph.elements;
 
 import java.util.Collection;
 
-import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.ITableCell;
+import com.puppetlabs.graph.ElementType;
+import com.puppetlabs.graph.ITableCell;
 
 /**
  * Implementation of ITableCell

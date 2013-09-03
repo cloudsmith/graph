@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.graphviz;
+package com.puppetlabs.graph.graphviz;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -20,11 +20,11 @@ import java.io.OutputStream;
 import java.util.zip.GZIPOutputStream;
 
 import org.apache.log4j.Logger;
-import org.cloudsmith.graph.ICancel;
-import org.cloudsmith.graph.IRootGraph;
-import org.cloudsmith.graph.dot.DotRenderer;
-import org.cloudsmith.graph.graphcss.GraphCSS;
-import org.cloudsmith.graph.utils.ByteArrayOutputStream2;
+import com.puppetlabs.graph.ICancel;
+import com.puppetlabs.graph.IRootGraph;
+import com.puppetlabs.graph.dot.DotRenderer;
+import com.puppetlabs.graph.graphcss.GraphCSS;
+import com.puppetlabs.graph.utils.ByteArrayOutputStream2;
 
 import com.google.inject.Inject;
 
@@ -58,7 +58,7 @@ public class Graphviz implements IGraphviz {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.impl.dot.IGraphviz#getDotText(org.cloudsmith.graph.IGraph, org.cloudsmith.graph.impl.style.RuleSet)
+	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getDotText(com.puppetlabs.graph.IGraph, com.puppetlabs.graph.impl.style.RuleSet)
 	 */
 	@Override
 	public String getDotText(final ICancel cancel, IRootGraph graph, GraphCSS defaultCSS, GraphCSS... gCSS) {
@@ -70,8 +70,8 @@ public class Graphviz implements IGraphviz {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.impl.dot.IGraphviz#getUsemap(org.cloudsmith.graph.IGraph, org.cloudsmith.graph.impl.style.RuleSet,
-	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
+	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getUsemap(com.puppetlabs.graph.IGraph, com.puppetlabs.graph.impl.style.RuleSet,
+	 * com.puppetlabs.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
 	public String getUsemap(final ICancel cancel, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle,
@@ -85,8 +85,8 @@ public class Graphviz implements IGraphviz {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.impl.dot.IGraphviz#getJpgImage(org.cloudsmith.graph.IGraph, org.cloudsmith.graph.impl.style.RuleSet,
-	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
+	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getJpgImage(com.puppetlabs.graph.IGraph, com.puppetlabs.graph.impl.style.RuleSet,
+	 * com.puppetlabs.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
 	public byte[] toJPG(final ICancel cancel, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyleSheet,
@@ -104,8 +104,8 @@ public class Graphviz implements IGraphviz {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.impl.dot.IGraphviz#getPngImage(org.cloudsmith.graph.IGraph, org.cloudsmith.graph.impl.style.RuleSet,
-	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
+	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getPngImage(com.puppetlabs.graph.IGraph, com.puppetlabs.graph.impl.style.RuleSet,
+	 * com.puppetlabs.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
 	public byte[] toPNG(final ICancel cancel, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle,
@@ -123,8 +123,8 @@ public class Graphviz implements IGraphviz {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.impl.dot.IGraphviz#getSvgImage(org.cloudsmith.graph.IGraph, org.cloudsmith.graph.impl.style.RuleSet,
-	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
+	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getSvgImage(com.puppetlabs.graph.IGraph, com.puppetlabs.graph.impl.style.RuleSet,
+	 * com.puppetlabs.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
 	public String toSVG(final ICancel cancel, GraphvizLayout layout, IRootGraph graph, GraphCSS defaultStyle,
@@ -310,9 +310,9 @@ public class Graphviz implements IGraphviz {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.impl.dot.IGraphviz#getGraphvizOutput(java.io.OutputStream, org.cloudsmith.graph.impl.dot.Graphviz.Format,
-	 * org.cloudsmith.graph.impl.dot.Graphviz.Renderer, org.cloudsmith.graph.IGraph, org.cloudsmith.graph.impl.style.RuleSet,
-	 * org.cloudsmith.graph.impl.dot.Graphviz.Layout)
+	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getGraphvizOutput(java.io.OutputStream, com.puppetlabs.graph.impl.dot.Graphviz.Format,
+	 * com.puppetlabs.graph.impl.dot.Graphviz.Renderer, com.puppetlabs.graph.IGraph, com.puppetlabs.graph.impl.style.RuleSet,
+	 * com.puppetlabs.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
 	public OutputStream writeGraphvizOutput(ICancel cancel, OutputStream output, GraphvizFormat format,
@@ -329,8 +329,8 @@ public class Graphviz implements IGraphviz {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.graphviz.IGraphviz#writePNG(java.io.OutputStream, org.cloudsmith.graph.graphviz.GraphvizLayout,
-	 * org.cloudsmith.graph.IRootGraph, org.cloudsmith.graph.graphcss.GraphCSS, org.cloudsmith.graph.graphcss.GraphCSS[])
+	 * @see com.puppetlabs.graph.graphviz.IGraphviz#writePNG(java.io.OutputStream, com.puppetlabs.graph.graphviz.GraphvizLayout,
+	 * com.puppetlabs.graph.IRootGraph, com.puppetlabs.graph.graphcss.GraphCSS, com.puppetlabs.graph.graphcss.GraphCSS[])
 	 */
 	@Override
 	public boolean writePNG(ICancel cancel, OutputStream output, GraphvizLayout layout, IRootGraph graph,
@@ -344,8 +344,8 @@ public class Graphviz implements IGraphviz {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.impl.dot.IGraphviz#getSvgImage(java.io.OutputStream, org.cloudsmith.graph.IGraph,
-	 * org.cloudsmith.graph.impl.style.RuleSet, org.cloudsmith.graph.impl.dot.Graphviz.Layout)
+	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getSvgImage(java.io.OutputStream, com.puppetlabs.graph.IGraph,
+	 * com.puppetlabs.graph.impl.style.RuleSet, com.puppetlabs.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
 	public boolean writeSVG(ICancel cancel, OutputStream output, GraphvizLayout layout, IRootGraph graph,
@@ -359,8 +359,8 @@ public class Graphviz implements IGraphviz {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.impl.dot.IGraphviz#getSvgzImage(java.io.OutputStream, org.cloudsmith.graph.IGraph,
-	 * org.cloudsmith.graph.impl.style.RuleSet, org.cloudsmith.graph.impl.dot.Graphviz.Layout)
+	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getSvgzImage(java.io.OutputStream, com.puppetlabs.graph.IGraph,
+	 * com.puppetlabs.graph.impl.style.RuleSet, com.puppetlabs.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
 	public boolean writeSVGZ(ICancel cancel, OutputStream output, GraphvizLayout layout, IRootGraph graph,

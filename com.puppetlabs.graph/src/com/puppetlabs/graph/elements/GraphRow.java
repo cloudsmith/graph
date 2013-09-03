@@ -9,15 +9,15 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.elements;
+package com.puppetlabs.graph.elements;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.ITableCell;
-import org.cloudsmith.graph.ITableRow;
+import com.puppetlabs.graph.ElementType;
+import com.puppetlabs.graph.ITableCell;
+import com.puppetlabs.graph.ITableRow;
 
 /**
  * Implementation of a GraphRow.

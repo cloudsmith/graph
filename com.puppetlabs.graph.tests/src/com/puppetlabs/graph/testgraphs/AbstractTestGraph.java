@@ -6,20 +6,20 @@
  * prior written consent or license from Cloudsmith Inc.
  ******************************************************************/
 
-package org.cloudsmith.graph.testgraphs;
+package com.puppetlabs.graph.testgraphs;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.IGraphProvider;
-import org.cloudsmith.graph.IRootGraph;
-import org.cloudsmith.graph.graphcss.IFunctionFactory;
-import org.cloudsmith.graph.graphcss.Rule;
-import org.cloudsmith.graph.graphcss.Select;
-import org.cloudsmith.graph.graphcss.StyleSet;
-import org.cloudsmith.graph.style.IStyleFactory;
+import com.puppetlabs.graph.ElementType;
+import com.puppetlabs.graph.IGraphProvider;
+import com.puppetlabs.graph.IRootGraph;
+import com.puppetlabs.graph.graphcss.IFunctionFactory;
+import com.puppetlabs.graph.graphcss.Rule;
+import com.puppetlabs.graph.graphcss.Select;
+import com.puppetlabs.graph.graphcss.StyleSet;
+import com.puppetlabs.graph.style.IStyleFactory;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;

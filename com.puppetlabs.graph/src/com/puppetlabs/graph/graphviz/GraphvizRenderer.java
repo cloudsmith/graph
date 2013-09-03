@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.graphviz;
+package com.puppetlabs.graph.graphviz;
 
 /**
  * The renderer an IGraphviz should use. Graphviz can use different rendering packages. The default windows installation of

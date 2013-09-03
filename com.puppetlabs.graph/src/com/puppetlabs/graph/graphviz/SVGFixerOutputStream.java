@@ -9,13 +9,13 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.graphviz;
+package com.puppetlabs.graph.graphviz;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.cloudsmith.graph.utils.Base64;
-import org.cloudsmith.graph.utils.RuleFilteredOutputStream;
+import com.puppetlabs.graph.utils.Base64;
+import com.puppetlabs.graph.utils.RuleFilteredOutputStream;
 
 /**
  * An SVG stream that fixes broken and bad output from graphviz.
@@ -72,7 +72,7 @@ public class SVGFixerOutputStream extends RuleFilteredOutputStream {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see org.cloudsmith.graph.utils.RuleFilteredOutputStream.PatternRule#performAction()
+		 * @see com.puppetlabs.graph.utils.RuleFilteredOutputStream.PatternRule#performAction()
 		 */
 		@Override
 		protected void performAction() throws IOException {

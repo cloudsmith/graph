@@ -9,15 +9,15 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.graph.elements;
+package com.puppetlabs.graph.elements;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.cloudsmith.graph.ElementType;
-import org.cloudsmith.graph.ITable;
-import org.cloudsmith.graph.ITableRow;
+import com.puppetlabs.graph.ElementType;
+import com.puppetlabs.graph.ITable;
+import com.puppetlabs.graph.ITableRow;
 
 /**
  * An implementation of ITable.
@@ -65,7 +65,7 @@ public class GraphTable extends GraphElement implements ITable {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.impl.GraphElement#getElementType()
+	 * @see com.puppetlabs.graph.impl.GraphElement#getElementType()
 	 */
 	@Override
 	public ElementType getElementType() {
