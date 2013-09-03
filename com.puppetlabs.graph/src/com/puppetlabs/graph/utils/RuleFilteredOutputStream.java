@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *   Puppet Labs
+ */
 package com.puppetlabs.graph.utils;
 
 import java.io.FilterOutputStream;
@@ -252,9 +262,10 @@ public class RuleFilteredOutputStream extends FilterOutputStream implements IOut
 	 * starting at offset <code>off</code> to this buffered output stream.
 	 * 
 	 * <p>
-	 * Ordinarily this method stores bytes from the given array into this stream's buffer, flushing the buffer to the underlying output stream as
-	 * needed. If the requested length is at least as large as this stream's buffer, however, then this method will flush the buffer and write the
-	 * bytes directly to the underlying output stream. Thus redundant <code>BufferedOutputStream</code>s will not copy data unnecessarily.
+	 * Ordinarily this method stores bytes from the given array into this stream's buffer, flushing the buffer to the underlying
+	 * output stream as needed. If the requested length is at least as large as this stream's buffer, however, then this method
+	 * will flush the buffer and write the bytes directly to the underlying output stream. Thus redundant
+	 * <code>BufferedOutputStream</code>s will not copy data unnecessarily.
 	 * 
 	 * @param b
 	 *            the data.

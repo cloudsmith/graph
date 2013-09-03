@@ -1,13 +1,12 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Cloudsmith
- * 
+ *   Puppet Labs
  */
 package com.puppetlabs.graph.graphcss;
 
@@ -16,17 +15,16 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Iterators;
+import com.google.common.collect.Sets;
+import com.google.inject.Singleton;
 import com.puppetlabs.graph.IGraphElement;
 import com.puppetlabs.graph.ILabeledGraphElement;
 import com.puppetlabs.graph.style.labels.ILabelTemplate;
 import com.puppetlabs.graph.style.labels.LabelStringTemplate;
 import com.puppetlabs.graph.style.labels.LabelTable;
 import com.puppetlabs.graph.utils.Base64;
-
-import com.google.common.base.Function;
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Sets;
-import com.google.inject.Singleton;
 
 /**
  * A FunctionFactory producing values that are dynamically produced when applying a style to
@@ -175,12 +173,12 @@ public class FunctionFactory implements IFunctionFactory {
 	private static class LiteralLabelTemplate implements Function<IGraphElement, ILabelTemplate> {
 		final private ILabelTemplate value;
 
-		public LiteralLabelTemplate(String value) {
-			this.value = new LabelStringTemplate(value);
-		}
-
 		public LiteralLabelTemplate(LabelTable value) {
 			this.value = value;
+		}
+
+		public LiteralLabelTemplate(String value) {
+			this.value = new LabelStringTemplate(value);
 		}
 
 		@Override
@@ -301,11 +299,66 @@ public class FunctionFactory implements IFunctionFactory {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#labelTemplate(com.google.common.base.Function)
+	 */
+	@Override
+	public Function<IGraphElement, ILabelTemplate> labelTemplate(final Function<IGraphElement, String> stringFunc) {
+		return new Function<IGraphElement, ILabelTemplate>() {
+			@Override
+			public ILabelTemplate apply(IGraphElement from) {
+				return new LiteralLabelTemplate(stringFunc.apply(from)).apply(from);
+			}
+		};
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#tableStringTemplate(com.puppetlabs.graph.style.labels.LabelTable)
+	 */
+	@Override
+	public Function<IGraphElement, ILabelTemplate> literalLabelTemplate(LabelTable t) {
+		return new LiteralLabelTemplate(t);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#literalStringTemplate(java.lang.String)
+	 */
+	@Override
+	public Function<IGraphElement, ILabelTemplate> literalLabelTemplate(String s) {
+		return new LiteralLabelTemplate(s);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#literalString(java.lang.String)
 	 */
 	@Override
 	public Function<IGraphElement, String> literalString(String s) {
 		return new LiteralString(s);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#literalStringSet(java.util.Collection)
+	 */
+	@Override
+	public Function<IGraphElement, Set<String>> literalStringSet(Collection<String> s) {
+		return new LiteralStringSet(Sets.newHashSet(s));
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#literalStringSet(java.lang.String)
+	 */
+	@Override
+	public Function<IGraphElement, Set<String>> literalStringSet(String s) {
+		return new LiteralStringSet(Collections.singleton(s));
 	}
 
 	/*
@@ -326,60 +379,5 @@ public class FunctionFactory implements IFunctionFactory {
 	@Override
 	public Function<IGraphElement, Boolean> notEmptyLabelData(Object key) {
 		return new Not(emptyLabelData(key));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#literalStringSet(java.lang.String)
-	 */
-	@Override
-	public Function<IGraphElement, Set<String>> literalStringSet(String s) {
-		return new LiteralStringSet(Collections.singleton(s));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#literalStringSet(java.util.Collection)
-	 */
-	@Override
-	public Function<IGraphElement, Set<String>> literalStringSet(Collection<String> s) {
-		return new LiteralStringSet(Sets.newHashSet(s));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#literalStringTemplate(java.lang.String)
-	 */
-	@Override
-	public Function<IGraphElement, ILabelTemplate> literalLabelTemplate(String s) {
-		return new LiteralLabelTemplate(s);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#tableStringTemplate(com.puppetlabs.graph.style.labels.LabelTable)
-	 */
-	@Override
-	public Function<IGraphElement, ILabelTemplate> literalLabelTemplate(LabelTable t) {
-		return new LiteralLabelTemplate(t);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.puppetlabs.graph.graphcss.IFunctionFactory#labelTemplate(com.google.common.base.Function)
-	 */
-	@Override
-	public Function<IGraphElement, ILabelTemplate> labelTemplate(final Function<IGraphElement, String> stringFunc) {
-		return new Function<IGraphElement, ILabelTemplate>() {
-			@Override
-			public ILabelTemplate apply(IGraphElement from) {
-				return new LiteralLabelTemplate(stringFunc.apply(from)).apply(from);
-			}
-		};
 	}
 }

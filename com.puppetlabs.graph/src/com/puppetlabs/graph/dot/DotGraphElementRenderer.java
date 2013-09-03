@@ -1,19 +1,21 @@
 /**
- * Copyright (c) 2006-2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Cloudsmith
- * 
+ *   Puppet Labs
  */
 package com.puppetlabs.graph.dot;
 
 import java.io.PrintStream;
 import java.util.Collection;
 
+import com.google.common.collect.Iterators;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.puppetlabs.graph.ElementType;
 import com.puppetlabs.graph.ICancel;
 import com.puppetlabs.graph.IClusterGraph;
@@ -37,10 +39,6 @@ import com.puppetlabs.graph.style.StyleVisitor;
 import com.puppetlabs.graph.style.VerticalAlignment;
 import com.puppetlabs.graph.style.labels.ILabelTemplate;
 import com.puppetlabs.graph.utils.Counter;
-
-import com.google.common.collect.Iterators;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
 /**
  * Renders IGraphElements in Graphviz dot notation.

@@ -1,13 +1,12 @@
 /**
- * Copyright (c) 2006-2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Cloudsmith
- * 
+ *   Puppet Labs
  */
 package com.puppetlabs.graph.style.themes;
 
@@ -15,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import com.google.common.collect.Lists;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.puppetlabs.graph.ElementType;
 import com.puppetlabs.graph.graphcss.GraphCSS;
 import com.puppetlabs.graph.graphcss.IFunctionFactory;
@@ -28,10 +30,6 @@ import com.puppetlabs.graph.style.IStyleFactory;
 import com.puppetlabs.graph.style.LineType;
 import com.puppetlabs.graph.style.NodeShape;
 import com.puppetlabs.graph.style.VerticalAlignment;
-
-import com.google.common.collect.Lists;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
 /**
  * Definition of useful default styles and rules.

@@ -1,13 +1,12 @@
 /**
- * Copyright (c) 2006-2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Cloudsmith
- * 
+ *   Puppet Labs
  */
 package com.puppetlabs.graph.elements;
 
@@ -15,13 +14,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import com.google.common.collect.Iterables;
 import com.puppetlabs.graph.ElementType;
 import com.puppetlabs.graph.IEdge;
 import com.puppetlabs.graph.IGraph;
 import com.puppetlabs.graph.ISubGraph;
 import com.puppetlabs.graph.IVertex;
-
-import com.google.common.collect.Iterables;
 
 /**
  * A graph is a container of other graph elements (which include other graphs as subgraphs, vertexes and edges).

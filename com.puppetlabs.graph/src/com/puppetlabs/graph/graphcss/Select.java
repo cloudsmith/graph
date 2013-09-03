@@ -1,13 +1,12 @@
 /**
- * Copyright (c) 2006-2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Cloudsmith
- * 
+ *   Puppet Labs
  */
 package com.puppetlabs.graph.graphcss;
 
@@ -16,46 +15,18 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
+import com.google.common.collect.Iterators;
+import com.google.common.collect.Sets;
 import com.puppetlabs.graph.ElementType;
 import com.puppetlabs.graph.IEdge;
 import com.puppetlabs.graph.IGraphElement;
 import com.puppetlabs.graph.style.IStyle;
-
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Sets;
 
 /**
  * Style Select is used to produce a configured Selector.
  * 
  */
 public class Select {
-
-	public static class Not extends Selector {
-		private Selector selector;
-
-		public Not(Selector selector) {
-			this.selector = selector;
-		}
-
-		@Override
-		public boolean equalMatch(Selector selector) {
-			if(!(selector instanceof Not))
-				return false;
-			Not notSelector = (Not) selector;
-			return this.selector.equalMatch(notSelector.selector);
-		}
-
-		@Override
-		public int getSpecificity() {
-			return this.selector.getSpecificity() + 1;
-		}
-
-		@Override
-		public boolean matches(IGraphElement element) {
-			return !this.selector.matches(element);
-		}
-
-	}
 
 	/**
 	 * A compound rule, where all rules must be satisfied.
@@ -370,6 +341,33 @@ public class Select {
 		}
 	}
 
+	public static class Not extends Selector {
+		private Selector selector;
+
+		public Not(Selector selector) {
+			this.selector = selector;
+		}
+
+		@Override
+		public boolean equalMatch(Selector selector) {
+			if(!(selector instanceof Not))
+				return false;
+			Not notSelector = (Not) selector;
+			return this.selector.equalMatch(notSelector.selector);
+		}
+
+		@Override
+		public int getSpecificity() {
+			return this.selector.getSpecificity() + 1;
+		}
+
+		@Override
+		public boolean matches(IGraphElement element) {
+			return !this.selector.matches(element);
+		}
+
+	}
+
 	/**
 	 * A NullSelector is only useful in a NullRule. It matches nothing.
 	 * 
@@ -452,10 +450,6 @@ public class Select {
 
 	public static Select.And and(Select.Selector... selectors) {
 		return new Select.And(selectors);
-	}
-
-	public static Select.Not not(Select.Selector selector) {
-		return new Select.Not(selector);
 	}
 
 	public static Select.Element any() {
@@ -572,6 +566,10 @@ public class Select {
 
 	public static Select.Instance instance(IGraphElement x) {
 		return new Select.Instance(x);
+	}
+
+	public static Select.Not not(Select.Selector selector) {
+		return new Select.Not(selector);
 	}
 
 	public static Select.NullSelector nullSelector() {

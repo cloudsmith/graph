@@ -1,16 +1,17 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Cloudsmith
- * 
+ *   Puppet Labs
  */
 package com.puppetlabs.graph;
 
+import com.google.inject.AbstractModule;
+import com.google.inject.Singleton;
 import com.puppetlabs.graph.dot.DotRenderer;
 import com.puppetlabs.graph.graphcss.FunctionFactory;
 import com.puppetlabs.graph.graphcss.IFunctionFactory;
@@ -24,9 +25,6 @@ import com.puppetlabs.graph.style.themes.DefaultStyleTheme;
 import com.puppetlabs.graph.style.themes.IStyleTheme;
 import com.puppetlabs.graph.utils.IOutputStreamFilterFactory;
 import com.puppetlabs.graph.utils.TransparentOutputStreamFilterFactory;
-
-import com.google.inject.AbstractModule;
-import com.google.inject.Singleton;
 
 /**
  * A default graph runtime module.
@@ -46,7 +44,8 @@ public class DefaultGraphModule extends AbstractModule {
 
 	/**
 	 * Binds a normal empty string (i.e. "") for dot output.
-	 * For SVG output, the {@link com.puppetlabs.graph.graphviz.SVGFixerOutputStreamSVGFixerOutputStream#EMPTY_STRING_BUG} can be bound in combination
+	 * For SVG output, the {@link com.puppetlabs.graph.graphviz.SVGFixerOutputStreamSVGFixerOutputStream#EMPTY_STRING_BUG} can be
+	 * bound in combination
 	 * with overriding {@link #bindSVGOutputFilterProvider()}.
 	 */
 	protected void bindEmptyStringConstant() {

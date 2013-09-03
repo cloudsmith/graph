@@ -1,13 +1,12 @@
 /**
- * Copyright (c) 2006-2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Cloudsmith
- * 
+ *   Puppet Labs
  */
 package com.puppetlabs.graph.graphviz;
 
@@ -17,12 +16,12 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.concurrent.CancellationException;
 
+import com.google.inject.BindingAnnotation;
 import com.puppetlabs.graph.ICancel;
 import com.puppetlabs.graph.IRootGraph;
 import com.puppetlabs.graph.graphcss.GraphCSS;
-
-import com.google.inject.BindingAnnotation;
 
 /**
  * Interface for a graphviz runner.

@@ -1,13 +1,12 @@
 /**
- * Copyright (c) 2006-2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Cloudsmith
- * 
+ *   Puppet Labs
  */
 package com.puppetlabs.graph.graphviz;
 
@@ -20,13 +19,13 @@ import java.io.OutputStream;
 import java.util.zip.GZIPOutputStream;
 
 import org.apache.log4j.Logger;
+
+import com.google.inject.Inject;
 import com.puppetlabs.graph.ICancel;
 import com.puppetlabs.graph.IRootGraph;
 import com.puppetlabs.graph.dot.DotRenderer;
 import com.puppetlabs.graph.graphcss.GraphCSS;
 import com.puppetlabs.graph.utils.ByteArrayOutputStream2;
-
-import com.google.inject.Inject;
 
 /**
  * A Graphviz runner.
@@ -58,7 +57,8 @@ public class Graphviz implements IGraphviz {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getDotText(com.puppetlabs.graph.IGraph, com.puppetlabs.graph.impl.style.RuleSet)
+	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getDotText(com.puppetlabs.graph.IGraph,
+	 * com.puppetlabs.graph.impl.style.RuleSet)
 	 */
 	@Override
 	public String getDotText(final ICancel cancel, IRootGraph graph, GraphCSS defaultCSS, GraphCSS... gCSS) {
@@ -70,7 +70,8 @@ public class Graphviz implements IGraphviz {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getUsemap(com.puppetlabs.graph.IGraph, com.puppetlabs.graph.impl.style.RuleSet,
+	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getUsemap(com.puppetlabs.graph.IGraph,
+	 * com.puppetlabs.graph.impl.style.RuleSet,
 	 * com.puppetlabs.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
@@ -85,7 +86,8 @@ public class Graphviz implements IGraphviz {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getJpgImage(com.puppetlabs.graph.IGraph, com.puppetlabs.graph.impl.style.RuleSet,
+	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getJpgImage(com.puppetlabs.graph.IGraph,
+	 * com.puppetlabs.graph.impl.style.RuleSet,
 	 * com.puppetlabs.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
@@ -104,7 +106,8 @@ public class Graphviz implements IGraphviz {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getPngImage(com.puppetlabs.graph.IGraph, com.puppetlabs.graph.impl.style.RuleSet,
+	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getPngImage(com.puppetlabs.graph.IGraph,
+	 * com.puppetlabs.graph.impl.style.RuleSet,
 	 * com.puppetlabs.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
@@ -123,7 +126,8 @@ public class Graphviz implements IGraphviz {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getSvgImage(com.puppetlabs.graph.IGraph, com.puppetlabs.graph.impl.style.RuleSet,
+	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getSvgImage(com.puppetlabs.graph.IGraph,
+	 * com.puppetlabs.graph.impl.style.RuleSet,
 	 * com.puppetlabs.graph.impl.dot.Graphviz.Layout)
 	 */
 	@Override
@@ -310,7 +314,8 @@ public class Graphviz implements IGraphviz {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getGraphvizOutput(java.io.OutputStream, com.puppetlabs.graph.impl.dot.Graphviz.Format,
+	 * @see com.puppetlabs.graph.impl.dot.IGraphviz#getGraphvizOutput(java.io.OutputStream,
+	 * com.puppetlabs.graph.impl.dot.Graphviz.Format,
 	 * com.puppetlabs.graph.impl.dot.Graphviz.Renderer, com.puppetlabs.graph.IGraph, com.puppetlabs.graph.impl.style.RuleSet,
 	 * com.puppetlabs.graph.impl.dot.Graphviz.Layout)
 	 */

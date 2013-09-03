@@ -1,13 +1,12 @@
 /**
- * Copyright (c) 2006-2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Cloudsmith
- * 
+ *   Puppet Labs
  */
 package com.puppetlabs.graph.style;
 
@@ -30,6 +29,10 @@ import static com.puppetlabs.graph.ElementType.VERTEX;
 import java.util.Collection;
 import java.util.Set;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.puppetlabs.graph.ElementType;
 import com.puppetlabs.graph.IClusterGraph;
 import com.puppetlabs.graph.IGraphElement;
@@ -40,11 +43,6 @@ import com.puppetlabs.graph.style.labels.LabelCell;
 import com.puppetlabs.graph.style.labels.LabelRow;
 import com.puppetlabs.graph.style.labels.LabelStringTemplate;
 import com.puppetlabs.graph.style.labels.LabelTable;
-
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
 /**
  * An IStyleFacory implementation for graphviz dot language.
@@ -981,6 +979,16 @@ public class StyleFactory implements IStyleFactory {
 	}
 
 	@Override
+	public LabelCell labelCell(Collection<String> styleClass, LabelTable value) {
+		return new LabelCell(functions.literalStringSet(styleClass), functions.literalLabelTemplate(value));
+	}
+
+	@Override
+	public LabelCell labelCell(Collection<String> styleClasses, LabelTable value, Span span) {
+		return new LabelCell(functions.literalStringSet(styleClasses), functions.literalLabelTemplate(value), span);
+	}
+
+	@Override
 	public LabelCell labelCell(Collection<String> styleClass, String value) {
 		return new LabelCell(
 			functions.literalStringSet(styleClass), functions.literalLabelTemplate(value), Span.SPAN_1x1);
@@ -1008,11 +1016,6 @@ public class StyleFactory implements IStyleFactory {
 	}
 
 	@Override
-	public LabelCell labelCell(String styleClass, String value) {
-		return new LabelCell(functions.literalStringSet(styleClass), functions.literalLabelTemplate(value));
-	}
-
-	@Override
 	public LabelCell labelCell(String styleClass, LabelTable value) {
 		return labelCell(Lists.newArrayList(styleClass), value);
 	}
@@ -1023,18 +1026,13 @@ public class StyleFactory implements IStyleFactory {
 	}
 
 	@Override
-	public LabelCell labelCell(String styleClass, String value, Span span) {
-		return new LabelCell(functions.literalStringSet(styleClass), functions.literalLabelTemplate(value), span);
-	}
-
-	@Override
-	public LabelCell labelCell(Collection<String> styleClass, LabelTable value) {
+	public LabelCell labelCell(String styleClass, String value) {
 		return new LabelCell(functions.literalStringSet(styleClass), functions.literalLabelTemplate(value));
 	}
 
 	@Override
-	public LabelCell labelCell(Collection<String> styleClasses, LabelTable value, Span span) {
-		return new LabelCell(functions.literalStringSet(styleClasses), functions.literalLabelTemplate(value), span);
+	public LabelCell labelCell(String styleClass, String value, Span span) {
+		return new LabelCell(functions.literalStringSet(styleClass), functions.literalLabelTemplate(value), span);
 	}
 
 	@Override
@@ -1058,13 +1056,13 @@ public class StyleFactory implements IStyleFactory {
 	}
 
 	@Override
-	public ILabelTemplate labelTemplate(Function<IGraphElement, ILabelTemplate> f) {
-		return new DynamicLabelTemplate(f);
+	public LabelTable labelTable(String styleClass, LabelRow... rows) {
+		return new LabelTable(styleClass, rows);
 	}
 
 	@Override
-	public LabelTable labelTable(String styleClass, LabelRow... rows) {
-		return new LabelTable(styleClass, rows);
+	public ILabelTemplate labelTemplate(Function<IGraphElement, ILabelTemplate> f) {
+		return new DynamicLabelTemplate(f);
 	}
 
 	@Override
