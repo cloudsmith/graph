@@ -4,7 +4,7 @@
 
 	<groupId>com.puppetlabs.graph</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 	<packaging>pom</packaging>
 
 	<name>Graph Site Project</name>
@@ -27,7 +27,8 @@
 		<connection>scm:git:git://github.com/cloudsmith/grahp.git</connection>
 		<url>https://github.com/cloudsmith/graph</url>
 		<developerConnection>scm:git:git@github.com:cloudsmith/graph.git</developerConnection>
-	</scm>
+	  <tag>parent-1.0.1</tag>
+  </scm>
 
 	<distributionManagement>
 		<repository>
